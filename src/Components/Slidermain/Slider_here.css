@@ -1,0 +1,62 @@
+
+.img_compose{
+    background-image: url('../../Assest/zan.png') !important;
+    /* z-index: 100; */
+}
+
+.swiperimage{
+    z-index: 0 !important;
+
+}
+.swpier_text{
+
+}
+.swiper {
+    /* width: 100%; */
+    /* background: rgb(150, 49, 49); */
+    /* height: 100%; */
+  }
+  .swpier_text{
+      z-index: 100 !important;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+  
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+@media screen and (max-width:600px) {
+    .slide-descrption{
+        width: 20%;
+        flex-wrap: wrap;
+    }
+    .slider_img{
+        width: 15rem !important;
+    }
+    .swiper{
+margin-top: 5rem;
+    }
+    
+}
+  

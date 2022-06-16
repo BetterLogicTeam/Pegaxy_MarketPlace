@@ -1,0 +1,149 @@
+
+
+.PlayNow_Navbar{
+    background-image: url('https://cdn.pegaxy.io/statics/play/v9/images/background.jpg');
+    /* height: 10vh !important; */
+    /* background-position: center;
+    background-size: cover; */
+    /* z-index:1 !important; */
+    padding: 0px !important;
+}
+
+.link-racing{
+    margin-left: 2rem !important;
+}
+.link-marketplace{
+    margin-left: 2rem !important;
+   
+
+}
+.link-renting{
+    margin-left: 2rem !important;
+
+}
+
+/* .navbar-inner{
+    border: 1px solid red;
+} */
+
+
+
+/* 
+@media screen and (max-width: 991px){
+.navbar .navbar-inner {
+    width: 100%;
+}
+.navbar-nav li img{
+width: 100%;
+margin-left: -200%;
+margin-top: -4.5rem;
+padding: 0px !important;
+border: 1px solid red;
+}
+.link-racing{
+    margin-left: 1rem !important;
+}
+.link-breeding{
+    margin-left: 1.5rem  !important;
+}
+
+.navbar-nav li .nav-item{
+    padding: 0 !important;
+}
+.link-connect{
+    margin-left: -1rem  !important;
+    margin-top: 0.3rem !important;
+
+}
+.navbar-nav {
+    margin-left: 2rem !important;
+}
+} */
+
+.navbarnav{
+    /* z-index: 1 !important; */
+     background-color: transparent;
+     color: white !important;
+     margin-top: -1rem;
+     height: auto !important;
+}
+
+.nav-item a img{
+    width: 100% !important;
+}
+
+.navbar_link_img{
+    /* width: 40% !important; */
+    width: 8rem !important;
+    margin-top: -1rem !important;
+}
+
+.nav-anim{
+    /* border: 1px solid red; */
+    margin-left: 1rem !important;
+    width: 50% !important;
+}
+
+@media (min-width:600px) and (max-width:800px) {
+    .navbar_link_img{
+        /* width: 40% !important; */
+        width: 5rem !important;
+        margin-top: -1rem !important;
+    }
+    .nav-anim{
+        /* border: 1px solid red; */
+        margin-left: -0.8rem !important;
+        width: 50% !important;
+        margin-top: -1.5rem !important;
+    }
+}
+
+@media screen and (max-width:600px) {
+    /* .nav_link_text{
+        flex-direction: column !important;
+        background-color: blueviolet;
+        padding: 15px;
+        z-index: 1 !important;
+
+
+    } */
+    .navbarnav{
+        z-index: 100 !important;
+         background-color: transparent;
+         color: white !important;
+         /* margin-top: -1rem; */
+         height: auto !important;
+    }
+  
+    .nav-anim{
+        display: none;
+    }
+    .PlayNow_Navbar{
+      
+        height: 10vh !important;
+      
+    }
+    .navbar_link_img{
+        /* width: 40% !important; */
+        width: 2.9rem !important;
+        margin-top: -2rem !important;
+    }
+    .racing_img{
+        margin-top: -3rem !important;
+    }
+}
+
+@media (min-width: 1600px) and (max-width:4500px){
+.navbar .navbar-inner .navbar-nav .nav-item .nav-anim div {
+    left: -106px;
+    top: 0;
+    width: 184px;
+    height: 128px;
+}
+
+}
+
+.active{
+    color: #fff !important;
+}
+

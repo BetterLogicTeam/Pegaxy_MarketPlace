@@ -1,0 +1,142 @@
+.body2 {
+    height: 108vh;
+    width: 100%;
+    margin: 0;
+    display: flex;
+   
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://cdn.pegaxy.io/statics/play/v9/images/background.jpg');
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+  
+  }
+  
+  .container2 {
+    display: flex;
+    align-items: center;
+    width: var(--size);  
+    height: var(--size);
+    position:absolute;
+  }
+  
+  .rotate {
+    transform-style: preserve-3d;
+    /* animation: 2s cubic-bezier(0.25, 0.1, 0.25, 1) -.94s infinite reverse rotate; */
+    animation: 1s cubic-bezier(0.7, 0, 0.7, 1) 0s infinite normal running rotate2;
+  }
+  
+  .rotate-reverse {
+    transform-style: preserve-3d;
+  /*   animation: 2s cubic-bezier(0.75, 0, 0.75, 0.9) -.94s infinite normal rotate; */
+    animation: 1s cubic-bezier(0.7, 0, 0.7, 1) 0s infinite normal running rotate-reverse;
+  }
+  
+  .circle {
+    width: calc(var(--size) / 2);
+    height: calc(var(--size) / 2);
+    border-radius: 50%;
+    box-sizing: border-box;
+  }
+ 
+  
+  /* @keyframes rotate {
+    from {
+      transform: rotate3d(0, 1, 0, 0deg);
+    }
+  
+    to {
+      transform: rotate3d(0, 1, 0, 360deg);
+    }
+  }
+   */
+  @keyframes rotate2 {
+    from {
+      transform: rotateY(-60deg);
+    }
+  
+    to {
+      transform: rotateY(300deg);
+    }
+  }
+  
+  @keyframes rotate-reverse {
+    from {
+      transform: rotateY(60deg);
+    }
+  
+    to {
+      transform: rotateY(-300deg);
+    }
+  }
+  
+
+ .commingsoon-title {
+    font-size: 80px;
+    color: #fff;
+    text-shadow: 0 0 10px #fd3fff;
+    margin-top: 40px;
+
+  }
+
+  .viewCommingsoon .commingsoon-inner {
+    background-image: url('https://cdn.pegaxy.io/statics/play/public/v1/images/box/cm.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    justify-content: center;
+    padding-bottom: 16px;
+    margin-bottom: 240px;
+    position:absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+
+}
+
+.viewCommingsoon, .viewCommingsoon .commingsoon-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.span_main {
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+  width: 284px;
+  height: 140px;
+  background: none;
+  opacity: 1;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+}
+
+.alert-icon-img {
+  position: absolute;
+  inset: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+  border: none;
+  margin: auto;
+  display: block;
+  width: 0px;
+  height: 0px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+img, svg {
+  vertical-align: middle;
+}
