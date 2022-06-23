@@ -4,7 +4,21 @@ import Items from '../Items/Items'
 import './Nav_style.css'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import { FaArrowAltCircleLeft } from 'react-icons/fa'
-import { loadWeb3 } from '../../../apis/api'
+import { loadWeb3 } from '../../../apis/api';
+import renting from '../../../Assest/images/renting.png'
+import marketplace_active from '../../../Assest/images/marketplace_active.png'
+
+// import renting from '../../../Assest/images/racing.png'
+
+import breeding from '../../../Assest/images/breeding.png'
+import contact from '../../../Assest/images/contact.png'
+import my_assets_active from '../../../Assest/images/my_assets_active.png'
+
+
+
+import './26cd02812510ee001c3d.css'
+// import './responsive.css'
+// import './styles.css'
 
 
 
@@ -21,18 +35,16 @@ export default function Navbar_nav({ setModalShow, btnTxt }) {
                     <div class="navbar-inner">
                         <Navbar collapseOnSelect expand="md" className='navbarnav'>
                             <Container>
-                                {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
-                                {/* <Navbar.Toggle aria-controls="responsive-navbar-nav" /> */}
-                                {/* <Navbar.Collapse id="responsive-navbar-nav"> */}
+                              
                                 <Nav className="mx-auto nav_link_text">
-                                    <Nav.Link href="#features">     <Link to="/pages"> <img alt="" src="images/renting.png" width="100px" className='navbar_link_img' /> </Link>
+                                    <Nav.Link href="#features">     <Link to="/pages"> <img alt="" src={renting} width="100px" className='navbar_link_img' /> </Link>
                                     </Nav.Link>
                                     <Nav.Link href="#pricing"> <Link to="/Marketplace_play_game">
-                                        <img alt="" src="images/marketplace_active.png" width="100px" className='navbar_link_img' />
+                                        <img alt="" src={marketplace_active} width="100px" className='navbar_link_img' />
                                     </Link></Nav.Link>
                                     <Nav.Link href="#pricing"> <Link to="/Racing_main">
                                         <li className='nav-item'>
-                                            <img alt="" src="images/racing.png" width="100px" className='navbar_link_img racing_img' />
+                                            <img alt="" src={renting} width="100px" className='navbar_link_img racing_img' />
                                             <div class="nav-anim">
                                                 <div id="views"></div>
                                                 <div id="steps"></div>
@@ -48,11 +60,11 @@ export default function Navbar_nav({ setModalShow, btnTxt }) {
                                             <>
                                                 <Nav.Link href="#pricing">   <Link to="/Breeding">
 
-                                                    <img alt="" src="images/breeding.png" width="100px" className='navbar_link_img' />
+                                                    <img alt="" src={breeding} width="100px" className='navbar_link_img' />
 
                                                 </Link></Nav.Link>
 
-                                                <Nav.Link href="#pricing"><img alt="" src="images/contact.png" width="100px" className='navbar_link_img' onClick={() => setModalShow(true)} />
+                                                <Nav.Link href="#pricing"><img alt="" src={contact} width="100px" className='navbar_link_img' onClick={() => setModalShow(true)} />
                                                 </Nav.Link>
                                             </>
 
@@ -60,12 +72,12 @@ export default function Navbar_nav({ setModalShow, btnTxt }) {
                                             <>
                                                 <Nav.Link href="#pricing">   <Link to="/Breeding">
 
-                                                    <img alt="" src="images/breeding.png" width="100px" className='navbar_link_img' />
+                                                    <img alt="" src={breeding} width="100px" className='navbar_link_img' />
 
                                                 </Link></Nav.Link>
                                                 <Nav.Link href="#pricing">   <Link to="/My_Assets">
 
-                                                    <img alt="" src="images/my_assets_active.png" width="100px" className='navbar_link_img' />
+                                                    <img alt="" src={my_assets_active} width="100px" className='navbar_link_img' />
 
                                                 </Link></Nav.Link>
 
