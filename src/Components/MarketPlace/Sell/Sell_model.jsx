@@ -3,12 +3,15 @@ import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
 import { loadWeb3 } from '../../../apis/api'
 import { nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketToken_Abi } from '../../../utilies/Contract'
+import modal_close from '../../../Assest/modal_close.png'
 
-export default function Sell_model({ showModal, id,setShowModal }) {
+export default function Sell_model({ showModal, id, setShowModal }) {
 
     const [getIputdata, setgetIputdata] = useState()
 
     let [imageArray, setImageArray] = useState([]);
+    let [isSpinner, setIsSpinner] = useState(false)
+
 
 
     let ownadd = "0x0Aaf4C0669044AE375527a03b2886Ff2e13cC11C"
@@ -27,7 +30,7 @@ export default function Sell_model({ showModal, id,setShowModal }) {
 
 
             try {
-                // setIsSpinner(true)
+                setIsSpinner(true)
 
                 const web3 = window.web3;
                 let address = "0x4113ccD05D440f9580d55B2B34C92d6cC82eAB3c"
@@ -35,16 +38,16 @@ export default function Sell_model({ showModal, id,setShowModal }) {
 
                 if (getIputdata == "") {
                     toast.error("Please Enter the Price")
-                    // setIsSpinner(false)
+                    setIsSpinner(false)
                 }
                 else {
 
-                    // setIsSpinner(true)
+                    setIsSpinner(true)
 
 
                     if (getIputdata <= 0) {
                         toast.error("Please Enter Price Greater the 0")
-                        // setIsSpinner(false)
+                        setIsSpinner(false)
                         // setIsSpinner(true)
                         // getIputdata=web3.utils.toWei(getIputdata)
 
@@ -77,10 +80,10 @@ export default function Sell_model({ showModal, id,setShowModal }) {
                         await nftContractOftoken.methods.setApprovalForAll(nftMarketContractAddress, true).send({
                             from: acc,
                         })
-                        // setIsSpinner(false)
+                        setIsSpinner(false)
 
                         toast.success("Approved Successfuly")
-                        // setIsSpinner(true)
+                        setIsSpinner(true)
 
                         let nftContractOf = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
                         await nftContractOf.methods.createMarketItem(tokenid, getIputdata, 1, false, curreny_time, ownadd).send({
@@ -88,7 +91,7 @@ export default function Sell_model({ showModal, id,setShowModal }) {
                             value: getListingPrice,
                             feelimit: 10000000000
                         })
-                        // setIsSpinner(false)
+                        setIsSpinner(false)
 
 
                         toast.success("Transion Compelete")
@@ -97,7 +100,7 @@ export default function Sell_model({ showModal, id,setShowModal }) {
             }
             catch (e) {
                 console.log("Error while addOrder ", e)
-                // setIsSpinner(false)
+                setIsSpinner(false)
 
 
             }
@@ -106,19 +109,29 @@ export default function Sell_model({ showModal, id,setShowModal }) {
 
     return (
         <div>
+
+           
             <Modal
                 show={showModal}
-                size="lg"
+                size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
-                  <Modal.Header closeButton onClick={() => setShowModal(false)} >
+                {/* <Modal.Header closeButton onClick={() => setShowModal(false)} >
         
-              </Modal.Header>
-                <div class="viewAlert">
+              </Modal.Header> */}
+              {
+
+                isSpinner ? (<>
+                 <span className='span_main'>
+                <img alt="" srcset="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 1x, https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 2x" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" class="alert-icon-img" />
+            </span>
+            <div class="viewAlert">
+                    <img src={modal_close} alt="" className='img_model_icon ms-auto ' width="10%" onClick={() => setShowModal(false)} />
+
                     <div class="bx-login">
                         <div class="login-header">
-                            
+
                             <p class=" ">Please Enter Sell Value in input Area</p>
                         </div>
                         <div className="single-seller ">
@@ -130,7 +143,7 @@ export default function Sell_model({ showModal, id,setShowModal }) {
                                 className="d-block btn btn-bordered-white mt-0 ml-4 text-white sell_input"
                                 id="bid"
                                 onChange={(e) => setgetIputdata(e.target.value)}
-                            // ref={inputdata_price}
+
                             />
                             <div class="action-group   main_div_btn_model" onClick={() => addOrder()}>
                                 <div class="item-link btn_in_sell">
@@ -150,6 +163,48 @@ export default function Sell_model({ showModal, id,setShowModal }) {
                     </div>
 
                 </div>
+                </>):(<>
+                    <div class="viewAlert">
+                    <img src={modal_close} alt="" className='img_model_icon ms-auto ' width="10%" onClick={() => setShowModal(false)} />
+
+                    <div class="bx-login">
+                        <div class="login-header">
+
+                            <p class=" ">Please Enter Sell Value in input Area</p>
+                        </div>
+                        <div className="single-seller ">
+
+
+                            <input
+                                type="text"
+                                placeholder="Enter Sell Value in ETH"
+                                className="d-block btn btn-bordered-white mt-0 ml-4 text-white sell_input"
+                                id="bid"
+                                onChange={(e) => setgetIputdata(e.target.value)}
+
+                            />
+                            <div class="action-group   main_div_btn_model" onClick={() => addOrder()}>
+                                <div class="item-link btn_in_sell">
+                                    <div class="button-game primary" style={{ height: "100px" }} >
+                                        <div class="btn-position button-game-left" style={{ width: "50px", height: "70px" }}></div>
+                                        <div class="btn-position button-game-content" style={{ height: "70px" }}>
+                                            <span class="" style={{ fontSize: "20px" }}>SEll</span>
+
+                                        </div>
+                                        <div class="btn-position button-game-right" style={{ width: "50px", height: "70px" }}></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                
+                </>)
+              }
+               
 
 
                 <Modal.Body className='model_bg'>

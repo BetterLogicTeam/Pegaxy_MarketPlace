@@ -162,7 +162,7 @@ export default function Details({ setModalShow, btnTxt }) {
                                                 </div>
 
                                             </div>
-                                            <div className="single-seller mt-3">
+                                            <div className="single-seller mt-3" onClick={()=>setAuctionmodelopen(true)} >
 
 
 

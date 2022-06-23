@@ -1,4 +1,6 @@
-
+.img_model_icon{
+  cursor: pointer;
+}
 .div_sell_image{
     display: flex;
     justify-content: center;
@@ -19,16 +21,27 @@
     color: white;
   }
   .btn_in_sell{
-      width: 100%;
+      /* width: 100%; */
   }
   .main_div_btn{
      margin-left: 2rem;
   }
   .main_div_btn_model{
-    margin-left: 2rem;
-    width: 22rem !important;
+    margin-left: 1rem;
+    /* width: 22rem !important; */
   }
 
   .sell_input{
     margin-left: 1rem !important;
+    width: 20rem !important;
+  }
+
+  .span_main{
+    position: absolute;
+    top: 20%;
+    right: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   }

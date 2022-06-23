@@ -99,13 +99,19 @@ border: 1px solid red;
 }
 
 @media screen and (max-width:600px) {
-    /* .nav_link_text{
-        flex-direction: column !important;
-        background-color: blueviolet;
-        padding: 15px;
+    .nav_link_text{
+        display: flex !important;
+        /* flex-direction: column !important; */
+        /* background-color: blueviolet; */
+        /* padding: 15px; */
+        padding-top: 10px;
         z-index: 1 !important;
 
 
+    }
+
+    /* .navbar_link_img{
+        width: 100rem!important;
     } */
     .navbarnav{
         z-index: 100 !important;
@@ -125,10 +131,9 @@ border: 1px solid red;
     }
     .navbar_link_img{
         /* width: 40% !important; */
-        width: 2.9rem !important;
-        margin-top: -2rem !important;
-    }
-    .racing_img{
+        width: 3.5rem !important;
+        margin-top: -2.7rem !important;
+    }    .racing_img{
         margin-top: -3rem !important;
     }
 }

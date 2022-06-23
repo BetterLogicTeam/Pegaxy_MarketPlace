@@ -1,0 +1,17 @@
+
+@media (max-width: 444px){
+	.top-bar .topbar-content .link-box .topbar-link {
+	    font-size: 11px !important;	   
+	}
+}
+@media (max-width: 768px){
+	.top-bar .topbar-content .link-box {
+	    flex: 0 0 34% !important;
+	    max-width: 34% !important;
+	}
+	.top-bar .topbar-content .topbar-text {
+	    flex: 0 0 66% !important;
+	    max-width: 66% !important;
+	    margin-right: 0;
+	}
+}

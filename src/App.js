@@ -31,6 +31,11 @@ import Sell from './Components/MarketPlace/Sell/Sell';
 import Auction from './Components/MarketPlace/AutionBidind/Auction';
 import Details from './Components/MarketPlace/Details/Details';
 import Spinner from './Components/Loading_Spinner/Spinner';
+import './Assest/Style/26cd02812510ee001c3d.css'
+import './Assest/Style/bootstrap.css'
+import './Assest/Style/responsive.css'
+import './Assest/Style/styles.css'
+
 
 
 

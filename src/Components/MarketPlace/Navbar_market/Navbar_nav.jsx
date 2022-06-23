@@ -16,10 +16,6 @@ import my_assets_active from '../../../Assest/images/my_assets_active.png'
 
 
 
-import './26cd02812510ee001c3d.css'
-// import './responsive.css'
-// import './styles.css'
-
 
 
 
