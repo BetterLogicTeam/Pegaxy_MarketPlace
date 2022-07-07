@@ -5,6 +5,7 @@ import { loadWeb3 } from '../../../apis/api';
 import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
 import Navbar_nav from '../Navbar_market/Navbar_nav'
 import ReactPlayer from 'react-player'
+import Web3 from 'web3';
 
 
 
@@ -18,6 +19,8 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
     let [mywalletLength, setMyWalletLength] = useState();
     let [pageNumber, setPageNumber] = useState(1)
     let [totalPages, setTotalPages] = useState(1)
+    let [Array_NFT, setArray_NFT] = useState([])
+
     let nivigating=useNavigate()
 
 
@@ -76,60 +79,92 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
 
         }
     }
-    const allImagesNfts = async () => {
+    // const allImagesNfts = async () => {
+    //     let acc = await loadWeb3();
+    //     if (acc == "No Wallet") {
+    //         console.log("wallet");
+    //         setaddtext("Connect Wallet")
+    //     }
+    //     else if (acc == "Wrong Network") {
+    //         setaddtext("Wrong Network")
+    //     } else if (acc == "Connect Wallet") {
+    //         console.log("Connect Wallet");
+    //     }
+    //     else {
+    //         const web3 = window.web3;
+    //         let nftContractOf = new web3.eth.Contract(wireNftContractAbi, wireNftContractAddress);
+    //         let simplleArray = [];
+    //         let walletOfOwner = await nftContractOf.methods.walletOfOwner(acc).call()
+    //         let walletLength = walletOfOwner.length
+    //         setMyWalletLength(walletLength)
+    //         console.log("walletOfOwner", walletLength);
+    //         for (let i = 0; i <= walletLength; i++) {
+
+    //             try {
+    //                 let res = await axios.get(`https://gateway.pinata.cloud/ipfs/QmWC48u2Rj84M9ufzFFxSD41AQmq2QFMUhFhiu7aT2DFq8/${walletOfOwner[i]}.png`)
+    //                 // let res = await axios.get(`/config/${walletOfOwner[i]}.json`)
+    //                 let imageUrl = res.config.url;
+    //                 console.log("check", res);
+    //                 let dna = walletOfOwner[i]
+    //                 simplleArray = [...simplleArray, { imageUrl: imageUrl, num: dna }]
+    //                 setImageArray(simplleArray);
+    //             } catch (e) {
+    //                 console.log("Error while Fetching Api", e)
+    //             }
+    //         }
+    //         let ttlPage = parseInt(walletLength) / 6;
+    //         ttlPage = Math.ceil(ttlPage);
+    //         setTotalPages(ttlPage)
+    //         console.log("Total Pages", ttlPage);
+    //         if (parseInt(walletLength) > 0) {
+    //             {
+    //                 let myImgArry = []
+    //                 let myNameDate = []
+
+    //             }
+    //         }
+    //     }
+    // }
+
+
+    // useEffect(() => {
+    //     allImagesNfts()
+    //     getAccount();
+
+    // }, []);
+
+
+    const Nft_Collection=async()=>{
         let acc = await loadWeb3();
-        if (acc == "No Wallet") {
-            console.log("wallet");
-            setaddtext("Connect Wallet")
-        }
-        else if (acc == "Wrong Network") {
-            setaddtext("Wrong Network")
-        } else if (acc == "Connect Wallet") {
-            console.log("Connect Wallet");
-        }
-        else {
-            const web3 = window.web3;
-            let nftContractOf = new web3.eth.Contract(wireNftContractAbi, wireNftContractAddress);
-            let simplleArray = [];
-            let walletOfOwner = await nftContractOf.methods.walletOfOwner(acc).call()
-            let walletLength = walletOfOwner.length
-            setMyWalletLength(walletLength)
-            console.log("walletOfOwner", walletLength);
-            for (let i = 0; i <= walletLength; i++) {
+        try{
+            const web3= window.web3
+            let Data_Array=[]
+            let contractOf_Own= new web3.eth.Contract(wireNftContractAbi,wireNftContractAddress)
+             let WalletOwnOf= await contractOf_Own.methods.walletOfOwner(acc).call();
+             let wallet_Length=WalletOwnOf.length
+             console.log("walletOfOwner",wallet_Length);
+             for(let i=0;i<wallet_Length;i++){
+                let ArryData=WalletOwnOf[i]
+             let Wallet_URI= await contractOf_Own.methods.tokenURI(ArryData).call();
+             console.log("i",Wallet_URI);
+             Data_Array=[...Data_Array,{Tokenid:ArryData,Url:Wallet_URI}]
+             setArray_NFT(Data_Array)
 
-                try {
-                    let res = await axios.get(`https://gateway.pinata.cloud/ipfs/QmWC48u2Rj84M9ufzFFxSD41AQmq2QFMUhFhiu7aT2DFq8/${walletOfOwner[i]}.png`)
-                    // let res = await axios.get(`/config/${walletOfOwner[i]}.json`)
-                    let imageUrl = res.config.url;
-                    console.log("check", res);
-                    let dna = walletOfOwner[i]
-                    simplleArray = [...simplleArray, { imageUrl: imageUrl, num: dna }]
-                    setImageArray(simplleArray);
-                } catch (e) {
-                    console.log("Error while Fetching Api", e)
-                }
-            }
-            let ttlPage = parseInt(walletLength) / 6;
-            ttlPage = Math.ceil(ttlPage);
-            setTotalPages(ttlPage)
-            console.log("Total Pages", ttlPage);
-            if (parseInt(walletLength) > 0) {
-                {
-                    let myImgArry = []
-                    let myNameDate = []
 
-                }
-            }
+             }
+
+        }catch(e){
+            console.log("Erroe while Call My_cooletion Fuction",e);
         }
+
+
     }
-
-
+     
+    
     useEffect(() => {
-        allImagesNfts()
-        getAccount();
+        Nft_Collection()
 
     }, []);
-
 
     return (
         <div>
@@ -208,23 +243,24 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
                                         <div class="row justify-content-center">
 
                                             {
-                                                imageArray.map((items, idex) => {
+                                                Array_NFT.map((items, idex) => {
                                                     let index=idex+1;
                                                     return (
 
                                                         <div class="col-sm-6 col-lg-4" style={{cursor:"pointer"}}>
                                                             <div class="single-live-auction home-2">
                                                                 <div class=" home-2"
-                                                                 onClick={()=>nivigating("/Details/"+ index)}
+                                                                 onClick={()=>nivigating("/Details/"+ items.Tokenid)}
                                                                 // onClick={()=>setshowsell(true) }
                                                                  
                                                                  >
                                                                     {/* <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' /> */}
-                                                                    <img src={items.imageUrl} alt="Image" width="100%" />
+                                                                    <img src={items.Url} alt="Image" width="100%" />
                                                                 </div>
 
                                                                 <div class="collection-text home-2 text-center">
-                                                                    <a href="#"> NFT {items.num}</a>
+                                                                    <a href="#"> NFT {items.Tokenid}</a>
+                                                                   
 
                                                                 </div>
                                                             </div>

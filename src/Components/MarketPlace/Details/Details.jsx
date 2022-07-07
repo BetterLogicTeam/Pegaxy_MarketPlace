@@ -162,7 +162,7 @@ export default function Details({ setModalShow, btnTxt }) {
                                                 </div>
 
                                             </div>
-                                            {/* <div className="single-seller mt-3" onClick={()=>setAuctionmodelopen(true)} >
+                                            <div className="single-seller mt-3" onClick={()=>setAuctionmodelopen(true)} >
 
 
 
@@ -179,7 +179,7 @@ export default function Details({ setModalShow, btnTxt }) {
                                                     </div>
                                                 </div>
 
-                                            </div> */}
+                                            </div>
 
                                         </div>
                                         <div className="col-lg-6 mt-5">

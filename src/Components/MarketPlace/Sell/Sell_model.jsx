@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
 import { loadWeb3 } from '../../../apis/api'
 import { nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketToken_Abi } from '../../../utilies/Contract'
+import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
 import modal_close from '../../../Assest/modal_close.png'
 
 export default function Sell_model({ showModal, id, setShowModal }) {
@@ -17,12 +18,14 @@ export default function Sell_model({ showModal, id, setShowModal }) {
 
 
 
-    let ownadd = "0x0Aaf4C0669044AE375527a03b2886Ff2e13cC11C"
     let tokenid = id
-
-
+    
+    
     const addOrder = async () => {
+
         let acc = await loadWeb3();
+        let ownadd = acc;
+        let web3 = window.web3
         console.log("ACC=", acc)
         if (acc == "No Wallet") {
             toast.error("No Wallet Connected")
@@ -58,13 +61,19 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                     }
                     else {
 
+               let web3 = window.web3
+
                         getIputdata = web3.utils.toWei(getIputdata).toString()
                         getIputdata=getIputdata.toString()
 
 
                         let curreny_time = Math.floor(new Date().getTime() / 1000.0)
+                        let nftTokeAddress = new web3.eth.Contract(wireNftContractAbi, wireNftContractAddress);
+                        let TokkenAddress = await nftTokeAddress.methods.Token().call();
 
-                        console.log("tayyab", curreny_time)
+
+
+                        console.log("tayyab", TokkenAddress)
 
 
                         let nftContractOftoken = new web3.eth.Contract(nftMarketToken_Abi, ownadd);
@@ -84,7 +93,7 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                         let getListingPrice = await getodernumberhere.methods.getListingPrice().call();
 
                         console.log("getListingPrice", getListingPrice);
-
+                     
                         await nftContractOftoken.methods.setApprovalForAll(nftMarketContractAddress, true).send({
                             from: acc,
                         })
@@ -94,7 +103,7 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                         setIsSpinner(true)
 
                         let nftContractOf = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
-                        await nftContractOf.methods.createMarketItem(tokenid, getIputdata, 1, false, curreny_time, ownadd).send({
+                        await nftContractOf.methods.createMarketItem(tokenid, getIputdata, 1, false, curreny_time, TokkenAddress).send({
                             from: acc,
                             value: getListingPrice,
                             feelimit: 10000000000
