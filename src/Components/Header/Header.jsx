@@ -34,15 +34,22 @@ export default function Header({ChangeItems}) {
                                 </Link>
 
                             </Nav.Link>
+                            <Nav.Link href="https://pegaxy-play-and-earn.netlify.app/" target="_blank" className='navbtn ms-3' style={{backgroundColor: "#f4d03f"}}>
+                                <a target="_blank" href="https://pegaxy-play-and-earn.netlify.app/" className='nav_link_header'>
+                                    <span itemprop="name" >Play Game</span>
 
-                            <div className="socil_icon">
+                                </a>
+
+                            </Nav.Link>
+
+                            {/* <div className="socil_icon">
                                 <a href="#"> <span className='nav_icon'><FaFacebookF /></span></a>
                                 <a href="#"> <span className='nav_icon'><BsTwitter /></span></a>
                                 <a href="#"> <span className='nav_icon'><FaDiscord /></span></a>
 
                                 <a href="#"> <span className='nav_icon'><BsTelegram /></span></a>
 
-                            </div>
+                            </div> */}
 
 
 

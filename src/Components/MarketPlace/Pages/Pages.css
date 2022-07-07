@@ -2,6 +2,10 @@
 .bx-view{
     /* z-index: 0 !important; */
 }
-.dropdown-filter{
-    margin-top: 1rem;
+
+
+@media screen and (max-width:992px) {
+    .dropdown-filter{
+        margin-top: 1rem !important;
+    } 
 }

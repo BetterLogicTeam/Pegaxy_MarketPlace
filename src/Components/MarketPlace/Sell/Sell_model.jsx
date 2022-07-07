@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
 import { loadWeb3 } from '../../../apis/api'
@@ -7,10 +7,13 @@ import modal_close from '../../../Assest/modal_close.png'
 
 export default function Sell_model({ showModal, id, setShowModal }) {
 
-    const [getIputdata, setgetIputdata] = useState()
+    // let [getIputdata, setgetIputdata] = useState()
 
     let [imageArray, setImageArray] = useState([]);
     let [isSpinner, setIsSpinner] = useState(false)
+
+
+    let inputdatapricehere=useRef()
 
 
 
@@ -30,11 +33,12 @@ export default function Sell_model({ showModal, id, setShowModal }) {
 
 
             try {
+
                 setIsSpinner(true)
 
                 const web3 = window.web3;
                 let address = "0x4113ccD05D440f9580d55B2B34C92d6cC82eAB3c"
-                // let getIputdata=inputdata_price.current.value;
+                let getIputdata=inputdatapricehere.current.value;
 
                 if (getIputdata == "") {
                     toast.error("Please Enter the Price")
@@ -53,6 +57,10 @@ export default function Sell_model({ showModal, id, setShowModal }) {
 
                     }
                     else {
+
+                        getIputdata = web3.utils.toWei(getIputdata).toString()
+                        getIputdata=getIputdata.toString()
+
 
                         let curreny_time = Math.floor(new Date().getTime() / 1000.0)
 
@@ -110,7 +118,7 @@ export default function Sell_model({ showModal, id, setShowModal }) {
     return (
         <div>
 
-           
+
             <Modal
                 show={showModal}
                 size="md"
@@ -120,91 +128,94 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                 {/* <Modal.Header closeButton onClick={() => setShowModal(false)} >
         
               </Modal.Header> */}
-              {
+             {
 
-                isSpinner ? (<>
-                 <span className='span_main'>
-                <img alt="" srcset="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 1x, https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 2x" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" class="alert-icon-img" />
-            </span>
-            <div class="viewAlert">
-                    <img src={modal_close} alt="" className='img_model_icon ms-auto ' width="10%" onClick={() => setShowModal(false)} />
+                    isSpinner ? (<>
+                        <span className='span_main'>
+                            <img alt="" srcset="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 1x, https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 2x" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" class="alert-icon-img" />
+                        </span>
+                        <div class="viewAlert">
+                            <img src={modal_close} alt="" className='img_model_icon ms-auto ' width="10%" onClick={() => setShowModal(false)} />
 
-                    <div class="bx-login">
-                        <div class="login-header">
+                            <div class="bx-login">
+                                <div class="login-header">
 
-                            <p class=" ">Please Enter Sell Value in input Area</p>
-                        </div>
-                        <div className="single-seller ">
-
-
-                            <input
-                                type="text"
-                                placeholder="Enter Sell Value in ETH"
-                                className="d-block btn btn-bordered-white mt-0 ml-4 text-white sell_input"
-                                id="bid"
-                                onChange={(e) => setgetIputdata(e.target.value)}
-
-                            />
-                            <div class="action-group   main_div_btn_model" onClick={() => addOrder()}>
-                                <div class="item-link btn_in_sell">
-                                    <div class="button-game primary" style={{ height: "100px" }} >
-                                        <div class="btn-position button-game-left" style={{ width: "50px", height: "70px" }}></div>
-                                        <div class="btn-position button-game-content" style={{ height: "70px" }}>
-                                            <span class="" style={{ fontSize: "20px" }}>SEll</span>
-
-                                        </div>
-                                        <div class="btn-position button-game-right" style={{ width: "50px", height: "70px" }}></div>
-                                    </div>
+                                    <p class=" ">Please Enter Sell Value in input Area</p>
                                 </div>
+                                <div className="single-seller ">
+
+
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Sell Value in ETH"
+                                        className="d-block btn btn-bordered-white mt-0 ml-4 text-white sell_input"
+                                        id="bid"
+                                        ref={inputdatapricehere}
+                                        // onChange={(e) => setgetIputdata(e.target.value)}
+
+                                    />
+                                    <div class="action-group   main_div_btn_model" onClick={() => addOrder()}>
+                                        <div class="item-link btn_in_sell">
+                                            <div class="button-game primary" style={{ height: "100px" }} >
+                                                <div class="btn-position button-game-left" style={{ width: "50px", height: "70px" }}></div>
+                                                <div class="btn-position button-game-content" style={{ height: "70px" }}>
+                                                    <span class="" style={{ fontSize: "20px" }}>SEll</span>
+
+                                                </div>
+                                                <div class="btn-position button-game-right" style={{ width: "50px", height: "70px" }}></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </>) : (<> 
+                        <div class="viewAlert">
+                            <img src={modal_close} alt="" className='img_model_icon ms-auto ' width="10%" onClick={() => setShowModal(false)} />
+
+                            <div class="bx-login">
+                                <div class="login-header">
+
+                                    <p class=" ">Please Enter Sell Value in input Area</p>
+                                </div>
+                                <div className="single-seller ">
+
+
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Sell Value in ETH"
+                                        className="d-block btn btn-bordered-white mt-0 ml-4 text-white sell_input"
+                                        id="bid"
+                                        ref={inputdatapricehere}
+
+                                        // onChange={(e) => setgetIputdata(e.target.value)}
+
+                                    />
+                                    <div class="action-group   main_div_btn_model" onClick={() => addOrder()}>
+                                        <div class="item-link btn_in_sell">
+                                            <div class="button-game primary" style={{ height: "100px" }} >
+                                                <div class="btn-position button-game-left" style={{ width: "50px", height: "70px" }}></div>
+                                                <div class="btn-position button-game-content" style={{ height: "70px" }}>
+                                                    <span class="" style={{ fontSize: "20px" }}>SEll</span>
+
+                                                </div>
+                                                <div class="btn-position button-game-right" style={{ width: "50px", height: "70px" }}></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
 
-                    </div>
+                    </>)
+                }
 
-                </div>
-                </>):(<>
-                    <div class="viewAlert">
-                    <img src={modal_close} alt="" className='img_model_icon ms-auto ' width="10%" onClick={() => setShowModal(false)} />
-
-                    <div class="bx-login">
-                        <div class="login-header">
-
-                            <p class=" ">Please Enter Sell Value in input Area</p>
-                        </div>
-                        <div className="single-seller ">
-
-
-                            <input
-                                type="text"
-                                placeholder="Enter Sell Value in ETH"
-                                className="d-block btn btn-bordered-white mt-0 ml-4 text-white sell_input"
-                                id="bid"
-                                onChange={(e) => setgetIputdata(e.target.value)}
-
-                            />
-                            <div class="action-group   main_div_btn_model" onClick={() => addOrder()}>
-                                <div class="item-link btn_in_sell">
-                                    <div class="button-game primary" style={{ height: "100px" }} >
-                                        <div class="btn-position button-game-left" style={{ width: "50px", height: "70px" }}></div>
-                                        <div class="btn-position button-game-content" style={{ height: "70px" }}>
-                                            <span class="" style={{ fontSize: "20px" }}>SEll</span>
-
-                                        </div>
-                                        <div class="btn-position button-game-right" style={{ width: "50px", height: "70px" }}></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                
-                </>)
-              }
-               
 
 
                 <Modal.Body className='model_bg'>

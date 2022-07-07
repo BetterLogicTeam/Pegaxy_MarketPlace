@@ -4,6 +4,7 @@ import { Link,useHistory,useNavigate } from 'react-router-dom'
 import { loadWeb3 } from '../../../apis/api';
 import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
 import Navbar_nav from '../Navbar_market/Navbar_nav'
+import ReactPlayer from 'react-player'
 
 
 
@@ -94,14 +95,14 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
             let walletLength = walletOfOwner.length
             setMyWalletLength(walletLength)
             console.log("walletOfOwner", walletLength);
-            for (let i = 1; i <= walletLength; i++) {
+            for (let i = 0; i <= walletLength; i++) {
 
                 try {
-                    let res = await axios.get(`https://gateway.pinata.cloud/ipfs/QmWC48u2Rj84M9ufzFFxSD41AQmq2QFMUhFhiu7aT2DFq8/${i}.png`)
+                    let res = await axios.get(`https://gateway.pinata.cloud/ipfs/QmWC48u2Rj84M9ufzFFxSD41AQmq2QFMUhFhiu7aT2DFq8/${walletOfOwner[i]}.png`)
                     // let res = await axios.get(`/config/${walletOfOwner[i]}.json`)
                     let imageUrl = res.config.url;
                     console.log("check", res);
-                    let dna = res.data.dna
+                    let dna = walletOfOwner[i]
                     simplleArray = [...simplleArray, { imageUrl: imageUrl, num: dna }]
                     setImageArray(simplleArray);
                 } catch (e) {
@@ -211,18 +212,19 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
                                                     let index=idex+1;
                                                     return (
 
-                                                        <div class="col-sm-6 col-lg-4">
+                                                        <div class="col-sm-6 col-lg-4" style={{cursor:"pointer"}}>
                                                             <div class="single-live-auction home-2">
                                                                 <div class=" home-2"
                                                                  onClick={()=>nivigating("/Details/"+ index)}
                                                                 // onClick={()=>setshowsell(true) }
                                                                  
                                                                  >
+                                                                    {/* <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' /> */}
                                                                     <img src={items.imageUrl} alt="Image" width="100%" />
                                                                 </div>
 
                                                                 <div class="collection-text home-2 text-center">
-                                                                    <a href="#"> NFT {idex}</a>
+                                                                    <a href="#"> NFT {items.num}</a>
 
                                                                 </div>
                                                             </div>

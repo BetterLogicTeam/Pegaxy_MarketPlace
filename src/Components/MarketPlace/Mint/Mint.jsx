@@ -579,7 +579,7 @@ export default function Mint({ setModalShow, btnTxt }) {
                                                                                     {/* <a class="btn btn-box" href="#" onClick={() => myMintBNB()}>
                                                                             {btnOne}
                                                                         </a> */}
-                                                                                    <div class="info-action">
+                                                                                    <div class="info-action mt-4">
                                                                                         <div class="action-group">
                                                                                             <div class="item-link">
                                                                                                 <div class="button-game primary" style={{ height: "50px" }} onClick={() => myMintBNB()}>
@@ -593,7 +593,8 @@ export default function Mint({ setModalShow, btnTxt }) {
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <p className="fs-4 text-white mt-3"> {mintPriceBnb} BNB</p>
+                                                                                
+                                                                                    <p className="fs-4 text-white mt-4"> {mintPriceBnb} BNB</p>
                                                                                 </div>
                                                                                 {/* <div className="btn-area1 mt-5">
                                                                        

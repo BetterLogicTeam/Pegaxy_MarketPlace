@@ -1,0 +1,147 @@
+.NavOffHe {
+    height: 90vh !important;
+    background-color: aquamarine;
+    top: 15%;
+    width: 15%;
+}
+.main_div_tabes{
+    display: flex;
+    justify-content: center;
+  
+   
+   
+}
+.navlinkiconspan {
+    box-sizing: border-box;
+    display: inline-block;
+    overflow: hidden;
+    width: 36px;
+    height: 36px;
+    background: none;
+    opacity: 1;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+
+}
+
+.navbarlinkImage {
+    position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+}
+
+.viewTabs::after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 90%;
+    width: 100% !important;
+    height: 4px;
+    
+    content: "";
+    background: #3fafc5 !important;
+    background: linear-gradient(90deg,rgba(63,175,197,0),rgba(63,175,197,.2) 50%,rgba(63,175,197,0)) !important;
+}
+.viewTabs{
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 5rem !important;
+    z-index: 1 !important;
+    background-image: url('../../../Assest/background_MP.jpg');
+    height: 11vh;
+    background-position:center;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100% !important;
+
+    
+}
+.viewTabs .nav-tabs .nav-item .nav-link {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+ .nav-tabs .nav-link.active {
+    position: relative;
+    color: #dbfffc !important;
+    text-shadow: 0 0 10px rgb(219 255 252 / 80%), 0 0 20px rgb(219 255 252 / 40%);
+    border: none;
+    outline: none ;
+    background-color: transparent !important;
+}
+.nav-tabs .nav-link.with-icon {
+    padding: 0.5rem 1.25rem;
+}
+.nav-tabs .nav-link.active:after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    content: "";
+    background: #00f3f1;
+    border-radius: 2px;
+}
+.nav-tabs {
+    border-bottom: 0px solid #dee2e6;
+}
+
+/* .navitem:hover{
+   
+    border-bottom: 4px solid #00f3f1;
+    background: none;
+
+} */
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #dee0e4;
+    background: none;
+
+}
+
+
+
+/* ----------------------Drawer----------------------------------------- */
+.drawer_nav{
+    background-color: transparent;
+    height: 70vh;
+    width: 15%;
+    border-right: 3px solid  ;
+    border-color: linear-gradient(40deg,rgba(219, 230, 232, 0),rgba(63,175,197,.2) 50%,rgba(192, 204, 206, 0));
+
+    padding-left: 15px;
+
+}
+
+.second_drawer{
+    background-color: transparent;
+    height: 70vh;
+    width: 3%;
+    border-right: 5px solid  ;
+    border-color: linear-gradient(40deg,rgba(63,175,197,0),rgba(63,175,197,.2) 50%,rgba(63,175,197,0));
+    padding-left: 15px;
+
+}
+
+.icon_sidebar{
+    color: #fff;
+    font-size: 25px;
+}
+.card{
+    width: 85%;
+    margin-top: -5rem;
+    float:right;
+}

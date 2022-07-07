@@ -41,7 +41,7 @@ export default function Details({ setModalShow, btnTxt }) {
             let walletLength = walletOfOwner.length
             setMyWalletLength(walletLength)
             console.log("walletOfOwner", walletLength);
-            let res = await axios.get(`https://gateway.pinata.cloud/ipfs/QmWC48u2Rj84M9ufzFFxSD41AQmq2QFMUhFhiu7aT2DFq8/${id}.png`)
+            let res = await axios.get(`https://gateway.pinata.cloud/ipfs/QmUiSPrAAFJuQRBKu7GtGVMeGKAbWUE3EPyDo8FuCeeKvJ/${walletOfOwner[id]}.png`)
             // let res = await axios.get(`/config/${walletOfOwner[i]}.json`)
             let imageUrl = res.config.url;
             console.log("Imager_here", imageUrl);
@@ -144,11 +144,11 @@ export default function Details({ setModalShow, btnTxt }) {
                                         <div className="col-lg-6">
                                             <h1 className='text-white ms-4'>SELL NFT</h1>
 
-                                            <div className="single-seller mt-5" onClick={()=>setShowModal(true)}>
+                                            <div className="single-seller mt-5 " onClick={()=>setShowModal(true)}>
 
 
 
-                                                <div class="action-group mt-5  main_div_btn">
+                                                <div class="action-group mt-5  main_div_btn"  >
                                                     <div class="item-link btn_in_sell">
                                                         <div class="button-game primary" style={{ height: "100px" }} >
                                                             <div class="btn-position button-game-left" style={{ width: "50px", height: "70px" }}></div>
@@ -162,7 +162,7 @@ export default function Details({ setModalShow, btnTxt }) {
                                                 </div>
 
                                             </div>
-                                            <div className="single-seller mt-3" onClick={()=>setAuctionmodelopen(true)} >
+                                            {/* <div className="single-seller mt-3" onClick={()=>setAuctionmodelopen(true)} >
 
 
 
@@ -179,16 +179,17 @@ export default function Details({ setModalShow, btnTxt }) {
                                                     </div>
                                                 </div>
 
-                                            </div>
+                                            </div> */}
 
                                         </div>
-                                        <div className="col-lg-6">
+                                        <div className="col-lg-6 mt-5">
                                             {
                                                 imageArray.map((items, index) => {
                                                     return (
                                                         <>
-                                                            <div class="single-live-auction home-2">
+                                                            <div class="single-live-auction home-2" >
                                                                 <div class="div_sell_image">
+                                                                    
                                                                     <img src={items.imageUrl} alt="Image" width="50%" />
                                                                 </div>
 

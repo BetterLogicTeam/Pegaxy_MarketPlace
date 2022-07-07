@@ -152,3 +152,33 @@ border: 1px solid red;
     color: #fff !important;
 }
 
+
+
+.navbar-mp {
+    width: 220px;
+    height: 82px;
+    background-image: url("https://cdn.pegaxy.io/statics/play/public/v4/images/anim-mp/2.png") !important;
+    background-size: cover;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+ .navbar-mp {
+    position: absolute;
+    left: 2px;
+    top: 16px;
+    flex-direction: row;
+}
+ .navbar-mp .anim-mp span {
+    text-transform: uppercase;
+    text-shadow: 0 0 5px #ff7ceb, 0 0 10px #ff7ceb;
+    position: relative;
+    text-align: center;
+    top: 6px;
+    left: 27px;
+    font-size: 14px;
+    font-weight: 700;
+}

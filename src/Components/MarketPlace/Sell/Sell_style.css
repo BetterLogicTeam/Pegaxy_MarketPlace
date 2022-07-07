@@ -43,5 +43,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1 !important;
 
+  }
+
+  .viewAlert{
+    z-index: 0 !important;
   }

@@ -1,11 +1,20 @@
 .App {
   /* text-align: center; */
 }
+.bg_MP{
+  background-image: url('./Assest/background_MP.jpg');
+  height: 100vh;
+  background-position:center;
+  background-size: cover;
+  background-attachment: fixed;
+  
+}
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

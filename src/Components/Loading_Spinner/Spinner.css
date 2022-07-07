@@ -140,3 +140,15 @@
 img, svg {
   vertical-align: middle;
 }
+
+
+@media screen and (max-width:600px) {
+  .commingsoon-title {
+    font-size: 50px !important;
+    color: #fff;
+    text-shadow: 0 0 10px #fd3fff;
+    margin-top: 40px;
+
+  }
+  
+}

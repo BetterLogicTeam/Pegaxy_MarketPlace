@@ -26,12 +26,19 @@ export default function Navbar_nav({ setModalShow, btnTxt }) {
 
             <div class="navbar PlayNow_Navbar">
                 <div class="container">
-
+                    {/* <div class="navbar-mp">
+                        <a href="/MarketPlace" rel="noreferrer noopener" target="_blank" style={{ textDecoration: "none", color: "inherit" }}>
+                            <div class="anim-mp">
+                                <span>MARKETPLACE</span>
+                            </div>
+                        </a>
+                    </div> */}
 
                     <div class="navbar-inner">
+
                         <Navbar collapseOnSelect expand="md" className='navbarnav'>
                             <Container>
-                              
+
                                 <Nav className="mx-auto nav_link_text">
                                     <Nav.Link href="#features">     <Link to="/pages"> <img alt="" src={renting} width="100px" className='navbar_link_img' /> </Link>
                                     </Nav.Link>

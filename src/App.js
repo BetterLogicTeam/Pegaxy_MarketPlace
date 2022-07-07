@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { FaArrowAltCircleLeft } from 'react-icons/fa'
 
@@ -35,6 +35,11 @@ import './Assest/Style/26cd02812510ee001c3d.css'
 import './Assest/Style/bootstrap.css'
 import './Assest/Style/responsive.css'
 import './Assest/Style/styles.css'
+import Header_MP from './Components/MarketPlace_Main/Header_MP/Header_MP';
+import MarketPlaceFull from './Components/MarketPlaceFull';
+import Auctions_NFT from './Components/MarketPlace_Main/Auction_NFT/Auctions_NFT';
+import Buy_nft from './Components/MarketPlace_Main/Buy_NFT/Buy_nft';
+
 
 
 
@@ -53,56 +58,56 @@ function App() {
 
   const getAccount = async () => {
     // dispatch(getWallet());
-      let acc = await loadWeb3();
-      // console.log("ACC=",acc)
-      if (acc == "No Wallet") {
-          setBtTxt("No Wallet")
-      }
-      else if (acc == "Wrong Network") {
-          setBtTxt("Wrong Network")
-      } else {
-          let myAcc = acc?.substring(0, 4) + "..." + acc?.substring(acc?.length - 4);
-          setBtTxt(myAcc);
+    let acc = await loadWeb3();
+    // console.log("ACC=",acc)
+    if (acc == "No Wallet") {
+      setBtTxt("No Wallet")
+    }
+    else if (acc == "Wrong Network") {
+      setBtTxt("Wrong Network")
+    } else {
+      let myAcc = acc?.substring(0, 4) + "..." + acc?.substring(acc?.length - 4);
+      setBtTxt(myAcc);
 
-      }
+    }
   }
 
+
+  useEffect(() => {
+    getAccount()
+    
+  }, [])
+  
 
   return (
     <div className="App">
       <Model_connect setModalShow={setModalShow} modalShow={modalShow} getAccount={getAccount} btnTxt={btnTxt} />
       {/* <Sell setshowsell={setshowsell} showsell={showsell}   /> */}
-      <Auction setshowsell={setshowsell} showsell={showsell}  /> 
-     
+      <Auction setshowsell={setshowsell} showsell={showsell} />
+
 
       <BrowserRouter>
-      <ToastContainer />
-
+        <ToastContainer />
+{/* <DrawerSiderbar/> */}
 
         <Routes>
           <Route path="/" element={<Index_Main />} />
           {/* <Route path="MarketPlace_Main" element={<MarketPlace_Main />} /> */}
           <Route path="Items" element={<Items setModalShow={setModalShow} btnTxt={btnTxt} />} />
           <Route path="pages" element={<Pages setModalShow={setModalShow} btnTxt={btnTxt} />} />
-            <Route path="Marketplace_play_game" element={<Marketplace_play_game setModalShow={setModalShow} btnTxt={btnTxt} />} />
-            <Route path="Breeding" element={<Breeding setModalShow={setModalShow} getAccount={getAccount} btnTxt={btnTxt} />} />
-            <Route path="Racing_main" element={<Racing_main setModalShow={setModalShow} btnTxt={btnTxt} />} />
-            <Route path="Finished_race" element={<Finished_race setModalShow={setModalShow} btnTxt={btnTxt} />} />
-            <Route path="My_Assets" element={<My_Assets_first setModalShow={setModalShow} btnTxt={btnTxt} />} />
-            <Route path="My_Profile" element={<My_Profile setModalShow={setModalShow} btnTxt={btnTxt} />} />
-            <Route path="My_Bids" element={<My_Bids setModalShow={setModalShow} btnTxt={btnTxt} />} />
-            <Route path="My_Items" element={<My_Iytems setModalShow={setModalShow} btnTxt={btnTxt} setshowsell={setshowsell} />} />
-            <Route path="Mint" element={<Mint setModalShow={setModalShow} btnTxt={btnTxt} setIsSpinner={setIsSpinner} />} />
-            <Route exact path="/Details/:id" element={<Details setModalShow={setModalShow} btnTxt={btnTxt} />} />
-
-
-
-
-
-
-            
-
-
+          <Route path="Marketplace_play_game" element={<Marketplace_play_game setModalShow={setModalShow} btnTxt={btnTxt} />} />
+          <Route path="Breeding" element={<Breeding setModalShow={setModalShow} getAccount={getAccount} btnTxt={btnTxt} />} />
+          <Route path="Racing_main" element={<Racing_main setModalShow={setModalShow} btnTxt={btnTxt} />} />
+          <Route path="Finished_race" element={<Finished_race setModalShow={setModalShow} btnTxt={btnTxt} />} />
+          <Route path="My_Assets" element={<My_Assets_first setModalShow={setModalShow} btnTxt={btnTxt} />} />
+          <Route path="My_Profile" element={<My_Profile setModalShow={setModalShow} btnTxt={btnTxt} />} />
+          <Route path="My_Bids" element={<My_Bids setModalShow={setModalShow} btnTxt={btnTxt} />} />
+          <Route path="My_Items" element={<My_Iytems setModalShow={setModalShow} btnTxt={btnTxt} setshowsell={setshowsell} />} />
+          <Route path="Mint" element={<Mint setModalShow={setModalShow} btnTxt={btnTxt} setIsSpinner={setIsSpinner} />} />
+          <Route exact path="/Details/:id" element={<Details setModalShow={setModalShow} btnTxt={btnTxt} />} />
+          <Route exact path="MarketPlace" element={<MarketPlaceFull />} />
+          <Route path="/Auctions_NFT" element={<Auctions_NFT />} />
+          <Route path="/Buy_nft" element={<Buy_nft />} />
 
 
         </Routes>
