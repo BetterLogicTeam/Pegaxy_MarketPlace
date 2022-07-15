@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Mint.css'
+import {getWallet} from '../../../redux/redux/actions/actions'
 
 import { toast } from "react-toastify";
 import { loadWeb3 } from '../../../apis/api';
@@ -11,6 +12,7 @@ import axios from 'axios';
 import { useMoralis, useMoralisFile } from 'react-moralis'
 import { CreateNFT, CreateNFT_ABI } from '../../../utilies/Contract';
 import { Moralis } from 'moralis'
+import { useSelector } from 'react-redux'
 
 export default function Mint({ setModalShow, btnTxt }) {
     const [fileUrl, setFileUrl] = useState(null)
@@ -26,7 +28,8 @@ export default function Mint({ setModalShow, btnTxt }) {
     let [myUrl, setMyUrl] = useState()
     const { saveFile, moralisFile } = useMoralisFile()
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout, initialize } = useMoralis();
-
+    const refReport = useSelector((state) => state?.connectWallet?.acc);
+console.log("Redux_Data",refReport);
 
     const IpfsStorage = async (e) => {
         e.preventDefault()

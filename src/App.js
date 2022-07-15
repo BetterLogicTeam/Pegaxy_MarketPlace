@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { FaArrowAltCircleLeft } from 'react-icons/fa'
+import store from "./redux/redux/index";
 
 import {
   BrowserRouter,
@@ -39,6 +40,7 @@ import Header_MP from './Components/MarketPlace_Main/Header_MP/Header_MP';
 import MarketPlaceFull from './Components/MarketPlaceFull';
 import Auctions_NFT from './Components/MarketPlace_Main/Auction_NFT/Auctions_NFT';
 import Buy_nft from './Components/MarketPlace_Main/Buy_NFT/Buy_nft';
+import { Provider } from 'react-redux';
 
 
 
@@ -81,6 +83,7 @@ function App() {
 
   return (
     <div className="App">
+       <Provider store={store}>
       <Model_connect setModalShow={setModalShow} modalShow={modalShow} getAccount={getAccount} btnTxt={btnTxt} />
       {/* <Sell setshowsell={setshowsell} showsell={showsell}   /> */}
       <Auction setshowsell={setshowsell} showsell={showsell} />
@@ -121,7 +124,7 @@ function App() {
 
 
 
-
+      </Provider>
     </div>
   );
 }

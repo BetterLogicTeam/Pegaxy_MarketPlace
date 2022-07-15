@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {connectWallet,} from './reducers/getWalletAddrss'
+import connectWallet from './reducers/getWalletAddrss'
 
 const allReducer = combineReducers({
 

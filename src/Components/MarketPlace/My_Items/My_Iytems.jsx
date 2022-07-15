@@ -9,6 +9,7 @@ import Web3 from 'web3';
 
 
 
+
 export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
 
 
@@ -255,7 +256,7 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
                                                                  
                                                                  >
                                                                     {/* <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' /> */}
-                                                                    <img src={items.Url} alt="Image" width="100%" />
+                                                                    <img src={items.Url } alt="Image" width="100%" />
                                                                 </div>
 
                                                                 <div class="collection-text home-2 text-center">
