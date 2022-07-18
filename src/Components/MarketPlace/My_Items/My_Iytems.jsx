@@ -6,6 +6,7 @@ import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/con
 import Navbar_nav from '../Navbar_market/Navbar_nav'
 import ReactPlayer from 'react-player'
 import Web3 from 'web3';
+import { CreateNFT, CreateNFT_ABI } from '../../../utilies/Contract';
 
 
 
@@ -140,8 +141,8 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
         try{
             const web3= window.web3
             let Data_Array=[]
-            let contractOf_Own= new web3.eth.Contract(wireNftContractAbi,wireNftContractAddress)
-             let WalletOwnOf= await contractOf_Own.methods.walletOfOwner(acc).call();
+            let contractOf_Own= new web3.eth.Contract(CreateNFT_ABI,CreateNFT)
+             let WalletOwnOf= await contractOf_Own.methods.balanceOf(acc).call();
              let wallet_Length=WalletOwnOf.length
              console.log("walletOfOwner",wallet_Length);
              for(let i=0;i<wallet_Length;i++){

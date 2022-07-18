@@ -28,8 +28,8 @@ export default function Mint({ setModalShow, btnTxt }) {
     let [myUrl, setMyUrl] = useState()
     const { saveFile, moralisFile } = useMoralisFile()
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout, initialize } = useMoralis();
-    const refReport = useSelector((state) => state?.connectWallet?.acc);
-console.log("Redux_Data",refReport);
+//     const refReport = useSelector((state) => state?.connectWallet?.acc);
+// console.log("Redux_Data",refReport);
 
     const IpfsStorage = async (e) => {
         e.preventDefault()
@@ -83,8 +83,8 @@ console.log("Redux_Data",refReport);
         }
 
 
-        let res = await axios.get("https://ipfs.moralis.io:2053/ipfs/QmdxwzpRRkfJfwLdqxbm2YsgaMXCopSJhJURLYuYw13S2h");
-        console.log("res", res.data);
+        // let res = await axios.get("https://ipfs.moralis.io:2053/ipfs/QmdxwzpRRkfJfwLdqxbm2YsgaMXCopSJhJURLYuYw13S2h");
+        // console.log("res", res.data);
 
 
     }

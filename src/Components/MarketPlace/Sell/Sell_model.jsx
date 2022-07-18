@@ -2,9 +2,11 @@ import React, { useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
 import { loadWeb3 } from '../../../apis/api'
-import { nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketToken_Abi } from '../../../utilies/Contract'
+import { nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketTokenAddress, nftMarketToken_Abi } from '../../../utilies/Contract'
 import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
 import modal_close from '../../../Assest/modal_close.png'
+import cogoToast from 'cogo-toast';
+import axios from 'axios'
 
 export default function Sell_model({ showModal, id, setShowModal }) {
 
@@ -76,8 +78,9 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                         console.log("tayyab", TokkenAddress)
 
 
-                        let nftContractOftoken = new web3.eth.Contract(nftMarketToken_Abi, ownadd);
+                        let nftContractOftoken = new web3.eth.Contract(nftMarketToken_Abi, nftMarketTokenAddress);
                         let getodernumberhere = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
+                        // let nftContractOf =     new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
 
 
                         console.log("inputadata", getIputdata);
@@ -99,19 +102,48 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                         })
                         setIsSpinner(false)
 
-                        toast.success("Approved Successfuly")
+                        cogoToast.success("Approved Successfuly")
                         setIsSpinner(true)
 
-                        let nftContractOf = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
-                        await nftContractOf.methods.createMarketItem(tokenid, getIputdata, 1, false, curreny_time, TokkenAddress).send({
+                        
+                        let hash =await getodernumberhere.methods.createMarketItem(tokenid, getIputdata, 1, false, curreny_time, nftMarketTokenAddress).send({
                             from: acc,
                             value: getListingPrice,
-                            feelimit: 10000000000
+                            feelimit: 100000000000
                         })
                         setIsSpinner(false)
-
-
-                        toast.success("Transion Compelete")
+                        hash = hash.transactionHash
+                        console.log("hash", hash);
+                        let getItemId = await getodernumberhere.methods.tokenIdToItemId(ownadd, tokenid).call();
+                        let MarketItemId = await getodernumberhere.methods.idToMarketItem(getItemId).call();
+                        console.log("MarketItemId", MarketItemId)
+                        let bidEndTime = MarketItemId.bidEndTime;
+                        let isOnAuction = MarketItemId.isOnAuction;
+                        let itemId = MarketItemId.itemId;
+                        let nftContract = MarketItemId.nftContract;
+                        let owner = MarketItemId.owner;
+                        let price = MarketItemId.price;
+                        let seller = MarketItemId.seller;
+                        let sold = MarketItemId.sold;
+                        let tokenId = MarketItemId.tokenId;
+                        
+                        let postapiPushdata = await axios.post('https://whenftapi.herokuapp.com/open_marketplace', {
+                            "useraddress": acc,
+                            "itemId": itemId,
+                            "nftContract": nftContract,
+                            "tokenId": tokenid,
+                            "owner": acc,
+                            "price": getIputdata,
+                            "sold": sold,
+                            "isOnAuction": isOnAuction,
+                            "bidEndTime": bidEndTime,
+                            "name": "Pegaxy",
+                            "url": "",
+                            "txn": hash
+                          })
+                          console.log("Data_Store",postapiPushdata);
+                    
+                        cogoToast.success('Transion Compelete');
                     }
                 }
             }
