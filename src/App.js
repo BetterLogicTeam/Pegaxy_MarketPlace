@@ -51,7 +51,7 @@ function App() {
   const [modalShow, setModalShow] = React.useState(false);
   const [showsell, setshowsell] = useState(false)
   let [isSpinner, setIsSpinner] = useState(false)
-
+  const dispatch = useDispatch()
   // let dispatch = useDispatch();
 
   let [btnTxt, setBtTxt] = useState("Connect Metamask")
@@ -77,13 +77,14 @@ function App() {
 
   useEffect(() => {
     getAccount()
+    dispatch(getWallet('fraz'))
     
   }, [])
   
 
   return (
     <div className="App">
-       <Provider store={store}>
+       
       <Model_connect setModalShow={setModalShow} modalShow={modalShow} getAccount={getAccount} btnTxt={btnTxt} />
       {/* <Sell setshowsell={setshowsell} showsell={showsell}   /> */}
       <Auction setshowsell={setshowsell} showsell={showsell} />
@@ -124,7 +125,7 @@ function App() {
 
 
 
-      </Provider>
+      
     </div>
   );
 }
