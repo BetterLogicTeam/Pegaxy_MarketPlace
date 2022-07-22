@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
 import { loadWeb3 } from '../../../apis/api'
-import { nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketTokenAddress, nftMarketToken_Abi } from '../../../utilies/Contract'
+import { CreateNFT, CreateNFT_ABI, nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketTokenAddress, nftMarketToken_Abi } from '../../../utilies/Contract'
 import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
 import modal_close from '../../../Assest/modal_close.png'
 import cogoToast from 'cogo-toast';
@@ -80,7 +80,7 @@ export default function Sell_model({ showModal, id, setShowModal }) {
 
                         let nftContractOftoken = new web3.eth.Contract(nftMarketToken_Abi, nftMarketTokenAddress);
                         let getodernumberhere = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
-                        // let nftContractOf =     new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
+                        let nftContractOf =     new web3.eth.Contract(CreateNFT_ABI, CreateNFT);
 
 
                         console.log("inputadata", getIputdata);
@@ -97,7 +97,7 @@ export default function Sell_model({ showModal, id, setShowModal }) {
 
                         console.log("getListingPrice", getListingPrice);
                      
-                        await nftContractOftoken.methods.setApprovalForAll(nftMarketContractAddress, true).send({
+                        await nftContractOf.methods.setApprovalForAll(nftMarketContractAddress, true).send({
                             from: acc,
                         })
                         setIsSpinner(false)
@@ -106,7 +106,7 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                         setIsSpinner(true)
 
                         
-                        let hash =await getodernumberhere.methods.createMarketItem(tokenid, getIputdata, 1, false, curreny_time, nftMarketTokenAddress).send({
+                        let hash =await getodernumberhere.methods.createMarketItem(tokenid, getIputdata, 1, false, curreny_time, CreateNFT).send({
                             from: acc,
                             value: getListingPrice,
                             feelimit: 100000000000
@@ -114,7 +114,7 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                         setIsSpinner(false)
                         hash = hash.transactionHash
                         console.log("hash", hash);
-                        let getItemId = await getodernumberhere.methods.tokenIdToItemId(ownadd, tokenid).call();
+                        let getItemId = await getodernumberhere.methods.tokenIdToItemId(CreateNFT, tokenid).call();
                         let MarketItemId = await getodernumberhere.methods.idToMarketItem(getItemId).call();
                         console.log("MarketItemId", MarketItemId)
                         let bidEndTime = MarketItemId.bidEndTime;

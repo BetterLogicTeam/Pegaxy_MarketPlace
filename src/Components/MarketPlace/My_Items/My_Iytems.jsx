@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link,useHistory,useNavigate } from 'react-router-dom'
+import { Link, useHistory, useNavigate } from 'react-router-dom'
 import { loadWeb3 } from '../../../apis/api';
 import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
 import Navbar_nav from '../Navbar_market/Navbar_nav'
@@ -11,7 +11,7 @@ import { CreateNFT, CreateNFT_ABI } from '../../../utilies/Contract';
 
 
 
-export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
+export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
 
 
     let [addtext, setaddtext] = useState("Connect");
@@ -23,7 +23,7 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
     let [totalPages, setTotalPages] = useState(1)
     let [Array_NFT, setArray_NFT] = useState([])
 
-    let nivigating=useNavigate()
+    let nivigating = useNavigate()
 
 
     const getAccount = async () => {
@@ -39,7 +39,7 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
             setaddtext(myAcc);
 
         }
-        
+
     }
 
     const loadMore = () => {
@@ -136,33 +136,38 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
     // }, []);
 
 
-    const Nft_Collection=async()=>{
+    const Nft_Collection = async () => {
         let acc = await loadWeb3();
-        try{
-            const web3= window.web3
-            let Data_Array=[]
-            let contractOf_Own= new web3.eth.Contract(CreateNFT_ABI,CreateNFT)
-             let WalletOwnOf= await contractOf_Own.methods.balanceOf(acc).call();
-             let wallet_Length=WalletOwnOf.length
-             console.log("walletOfOwner",wallet_Length);
-             for(let i=0;i<wallet_Length;i++){
-                let ArryData=WalletOwnOf[i]
-             let Wallet_URI= await contractOf_Own.methods.tokenURI(ArryData).call();
-             console.log("i",Wallet_URI);
-             Data_Array=[...Data_Array,{Tokenid:ArryData,Url:Wallet_URI}]
-             setArray_NFT(Data_Array)
+        try {
+            const web3 = window.web3
+            let Data_Array = []
+            let contractOf_Own = new web3.eth.Contract(CreateNFT_ABI, CreateNFT)
+            let WalletOwnOf = await contractOf_Own.methods.walletOfOwner(acc).call();
+            let wallet_Length = WalletOwnOf.length
+            console.log("walletOfOwner", wallet_Length);
+            let Wallet_URI
+            for (let i = 0; i< wallet_Length; i++) {
+                let ArryData = WalletOwnOf[i]
+                Wallet_URI = await contractOf_Own.methods.tokenURI(ArryData).call();
+                console.log("Image", Wallet_URI);
+                let res = await axios.get(Wallet_URI);
+                console.log("Res", res.data);
+                let Image_Url = res.data.image
+                let NFT_Name = res.data.title
 
+                Data_Array = [...Data_Array, { Tokenid: ArryData, Url: Image_Url, price: res.data.name, name: NFT_Name,address:acc }]
+                setArray_NFT(Data_Array)
+            }
+            // console.log("Wallet_URI",Wallet_URI);    
 
-             }
-
-        }catch(e){
-            console.log("Erroe while Call My_cooletion Fuction",e);
+        } catch (e) {
+            console.log("Erroe while Call My_cooletion Fuction", e);
         }
 
 
     }
-     
-    
+
+
     useEffect(() => {
         Nft_Collection()
 
@@ -171,7 +176,10 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
     return (
         <div>
             <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />
+
+
             <div className='main_div_app'>
+
                 <div class="container">
                     <div class="bx-view">
                         <div class="bx-full">
@@ -241,59 +249,96 @@ export default function My_Iytems({ setModalShow, btnTxt,setshowsell }) {
                             </div>
                             <div class="bx-content default">
                                 <div class="inner-content">
-                                    <div class="viewPega">
-                                        <div class="row justify-content-center">
+                                    <div class="viewPega ">
+
+                                        <div class="list-pick" >
+                                            {
+                                                console.log("Array_NFT",Array_NFT)
+                                            }
 
                                             {
                                                 Array_NFT.map((items, idex) => {
-                                                    let index=idex+1;
+                                                    let index = idex + 1;
                                                     return (
+                                                        <>
 
-                                                        <div class="col-sm-6 col-lg-4" style={{cursor:"pointer"}}>
-                                                            <div class="single-live-auction home-2">
-                                                                <div class=" home-2"
-                                                                 onClick={()=>nivigating("/Details/"+ items.Tokenid)}
-                                                                // onClick={()=>setshowsell(true) }
-                                                                 
-                                                                 >
-                                                                    {/* <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' /> */}
-                                                                    <img src={items.Url } alt="Image" width="100%" />
-                                                                </div>
-
-                                                                <div class="collection-text home-2 text-center">
-                                                                    <a href="#"> NFT {items.Tokenid}</a>
-                                                                   
-
+                                                            <div class="item-pega">
+                                                                <a href="#">
+                                                                    <div class="item-box">
+                                                                        <div class="item-cover">
+                                                                            <div style={{ display: "block", overflow: "hidden", position: "relative", boxSizing: "border-box", margin: "0px" }}>
+                                                                                <div style={{ display: "block", boxSizing: "border-box", paddingTop: "50%" }}></div>
+                                                                                <img alt="" src={items.Url} decoding="async" data-nimg="responsive" class="item-cover-img" className='items_img_here ' />
+                                                                                {/* <noscript></noscript> */}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="item-header">
+                                                                            <div class="info-atts">
+                                                                                <div class="info-name">
+                                                                                    <div class="item-info-title">{items.name}</div>
+                                                                                    <div class="item-info-meta">Token Id</div>
+                                                                                </div>
+                                                                                <div class="info-adds">
+                                                                                    <div class="info-adds-title">{ items.address ?.substring(0, 6) + "..." + items.address ?.substring(items.address ?.length - 6)}</div>
+                                                                                    <div class="info-property">
+                                                                                        <div class="property-title">
+                                                                                            <div class="property-coat">
+                                                                                                {items.Tokenid}
+                                                                                                {/* <div class="item-coat" style={{ backgroundColor: "rgb(21, 151, 229)" }}></div>
+                                                                                                <div class="item-coat" style={{ backgroundColor: "rgb(25, 52, 152)" }}></div>
+                                                                                                <div class="item-coat" style={{ backgroundColor: "rgb(21, 151, 229)" }}></div> */}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        {/* <div class="item-class class-pega breed">2</div> */}
+                                                                    </div>
+                                                                </a>
+                                                                <div class="info-action">
+                                                                    <div class="action-group">
+                                                                        <div class="item-link">
+                                                                            <div class="button-game primary" style={{ height: "32px" }} onClick={()=>nivigating("/Details/"+ items.Tokenid)}>
+                                                                                <div class="btn-position button-game-left" style={{ width: "16px", height: "32px" }}></div>
+                                                                                <div class="btn-position button-game-content" style={{ height: "32px", paddingRight: "16px", paddingLeft: "16px" }}>
+                                                                                    <div class="content-name"><span class="content-name-sub"></span><span class="content-name-title" style={{ fontSize: "20px" }}>LISTING</span></div>
+                                                                                    <div class="button-game-icon i-right">
+                                                                                        {/* <div style={{ overflow: "hidden", boxSizing: "border-box", display: "inline-block", position: "relative", width: "24px", height: "24px" }}>
+                                                                                            <img alt="" src="images/USDT.png" decoding="async" data-nimg="fixed" class="game-icon-img" className='items_img_here' />
+                                                                                            <noscript></noscript>
+                                                                                        </div> */}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="btn-position button-game-right" style={{ width: "16px", height: "32px" }}></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
 
 
-                                                    )
+
+
+
+                                                        </>)
                                                 })
                                             }
+
 
                                         </div>
 
 
-                                        <div class="list-pick"></div>
+
+
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
-
-
-
-
-
             </div>
-
-
         </div>
     )
 }

@@ -3,7 +3,7 @@ import './Auction_style.css'
 import Modal from 'react-bootstrap/Modal'
 import { loadWeb3 } from '../../../apis/api'
 import { toast } from 'react-toastify'
-import { nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketToken_Abi } from '../../../utilies/Contract'
+import { CreateNFT, CreateNFT_ABI, nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketToken_Abi } from '../../../utilies/Contract'
 import { useRef } from 'react'
 import axios from 'axios'
 
@@ -71,13 +71,15 @@ let selectoption=useRef()
                         // console.log("curreny_time", curreny_time);
                         let nftContractOftoken = new web3.eth.Contract(nftMarketToken_Abi, ownadd);
                         let nftContractInstance = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
+                        let nftContractOfNFT =     new web3.eth.Contract(CreateNFT_ABI, CreateNFT);
+
                         // const getItemId = await nftContractInstance.methods.tokenIdToItemId(ownadd, tokenid).call();
 
                         // console.log("tokenIdToItemId", getItemId);
 
                         let getListingPrice = await nftContractInstance.methods.getListingPrice().call();
 
-                        await nftContractOftoken.methods.setApprovalForAll(nftMarketContractAddress, true).send({
+                        await nftContractOfNFT.methods.setApprovalForAll(nftMarketContractAddress, true).send({
                             from: acc,
                         })
 
@@ -85,16 +87,16 @@ let selectoption=useRef()
 
                         let nftContractOf = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
 
-                        let hash = await nftContractOf.methods.createMarketItem(tokenid, value_price, 1, true, current_time_and_days, ownadd).send({
+                        let hash = await nftContractOf.methods.createMarketItem(tokenid, value_price, 1, true, current_time_and_days, CreateNFT).send({
                             from: acc,
                             value: getListingPrice,
                         });
                         hash = hash.transactionHash
                         // console.log("hash", hash);
                         // setIsSpinner(false)
-                        let getItemId = await nftContractOf.methods.tokenIdToItemId(ownadd, tokenid).call();
+                        let getItemId = await nftContractOf.methods.tokenIdToItemId(CreateNFT, tokenid).call();
                         let MarketItemId = await nftContractOf.methods.idToMarketItem(getItemId).call();
-                        // console.log("MarketItemId", MarketItemId)
+                        console.log("MarketItemId", MarketItemId)
                         let bidEndTime = MarketItemId.bidEndTime;
                         let isOnAuction = MarketItemId.isOnAuction;
                         let itemId = MarketItemId.itemId;
@@ -121,7 +123,7 @@ let selectoption=useRef()
                             "txn": hash
                         })
 
-                        // console.log("postapiPushdata", postapiPushdata);
+                        console.log("postapiPushdata", postapiPushdata);
                         toast.success("Transion Compelete")
 
                         setIsSpinner(false)

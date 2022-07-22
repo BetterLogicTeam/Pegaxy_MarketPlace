@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Mint.css'
-import {getWallet} from '../../../redux/redux/actions/actions'
+import {getWallet, NftData} from '../../../redux/redux/actions/actions'
 
 import { toast } from "react-toastify";
 import { loadWeb3 } from '../../../apis/api';
@@ -13,8 +13,13 @@ import { useMoralis, useMoralisFile } from 'react-moralis'
 import { CreateNFT, CreateNFT_ABI } from '../../../utilies/Contract';
 import { Moralis } from 'moralis'
 import { useSelector } from 'react-redux'
+import {  useDispatch } from 'react-redux';
 
 export default function Mint({ setModalShow, btnTxt }) {
+  let dispatch = useDispatch();
+  let { acc } = useSelector(state => state.connectWallet);
+
+  console.log("check",acc);
     const [fileUrl, setFileUrl] = useState(null)
     const [formInput, updateFormInput] = useState({ price: '0', name: 'NFT Name', description: '' })
     const [nftImage, setNftImage] = useState()
@@ -28,8 +33,7 @@ export default function Mint({ setModalShow, btnTxt }) {
     let [myUrl, setMyUrl] = useState()
     const { saveFile, moralisFile } = useMoralisFile()
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout, initialize } = useMoralis();
-//     const refReport = useSelector((state) => state?.connectWallet?.acc);
-// console.log("Redux_Data",refReport);
+
 
     const IpfsStorage = async (e) => {
         e.preventDefault()
@@ -59,16 +63,18 @@ export default function Mint({ setModalShow, btnTxt }) {
                             image: fileIpfs._ipfs,
                             description: formInput.description,
                             title: formInput.name,
-                            name: formInput.price
+                            price: formInput.price
                         }
                         const fileIpf = new Moralis.File("metadata.json", {
                             base64: btoa(JSON.stringify(metaData))
                         })
                         await fileIpf.saveIPFS(null, { useMasterKey: true })
                         console.log("files", fileIpf._ipfs);
-
+                        
+                     
                         setGetInput(fileIpf._ipfs)
-                        CreateNftUR(urlimage)
+                        
+                        CreateNftUR(fileIpf._ipfs)
 
                     })
                         .catch(function (error) {

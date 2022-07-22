@@ -3,7 +3,6 @@ import {applyMiddleware, compose, createStore} from 'redux'
 import thunk from 'redux-thunk';
 
 
-
 const middleware = [thunk];
 const composeEnhancers = compose(applyMiddleware(...middleware));
 const configureStore = () => {
@@ -11,5 +10,4 @@ const configureStore = () => {
 }
 
 const store = configureStore();
-
 export default store;
