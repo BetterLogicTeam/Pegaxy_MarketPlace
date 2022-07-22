@@ -211,7 +211,7 @@ export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
                                                     </div>
                                                     <Link to="/My_Items" className='text_de'>
 
-                                                        <span class="item-tab-title active">ITEMS</span>
+                                                        <span class="item-tab-title active">COLLECTION</span>
                                                     </Link>
                                                 </div>
                                             </li>

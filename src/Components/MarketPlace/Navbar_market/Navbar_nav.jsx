@@ -28,13 +28,13 @@ export default function Navbar_nav({ setModalShow, btnTxt }) {
 
             <div class="navbar PlayNow_Navbar">
                 <div class="container">
-                    {/* <div class="navbar-mp">
-                        <a href="/MarketPlace" rel="noreferrer noopener" target="_blank" style={{ textDecoration: "none", color: "inherit" }}>
+                    <div class="navbar-mp">
+                        <a href="/MarketPlace" rel="noreferrer noopener" width="100%" target="_blank" style={{ textDecoration: "none", color: "inherit" }}>
                             <div class="anim-mp">
                                 <span>MARKETPLACE</span>
                             </div>
                         </a>
-                    </div> */}
+                    </div>
 
                     <div class="navbar-inner">
 

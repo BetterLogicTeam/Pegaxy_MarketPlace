@@ -38,7 +38,7 @@ export default function My_Assets_first({ setModalShow, btnTxt }) {
                                                 </div>
                                                 <Link to="/My_Items" className='text_de'>
 
-                                                <span class="item-tab-title">ITEMS</span>
+                                                <span class="item-tab-title">COLLECTION</span>
                                                 </Link>
                                             </div>
                                         </li>
