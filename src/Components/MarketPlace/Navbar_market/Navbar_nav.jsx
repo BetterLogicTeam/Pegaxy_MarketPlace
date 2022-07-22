@@ -13,14 +13,16 @@ import marketplace_active from '../../../Assest/images/marketplace_active.png'
 import breeding from '../../../Assest/images/breeding.png'
 import contact from '../../../Assest/images/contact.png'
 import my_assets_active from '../../../Assest/images/my_assets_active.png'
-
+import { useSelector } from 'react-redux'
+// import state from '../../../redux/redux/index'
 
 
 
 
 
 export default function Navbar_nav({ setModalShow, btnTxt }) {
-
+    const value = useSelector((state) => state.connectWallet.acc)
+    console.log("what is value in navbar",value)
     return (
         <div>
 

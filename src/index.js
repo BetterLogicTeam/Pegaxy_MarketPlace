@@ -5,7 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { MoralisProvider } from "react-moralis";
 import { Provider } from 'react-redux';
+
 import store from './redux/redux/index'
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -13,9 +15,14 @@ root.render(
           serverUrl="https://it200adba9tf.usemoralis.com:2053/server" appId="BHvBuek1TZiN1uEiKhVUzXKuIv5wzl5AKGQB83dt"
           masterKey="6TgnpRRUOqle4Z4csNyaj2cSaw8u8TPMQ7JuB2TR"
           >
+
             <Provider store={store}>  
               <App />
               </Provider>
+
+
+            <Provider store={store}>
+    <App /></Provider>
 
     </MoralisProvider>
   </React.StrictMode>
