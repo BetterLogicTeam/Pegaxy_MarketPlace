@@ -11,6 +11,8 @@ import axios from 'axios'
 export default function Sell_model({ showModal, id, setShowModal }) {
 
     // let [getIputdata, setgetIputdata] = useState()
+let selectoption=useRef()
+
 
     let [imageArray, setImageArray] = useState([]);
     let [isSpinner, setIsSpinner] = useState(false)
@@ -89,6 +91,7 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                         console.log("ownadd", ownadd)
                         console.log("curreny_time", curreny_time)
                         console.log("getIputdata", getIputdata)
+                        let selecthere = selectoption.current.value;
 
 
 
@@ -126,8 +129,9 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                         let seller = MarketItemId.seller;
                         let sold = MarketItemId.sold;
                         let tokenId = MarketItemId.tokenId;
-                        
-                        let postapiPushdata = await axios.post('https://whenftapi.herokuapp.com/open_marketplace', {
+                        let response=await axios.get('https://pegaxy-openmarket.herokuapp.com/nft_market_history?id=100')
+                        console.log('what is response in sell',response.data)
+                        let postapiPushdata = await axios.post('https://pegaxy-openmarket.herokuapp.com/open_marketplace', {
                             "useraddress": acc,
                             "itemId": itemId,
                             "nftContract": nftContract,
@@ -137,11 +141,13 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                             "sold": sold,
                             "isOnAuction": isOnAuction,
                             "bidEndTime": bidEndTime,
-                            "name": "Pegaxy",
-                            "url": "",
-                            "txn": hash
+                            "name": response.data.title,
+                            "url": response.data.imageurl,
+                            "txn": hash,
+                            "category":selectoption
+
                           })
-                          console.log("Data_Store",postapiPushdata);
+                          console.log("what is post api response in sell",postapiPushdata);
                     
                         cogoToast.success('Transion Compelete');
                     }
@@ -195,6 +201,25 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                                         // onChange={(e) => setgetIputdata(e.target.value)}
 
                                     />
+                                    
+                            <select
+                                name="days"
+                                class="dropdown__filter mt-2"
+                                id=""
+                                style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                ref={selectoption}
+                            >
+                                <option value="" selected disabled hidden >
+                                   <span className='color_chnge' style={{color:"white"}}> Select category</span>
+                                </option>
+                                <option value="ULE" class="dropdown__select">
+
+                                    ULE
+                                </option>
+                                <option value="WHE"> WHE</option>
+                                <option value="CST"> CST</option>
+                         
+                            </select>
                                     <div class="action-group   main_div_btn_model" onClick={() => addOrder()}>
                                         <div class="item-link btn_in_sell">
                                             <div class="button-game primary" style={{ height: "100px" }} >
@@ -220,7 +245,7 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                             <div class="bx-login">
                                 <div class="login-header">
 
-                                    <p class=" ">Please Enter Sell Value in input Area</p>
+                                    <p class="mt-n2">Please Enter Sell Value in input Area</p>
                                 </div>
                                 <div className="single-seller ">
 
@@ -228,13 +253,31 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                                     <input
                                         type="text"
                                         placeholder="Enter Sell Value in ETH"
-                                        className="d-block btn btn-bordered-white mt-0 ml-4 text-white sell_input"
+                                        className="d-block btn btn-bordered-white mt-n3 ml-3 text-white sell_input"
                                         id="bid"
                                         ref={inputdatapricehere}
 
                                         // onChange={(e) => setgetIputdata(e.target.value)}
 
                                     />
+                                    <select
+                                name="days"
+                                class="dropdown__filter mt-2"
+                                id=""
+                                style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                ref={selectoption}
+                            >
+                                <option value="" selected disabled hidden >
+                                   <span className='color_chnge' style={{color:"white"}}> Select category</span>
+                                </option>
+                                <option value="ULE" class="dropdown__select">
+
+                                    ULE
+                                </option>
+                                <option value="WHE"> WHE</option>
+                                <option value="CST"> CST</option>
+                         
+                            </select>
                                     <div class="action-group   main_div_btn_model" onClick={() => addOrder()}>
                                         <div class="item-link btn_in_sell">
                                             <div class="button-game primary" style={{ height: "100px" }} >

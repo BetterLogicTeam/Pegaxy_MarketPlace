@@ -13,7 +13,8 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
     const [getIputdata, setgetIputdata] = useState()
     let [isSpinner, setIsSpinner] = useState(false)
 
-let selectoption=useRef()
+    let selectoption = useRef();
+    let selectcategory = useRef();
 
 
     const addOrder = async () => {
@@ -34,10 +35,11 @@ let selectoption=useRef()
 
                 const web3 = window.web3;
                 let address = "0x4113ccD05D440f9580d55B2B34C92d6cC82eAB3c";
-                let ownadd =acc;
-                let tokenid=18;
+                let ownadd = acc;
+                let tokenid = 18;
                 let value_price = getIputdata;
                 let selecthere = selectoption.current.value;
+                let setdata = selectcategory.current.value
 
 
                 console.log("ownaddress", value_price);
@@ -71,11 +73,27 @@ let selectoption=useRef()
                         // console.log("curreny_time", curreny_time);
                         let nftContractOftoken = new web3.eth.Contract(nftMarketToken_Abi, ownadd);
                         let nftContractInstance = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
-                        let nftContractOfNFT =     new web3.eth.Contract(CreateNFT_ABI, CreateNFT);
+                        let nftContractOfNFT = new web3.eth.Contract(CreateNFT_ABI, CreateNFT);
 
                         // const getItemId = await nftContractInstance.methods.tokenIdToItemId(ownadd, tokenid).call();
 
                         // console.log("tokenIdToItemId", getItemId);
+                        // let response=await axios.get('https://pegaxy-openmarket.herokuapp.com/nft_market_history?id=100')
+                        // console.log("name", response.data.data);
+                        // response.data.data.map((items,index)=>{
+                        //     console.log("title",items.title);
+                        //     console.log("Image",items.imageurl);
+
+                        // })
+                        let contractOf_Own = new web3.eth.Contract(CreateNFT_ABI, CreateNFT)
+                        let WalletOwnOf = await contractOf_Own.methods.walletOfOwner(acc).call();
+                        console.log("WalletOwnOf", WalletOwnOf[id]);
+                        let ArryData = WalletOwnOf[id]
+                        let Wallet_URI = await contractOf_Own.methods.tokenURI(ArryData).call();
+                        console.log("Image", Wallet_URI);
+                        let response=await axios.get(Wallet_URI)
+                        console.log("response", response.data.image);
+
 
                         let getListingPrice = await nftContractInstance.methods.getListingPrice().call();
 
@@ -107,8 +125,12 @@ let selectoption=useRef()
                         let sold = MarketItemId.sold;
                         let tokenId = MarketItemId.tokenId;
 
+
+
                         price = web3.utils.fromWei(price)
-                        let postapiPushdata = await axios.post('https://whenftapi.herokuapp.com/open_marketplace', {
+
+
+                        let postapiPushdata = await axios.post('https://pegaxy-openmarket.herokuapp.com/open_marketplace', {
                             "useraddress": acc,
                             "itemId": itemId,
                             "nftContract": nftContract,
@@ -118,12 +140,14 @@ let selectoption=useRef()
                             "sold": sold,
                             "isOnAuction": isOnAuction,
                             "bidEndTime": bidEndTime,
-                            "name": "Wire",
-                            "url": "https://ipfs.moralis.io:2053/ipfs/QmVfeNmNzjMyWcwnVMfdLLkNGswZnsqQ8ut7zDd1aD8rCY/31.png",
-                            "txn": hash
+                            "name": response.data.title,
+                            "url": response.data.image,
+
+                            "txn": hash,
+                            "category": setdata
                         })
 
-                        console.log("postapiPushdata", postapiPushdata);
+                        console.log("what is response in auction post api", postapiPushdata);
                         toast.success("Transion Compelete")
 
                         setIsSpinner(false)
@@ -150,65 +174,84 @@ let selectoption=useRef()
                 <Modal.Header closeButton onClick={() => setAuctionmodelopen(false)} >
 
                 </Modal.Header>
-                
+
 
 
                 <Modal.Body className='model_bg'>
-                <div class="viewAlert">
-                    <div class="bx-login">
-                        <div class="login-header">
+                    <div class="viewAlert">
+                        <div class="bx-login">
+                            <div class="login-header">
 
-                            <p class=" ">Please Enter Auction Value in input Area</p>
-                        </div>
-                        <div className="single-seller ">
+                                <p class=" ">Please Enter Auction Value in input Area</p>
+                            </div>
+                            <div className="single-seller ">
 
 
-                            <input
-                                type="text"
-                                placeholder="Enter Auction Value in BNB"
-                                className="d-block btn btn-bordered-white mt-n4 text-white sell_input"
-                                id="bid"
-                                onChange={(e) => setgetIputdata(e.target.value)}
-                            // ref={inputdata_price}
-                            />
+                                <input
+                                    type="text"
+                                    placeholder="Enter Auction Value in BNB"
+                                    className="d-block btn btn-bordered-white mt-n4 text-white sell_input"
+                                    id="bid"
+                                    onChange={(e) => setgetIputdata(e.target.value)}
+                                // ref={inputdata_price}
+                                />
 
-                            <select
-                                name="days"
-                                class="dropdown__filter mt-2"
-                                id=""
-                                style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
-                                ref={selectoption}
-                            >
-                                <option value="" selected disabled hidden >
-                                   <span className='color_chnge' style={{color:"white"}}> Select Days</span>
-                                </option>
-                                <option value="1" class="dropdown__select">
+                                <select
+                                    name="days"
+                                    class="dropdown__filter mt-2"
+                                    id=""
+                                    style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                    ref={selectoption}
+                                >
+                                    <option value="" selected disabled hidden >
+                                        <span className='color_chnge' style={{ color: "white" }}> Select Days</span>
+                                    </option>
+                                    <option value="1" class="dropdown__select">
 
-                                    1 Munites
-                                </option>
-                                <option value="2"> 2 Munites</option>
-                                <option value="5"> 5 Munites</option>
-                                <option value="10"> 10 Munites</option>
-                                <option value="15"> 15 Munites</option>
-                            </select>
-                            <div class="action-group   main_div_btn_model mt-n2" onClick={()=>addOrder()} >
-                                <div class="item-link btn_in_sell">
-                                    <div class="button-game primary" style={{ height: "100px" }} >
-                                        <div class="btn-position button-game-left" style={{ width: "40px", height: "50px" }}></div>
-                                        <div class="btn-position button-game-content" style={{ height: "50px" }}>
-                                            <span class="" style={{ fontSize: "20px" }}>Complete Listing</span>
+                                        1 Munites
+                                    </option>
+                                    <option value="2"> 2 Munites</option>
+                                    <option value="5"> 5 Munites</option>
+                                    <option value="10"> 10 Munites</option>
+                                    <option value="15"> 15 Munites</option>
+                                </select>
 
+                                <select
+                                    name="days"
+                                    class="dropdown__filter mt-2"
+                                    id=""
+                                    style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                    ref={selectcategory}
+                                >
+                                    <option value="" selected disabled hidden >
+                                        <span className='color_chnge' style={{ color: "white" }}> Select category</span>
+                                    </option>
+                                    <option value="ULE" class="dropdown__select">
+
+                                        ULE
+                                    </option>
+                                    <option value="WHE"> WHE</option>
+                                    <option value="CST"> CST</option>
+
+                                </select>
+                                <div class="action-group   main_div_btn_model mt-n2" onClick={() => addOrder()} >
+                                    <div class="item-link btn_in_sell">
+                                        <div class="button-game primary" style={{ height: "100px" }} >
+                                            <div class="btn-position button-game-left" style={{ width: "40px", height: "50px" }}></div>
+                                            <div class="btn-position button-game-content" style={{ height: "50px" }}>
+                                                <span class="" style={{ fontSize: "20px" }}>Complete Listing</span>
+
+                                            </div>
+                                            <div class="btn-position button-game-right" style={{ width: "40px", height: "50px" }}></div>
                                         </div>
-                                        <div class="btn-position button-game-right" style={{ width: "40px", height: "50px" }}></div>
                                     </div>
                                 </div>
+
                             </div>
 
                         </div>
 
                     </div>
-
-                </div>
 
                 </Modal.Body>
 

@@ -21,8 +21,6 @@ root.render(
               </Provider>
 
 
-            <Provider store={store}>
-    <App /></Provider>
 
     </MoralisProvider>
   </React.StrictMode>

@@ -70,8 +70,18 @@ export default function Mint({ setModalShow, btnTxt }) {
                         })
                         await fileIpf.saveIPFS(null, { useMasterKey: true })
                         console.log("files", fileIpf._ipfs);
+                         let response=await axios.get(fileIpf._ipfs)
+                        console.log("what is ipfs data",response.data)
+                        let postapiPushdata = await axios.post('https://pegaxy-openmarket.herokuapp.com/nft_market', {
+                            "imageurl":response.data.image,
+                            "description":response.data.description,
+                            "title":response.data.title,
+                            "price":response.data.name,
+                            
+                          })
                         
-                     
+                          console.log("what is post request response",postapiPushdata)
+               
                         setGetInput(fileIpf._ipfs)
                         
                         CreateNftUR(fileIpf._ipfs)

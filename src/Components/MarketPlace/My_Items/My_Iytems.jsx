@@ -299,7 +299,7 @@ export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
                                                                 <div class="info-action">
                                                                     <div class="action-group">
                                                                         <div class="item-link">
-                                                                            <div class="button-game primary" style={{ height: "32px" }} onClick={()=>nivigating("/Details/"+ items.Tokenid)}>
+                                                                            <div class="button-game primary" style={{ height: "32px" }} onClick={()=>nivigating("/Details/"+ idex)}>
                                                                                 <div class="btn-position button-game-left" style={{ width: "16px", height: "32px" }}></div>
                                                                                 <div class="btn-position button-game-content" style={{ height: "32px", paddingRight: "16px", paddingLeft: "16px" }}>
                                                                                     <div class="content-name"><span class="content-name-sub"></span><span class="content-name-title" style={{ fontSize: "20px" }}>LISTING</span></div>
