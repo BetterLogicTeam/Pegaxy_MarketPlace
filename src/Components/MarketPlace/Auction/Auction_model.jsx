@@ -185,8 +185,7 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
                                 <p class=" ">Please Enter Auction Value in input Area</p>
                             </div>
                             <div className="single-seller ">
-
-
+                                <div className="innderdi">
                                 <input
                                     type="text"
                                     placeholder="Enter Auction Value in BNB"
@@ -218,7 +217,7 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
 
                                 <select
                                     name="days"
-                                    class="dropdown__filter mt-2"
+                                    class="dropdown__filter mt-4"
                                     id=""
                                     style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
                                     ref={selectcategory}
@@ -234,6 +233,11 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
                                     <option value="CST"> CST</option>
 
                                 </select>
+
+                                </div>
+
+
+                               
                                 <div class="action-group   main_div_btn_model mt-n2" onClick={() => addOrder()} >
                                     <div class="item-link btn_in_sell">
                                         <div class="button-game primary" style={{ height: "100px" }} >

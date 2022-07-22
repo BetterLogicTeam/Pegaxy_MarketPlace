@@ -23756,7 +23756,7 @@ fieldset:disabled .btn {
 	background-repeat: no-repeat;
 	background-position: 50%;
 	background-size: 100% 100%;
-	background-image: url(https://cdn.pegaxy.io/statics/play/v9/images/modal/modal_bg.png)
+	/* background-image: url(https://cdn.pegaxy.io/statics/play/v9/images/modal/modal_bg.png) */
 }
 
 .modal-alert.type-2 .modal-dialog .modal-content {

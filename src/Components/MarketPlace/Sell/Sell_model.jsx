@@ -95,7 +95,14 @@ let selectoption=useRef()
 
 
 
-
+                        let contractOf_Own = new web3.eth.Contract(CreateNFT_ABI, CreateNFT)
+                        let WalletOwnOf = await contractOf_Own.methods.walletOfOwner(acc).call();
+                        console.log("WalletOwnOf", WalletOwnOf[id]);
+                        let ArryData = WalletOwnOf[id]
+                        let Wallet_URI = await contractOf_Own.methods.tokenURI(ArryData).call();
+                        console.log("Image", Wallet_URI);
+                        let response=await axios.get(Wallet_URI)
+                        console.log("response", response.data.image);
                         let getListingPrice = await getodernumberhere.methods.getListingPrice().call();
 
                         console.log("getListingPrice", getListingPrice);
@@ -129,8 +136,7 @@ let selectoption=useRef()
                         let seller = MarketItemId.seller;
                         let sold = MarketItemId.sold;
                         let tokenId = MarketItemId.tokenId;
-                        let response=await axios.get('https://pegaxy-openmarket.herokuapp.com/nft_market_history?id=100')
-                        console.log('what is response in sell',response.data)
+                  
                         let postapiPushdata = await axios.post('https://pegaxy-openmarket.herokuapp.com/open_marketplace', {
                             "useraddress": acc,
                             "itemId": itemId,
@@ -142,7 +148,7 @@ let selectoption=useRef()
                             "isOnAuction": isOnAuction,
                             "bidEndTime": bidEndTime,
                             "name": response.data.title,
-                            "url": response.data.imageurl,
+                            "url": response.data.image,
                             "txn": hash,
                             "category":selectoption
 

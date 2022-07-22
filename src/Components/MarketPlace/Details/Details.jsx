@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { loadWeb3 } from '../../../apis/api';
 import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
+import { CreateNFT, CreateNFT_ABI } from '../../../utilies/Contract';
 import Auction_model from '../Auction/Auction_model';
 import Navbar_nav from '../Navbar_market/Navbar_nav'
 import Sell_model from '../Sell/Sell_model';
@@ -35,19 +36,16 @@ export default function Details({ setModalShow, btnTxt }) {
         }
         else {
             const web3 = window.web3;
-            let nftContractOf = new web3.eth.Contract(wireNftContractAbi, wireNftContractAddress);
-            let simplleArray = [];
-            let walletOfOwner = await nftContractOf.methods.walletOfOwner(acc).call()
-            let walletLength = walletOfOwner.length
-            setMyWalletLength(walletLength)
-            console.log("walletOfOwner", walletLength);
-            let res = await axios.get(`https://gateway.pinata.cloud/ipfs/QmUiSPrAAFJuQRBKu7GtGVMeGKAbWUE3EPyDo8FuCeeKvJ/${walletOfOwner[id]}.png`)
-            // let res = await axios.get(`/config/${walletOfOwner[i]}.json`)
-            let imageUrl = res.config.url;
-            console.log("Imager_here", imageUrl);
-            let dna = res.data.dna
-            simplleArray = [...simplleArray, { imageUrl: imageUrl, num: dna }]
-            setImageArray(simplleArray);
+            let contractOf_Own = new web3.eth.Contract(CreateNFT_ABI, CreateNFT)
+            let WalletOwnOf = await contractOf_Own.methods.walletOfOwner(acc).call();
+            console.log("WalletOwnOf", WalletOwnOf[id]);
+            let ArryData = WalletOwnOf[id]
+            let Wallet_URI = await contractOf_Own.methods.tokenURI(ArryData).call();
+            console.log("Image", Wallet_URI);
+            let response = await axios.get(Wallet_URI)
+            console.log("response", response.data.image);
+
+            setImageArray(response.data.image)
 
 
         }
@@ -65,8 +63,8 @@ export default function Details({ setModalShow, btnTxt }) {
 
     return (
         <div>
-                <Sell_model showModal={showModal} setShowModal={setShowModal} id={id}  />
-                <Auction_model  id={id} setAuctionmodelopen={setAuctionmodelopen} Auctionmodelopen={Auctionmodelopen} />
+            <Sell_model showModal={showModal} setShowModal={setShowModal} id={id} />
+            <Auction_model id={id} setAuctionmodelopen={setAuctionmodelopen} Auctionmodelopen={Auctionmodelopen} />
 
             <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />
             <div className='main_div_app'>
@@ -144,7 +142,7 @@ export default function Details({ setModalShow, btnTxt }) {
                                         <div className="col-lg-6">
                                             <h1 className='text-white ms-4'>SELL NFT</h1>
 
-                                            <div className="single-seller mt-5 " onClick={()=>setShowModal(true)}>
+                                            <div className="single-seller mt-5 " onClick={() => setShowModal(true)}>
 
 
 
@@ -162,7 +160,7 @@ export default function Details({ setModalShow, btnTxt }) {
                                                 </div>
 
                                             </div>
-                                            <div className="single-seller mt-3" onClick={()=>setAuctionmodelopen(true)} >
+                                            <div className="single-seller mt-3" onClick={() => setAuctionmodelopen(true)} >
 
 
 
@@ -183,14 +181,22 @@ export default function Details({ setModalShow, btnTxt }) {
 
                                         </div>
                                         <div className="col-lg-6 mt-5">
-                                            {
+                                        <div class="single-live-auction home-2" >
+                                                                <div class="div_sell_image">
+
+                                                                    <img src={imageArray} alt="Image" width="50%" />
+                                                                </div>
+
+
+                                                            </div>
+                                            {/* {
                                                 imageArray.map((items, index) => {
                                                     return (
                                                         <>
                                                             <div class="single-live-auction home-2" >
                                                                 <div class="div_sell_image">
-                                                                    
-                                                                    <img src={items.imageUrl} alt="Image" width="50%" />
+
+                                                                    <img src={items} alt="Image" width="50%" />
                                                                 </div>
 
 
@@ -199,7 +205,7 @@ export default function Details({ setModalShow, btnTxt }) {
                                                         </>
                                                     )
                                                 })
-                                            }
+                                            } */}
                                         </div>
 
 

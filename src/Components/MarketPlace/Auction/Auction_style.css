@@ -17,3 +17,8 @@
     padding: 15px !important;
   
 }
+.innderdi{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
