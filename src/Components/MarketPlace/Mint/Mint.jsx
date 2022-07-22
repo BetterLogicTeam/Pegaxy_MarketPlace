@@ -63,7 +63,7 @@ export default function Mint({ setModalShow, btnTxt }) {
                             image: fileIpfs._ipfs,
                             description: formInput.description,
                             title: formInput.name,
-                            price: formInput.price
+                            name: formInput.price
                         }
                         const fileIpf = new Moralis.File("metadata.json", {
                             base64: btoa(JSON.stringify(metaData))
