@@ -12,6 +12,8 @@ import Index_Main from './Components/Index_Main';
 import MarketPlace_Main from './Components/MarketPlace_Main';
 import Navbar_nav from './Components/MarketPlace/Navbar_market/Navbar_nav';
 import Items from './Components/MarketPlace/Items/Items';
+import Horse_Racing  from './Components/MarketPlace/Racing/Horse_Racing'
+
 import Pages from './Components/MarketPlace/Pages/Pages';
 import Marketplace_play_game from './Components/MarketPlace/MarketPlace_play_game/Marketplace_play_game';
 import Breeding from './Components/MarketPlace/Breeding/Breeding';
@@ -100,6 +102,7 @@ function App() {
           {/* <Route path="MarketPlace_Main" element={<MarketPlace_Main />} /> */}
           {/* <Route path="Items" element={<Items setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
           <Route path="Items" element={<Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />} >
+            
           <Route path="/Items/My_Assets" element={<My_Assets_first/>} />
           <Route path="/Items/Breeding" element={<Breeding />} />
           <Route path="/Items/Racing_main" element={<Racing_main />} />
@@ -108,9 +111,7 @@ function App() {
           <Route path="/Items/My_Items" element={<My_Iytems  />} />
           <Route path="/Items/Mint" element={<Mint />} />
           <Route path="/Items/My_Profile" element={<My_Profile/>} />
-
-
-
+          <Route path="/Items/horse_racing" element={<Horse_Racing />} />
 
 
           </Route>

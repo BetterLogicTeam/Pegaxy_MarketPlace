@@ -28,7 +28,7 @@ export default function Header({ChangeItems}) {
                             <Nav.Link href="#" className='navbar_text'>Roadmap</Nav.Link>
                             <Nav.Link href="#" className='navbar_text'>White Paper</Nav.Link>
                             <Nav.Link href="#" className='navbtn'>
-                                <Link to="/Mint" className='nav_link_header'>
+                                <Link to="Items" className='nav_link_header'>
                                     <span itemprop="name" >Play Now</span>
 
                                 </Link>

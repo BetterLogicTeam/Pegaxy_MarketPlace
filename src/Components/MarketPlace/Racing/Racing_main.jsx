@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Racing_style.css'
 
+
 export default function Racing_main({setModalShow,btnTxt}) {
     return (
         <div>
@@ -82,7 +83,10 @@ export default function Racing_main({setModalShow,btnTxt}) {
 
 
                                                 </div>
+                                                <Link to="/Items/horse_racing" className='text_de'>
                                                 <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
+                                                </Link>
+                                              
                                                 <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
                                             </div>
                                         </div>
