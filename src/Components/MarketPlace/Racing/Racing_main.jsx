@@ -1,13 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Racing_style.css'
 
 export default function Racing_main({setModalShow,btnTxt}) {
     return (
         <div>
 
-<Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />
 <div className='main_div_app'>
 
             <div class="container">

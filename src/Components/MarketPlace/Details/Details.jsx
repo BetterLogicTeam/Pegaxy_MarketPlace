@@ -68,10 +68,10 @@ export default function Details({ setModalShow, btnTxt }) {
                 <Sell_model showModal={showModal} setShowModal={setShowModal} id={id}  />
                 <Auction_model  id={id} setAuctionmodelopen={setAuctionmodelopen} Auctionmodelopen={Auctionmodelopen} />
 
-            <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />
+            {/* <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} /> */}
             <div className='main_div_app'>
 
-                <div class="container">
+                <div class="">
                     <div class="bx-view">
                         <div class="bx-full">
                             <div class="bx-header">

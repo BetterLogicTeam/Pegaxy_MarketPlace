@@ -1,12 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Market_place.css'
 
 export default function Marketplace_play_game({ setModalShow,btnTxt }) {
     return (
         <div>
-            <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />
             <div className='main_div_app'>
 
                 <div class="container">
@@ -25,7 +23,7 @@ export default function Marketplace_play_game({ setModalShow,btnTxt }) {
                                                         </div>
                                                     </div>
 
-                                                    <Link to="/Marketplace_play_game">  <a class="item-tab-title" href="PlayGame.html">ALL</a></Link>
+                                                    <Link to="/Items/Marketplace_play_game">  <a class="item-tab-title" href="PlayGame.html">ALL</a></Link>
                                                 </div>
                                             </li>
                                             <li class="">
@@ -36,7 +34,7 @@ export default function Marketplace_play_game({ setModalShow,btnTxt }) {
                                                             <noscript></noscript>
                                                         </div>
                                                     </div>
-                                                    <Link to="/pages">  <a class="item-tab-title" href="pages.html">PEGAS</a>
+                                                    <Link to="/Items/pages">  <a class="item-tab-title" href="pages.html">PEGAS</a>
                                                     </Link>
                                                 </div>
                                             </li>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Mint.css'
 import {getWallet, NftData} from '../../../redux/redux/actions/actions'
 
@@ -148,7 +147,6 @@ export default function Mint({ setModalShow, btnTxt }) {
     return (
         <div>
 
-            <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />
             <div className='main_div_app'>
                 <div class="container">
                     <div class="bx-view">
@@ -165,7 +163,7 @@ export default function Mint({ setModalShow, btnTxt }) {
                                                             <noscript></noscript>
                                                         </div>
                                                     </div>
-                                                    <Link to="/Mint" className='text_de'>
+                                                    <Link to="/Items/Mint" className='text_de'>
 
                                                         <span class="item-tab-title active">MINT</span>
                                                     </Link>
@@ -179,7 +177,7 @@ export default function Mint({ setModalShow, btnTxt }) {
                                                             <noscript></noscript>
                                                         </div>
                                                     </div>
-                                                    <Link to="/My_Items" className='text_de'>
+                                                    <Link to="/Items/My_Items" className='text_de'>
 
                                                         <span class="item-tab-title ">ITEMS</span>
                                                     </Link>
@@ -207,7 +205,7 @@ export default function Mint({ setModalShow, btnTxt }) {
                                                             <noscript></noscript>
                                                         </div>
                                                     </div>
-                                                    <Link to="/My_Profile" className='text_de'>
+                                                    <Link to="/Items/My_Profile" className='text_de'>
 
                                                         <span class="item-tab-title">My Profit</span>
                                                     </Link>

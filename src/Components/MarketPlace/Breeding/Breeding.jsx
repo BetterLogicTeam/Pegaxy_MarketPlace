@@ -1,13 +1,11 @@
 import React from 'react'
 import Model_connect from '../Model_connect/Model_connect'
-import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Breeding.css'
 
 export default function Breeding({setModalShow,getAccount,btnTxt}) {
     return (
         <div>
 
-            <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt}/>
             <div className='main_div_app'>
 
             <div class="container">

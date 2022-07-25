@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Link, useHistory, useNavigate } from 'react-router-dom'
 import { loadWeb3 } from '../../../apis/api';
 import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
-import Navbar_nav from '../Navbar_market/Navbar_nav'
-import ReactPlayer from 'react-player'
 import Web3 from 'web3';
 import { CreateNFT, CreateNFT_ABI } from '../../../utilies/Contract';
 
@@ -175,7 +173,6 @@ export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
 
     return (
         <div>
-            <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />
 
 
             <div className='main_div_app'>
@@ -195,7 +192,7 @@ export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
                                                             <noscript></noscript>
                                                         </div>
                                                     </div>
-                                                    <Link to="/Mint" className='text_de'>
+                                                    <Link to="/Items/Mint" className='text_de'>
 
                                                         <span class="item-tab-title">MINT</span>
                                                     </Link>
@@ -209,7 +206,7 @@ export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
                                                             <noscript></noscript>
                                                         </div>
                                                     </div>
-                                                    <Link to="/My_Items" className='text_de'>
+                                                    <Link to="/Items/My_Items" className='text_de'>
 
                                                         <span class="item-tab-title active">ITEMS</span>
                                                     </Link>
@@ -237,7 +234,7 @@ export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
                                                             <noscript></noscript>
                                                         </div>
                                                     </div>
-                                                    <Link to="/My_Profile" className='text_de'>
+                                                    <Link to="/Items/My_Profile" className='text_de'>
 
                                                         <span class="item-tab-title">My Profit</span>
                                                     </Link>
