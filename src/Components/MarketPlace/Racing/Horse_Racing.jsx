@@ -103,7 +103,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                     <div class="header-title"></div>
                                     <div class="header-tab">
                                         <ul>
-                                            <Link to="/Racing_main">
+                                            <Link to="/Items/horse_racing">
                                                 <li class="active">
                                                     <div class="item-tab">
                                                         <div class="item-tab-icon">
@@ -116,7 +116,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                     </div>
                                                 </li>
                                             </Link>
-                                            <Link to="/Finished_race">
+                                            <Link to="/Items/Finished_race">
                                                 <li class="">
                                                     <div class="item-tab">
                                                         <div class="item-tab-icon">

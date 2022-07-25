@@ -17,7 +17,7 @@ export default function Racing_main({setModalShow,btnTxt}) {
                                 <div class="header-title"></div>
                                 <div class="header-tab">
                                     <ul>
-                                    <Link to="/Racing_main">
+                                    <Link to="/Items/horse_racing">
                                         <li class="active">
                                             <div class="item-tab">
                                                 <div class="item-tab-icon">
@@ -30,7 +30,7 @@ export default function Racing_main({setModalShow,btnTxt}) {
                                             </div>
                                         </li>
                                         </Link>
-                                                <Link to="/Finished_race">
+                                                <Link to="/Items/Finished_race">
                                         <li class="">
                                             <div class="item-tab">
                                                 <div class="item-tab-icon">
@@ -83,7 +83,7 @@ export default function Racing_main({setModalShow,btnTxt}) {
 
 
                                                 </div>
-                                                <Link to="/Items/horse_racing" className='text_de'>
+                                                <Link  to="/Items/horse_racing" className='text_de'>
                                                 <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
                                                 </Link>
                                               

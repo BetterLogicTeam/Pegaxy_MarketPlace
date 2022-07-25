@@ -102,7 +102,7 @@ function App() {
           {/* <Route path="MarketPlace_Main" element={<MarketPlace_Main />} /> */}
           {/* <Route path="Items" element={<Items setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
           <Route path="Items" element={<Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />} >
-            
+
           <Route path="/Items/My_Assets" element={<My_Assets_first/>} />
           <Route path="/Items/Breeding" element={<Breeding />} />
           <Route path="/Items/Racing_main" element={<Racing_main />} />
@@ -112,11 +112,11 @@ function App() {
           <Route path="/Items/Mint" element={<Mint />} />
           <Route path="/Items/My_Profile" element={<My_Profile/>} />
           <Route path="/Items/horse_racing" element={<Horse_Racing />} />
+          <Route path="/Items/Finished_race" element={<Finished_race />} />
 
 
           </Route>
 
-          <Route path="Finished_race" element={<Finished_race setModalShow={setModalShow} btnTxt={btnTxt} />} />
           {/* <Route path="My_Profile" element={<My_Profile setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
           <Route path="My_Bids" element={<My_Bids setModalShow={setModalShow} btnTxt={btnTxt} />} />
           {/* <Route path="My_Items" element={<My_Iytems setModalShow={setModalShow} btnTxt={btnTxt} setshowsell={setshowsell} />} /> */}

@@ -7,7 +7,7 @@ export default function Finished_race({ setModalShow,btnTxt }) {
     return (
         <div>
 
-            <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />
+            {/* <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} /> */}
             <div className='main_div_app'>
                 <div class="container">
                     <div class="bx-view">
@@ -17,7 +17,7 @@ export default function Finished_race({ setModalShow,btnTxt }) {
                                     <div class="header-title"></div>
                                     <div class="header-tab">
                                         <ul>
-                                            <Link to="/Racing_main">
+                                            <Link to="/Items/horse_racing">
 
                                                 <li class="">
                                                     <div class="item-tab">
@@ -32,7 +32,7 @@ export default function Finished_race({ setModalShow,btnTxt }) {
                                                 </li>
                                             </Link>
 
-                                            <Link to="/Finished_race">
+                                            <Link to="/Items/Finished_race">
 
                                                 <li class="active">
                                                     <div class="item-tab">
