@@ -178,15 +178,21 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
 
 
                 <Modal.Body className='model_bg'>
-                    <div class="viewAlert">
+
+                {
+
+isSpinner ? (<>
+    <span className='span_main'>
+        <img alt="" srcset="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 1x, https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 2x" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" class="alert-icon-img" />
+    </span>
+    <div class="viewAlert">
                         <div class="bx-login">
                             <div class="login-header">
 
                                 <p class=" ">Please Enter Auction Value in input Area</p>
                             </div>
                             <div className="single-seller ">
-
-
+                                <div className="innderdi">
                                 <input
                                     type="text"
                                     placeholder="Enter Auction Value in BNB"
@@ -218,7 +224,7 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
 
                                 <select
                                     name="days"
-                                    class="dropdown__filter mt-2"
+                                    class="dropdown__filter mt-4"
                                     id=""
                                     style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
                                     ref={selectcategory}
@@ -234,6 +240,11 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
                                     <option value="CST"> CST</option>
 
                                 </select>
+
+                                </div>
+
+
+                               
                                 <div class="action-group   main_div_btn_model mt-n2" onClick={() => addOrder()} >
                                     <div class="item-link btn_in_sell">
                                         <div class="button-game primary" style={{ height: "100px" }} >
@@ -252,6 +263,89 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
                         </div>
 
                     </div>
+</>) : (<> 
+    <div class="viewAlert">
+                        <div class="bx-login">
+                            <div class="login-header">
+
+                                <p class=" ">Please Enter Auction Value in input Area</p>
+                            </div>
+                            <div className="single-seller ">
+                                <div className="innderdi">
+                                <input
+                                    type="text"
+                                    placeholder="Enter Auction Value in BNB"
+                                    className="d-block btn btn-bordered-white mt-n4 text-white sell_input"
+                                    id="bid"
+                                    onChange={(e) => setgetIputdata(e.target.value)}
+                                // ref={inputdata_price}
+                                />
+
+                                <select
+                                    name="days"
+                                    class="dropdown__filter mt-2"
+                                    id=""
+                                    style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                    ref={selectoption}
+                                >
+                                    <option value="" selected disabled hidden >
+                                        <span className='color_chnge' style={{ color: "white" }}> Select Days</span>
+                                    </option>
+                                    <option value="1" class="dropdown__select">
+
+                                        1 Munites
+                                    </option>
+                                    <option value="2"> 2 Munites</option>
+                                    <option value="5"> 5 Munites</option>
+                                    <option value="10"> 10 Munites</option>
+                                    <option value="15"> 15 Munites</option>
+                                </select>
+
+                                <select
+                                    name="days"
+                                    class="dropdown__filter mt-4"
+                                    id=""
+                                    style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                    ref={selectcategory}
+                                >
+                                    <option value="" selected disabled hidden >
+                                        <span className='color_chnge' style={{ color: "white" }}> Select category</span>
+                                    </option>
+                                    <option value="ULE" class="dropdown__select">
+
+                                        ULE
+                                    </option>
+                                    <option value="WHE"> WHE</option>
+                                    <option value="CST"> CST</option>
+
+                                </select>
+
+                                </div>
+
+
+                               
+                                <div class="action-group   main_div_btn_model mt-n2" onClick={() => addOrder()} >
+                                    <div class="item-link btn_in_sell">
+                                        <div class="button-game primary" style={{ height: "100px" }} >
+                                            <div class="btn-position button-game-left" style={{ width: "40px", height: "50px" }}></div>
+                                            <div class="btn-position button-game-content" style={{ height: "50px" }}>
+                                                <span class="" style={{ fontSize: "20px" }}>Complete Listing</span>
+
+                                            </div>
+                                            <div class="btn-position button-game-right" style={{ width: "40px", height: "50px" }}></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+</>)
+}
+                    
 
                 </Modal.Body>
 

@@ -82,14 +82,15 @@ body {
  /* Modal Content/Box */
  .modal-content {
     background-image: url("https://cdn.pegaxy.io/statics/play/v9/images/modal/modal_bg.png");
-    ;
+    
     margin: 5% auto 15% auto;
     /* 5% from the top, 15% from the bottom and centered */
     background-color: transparent !important;
     border: 1px solid #888;
-    width: 526px;
-    height: 300px;
+    width: 100%;
+    /* height: 300px; */
     background-size: cover;
+    background-position: center;
  }
 
  /* The Close Button (x) */

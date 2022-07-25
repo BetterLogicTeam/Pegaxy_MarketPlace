@@ -21,7 +21,7 @@ export default function Mint({ setModalShow, btnTxt }) {
   console.log("check",acc);
     const [fileUrl, setFileUrl] = useState(null)
     const [formInput, updateFormInput] = useState({ price: '0', name: 'NFT Name', description: '' })
-    const [nftImage, setNftImage] = useState()
+    const [nftImage, setNftImage] = useState("")
     let [getInpiut, setGetInput] = useState({ first: "", second: "", third: "", image: "" })
     let [name, setName] = useState("");
     let [description, setDescription] = useState("");
@@ -179,7 +179,7 @@ export default function Mint({ setModalShow, btnTxt }) {
                                                     </div>
                                                     <Link to="/Items/My_Items" className='text_de'>
 
-                                                        <span class="item-tab-title ">ITEMS</span>
+                                                        <span class="item-tab-title ">COLLECTION</span>
                                                     </Link>
                                                 </div>
                                             </li>
@@ -242,7 +242,7 @@ export default function Mint({ setModalShow, btnTxt }) {
                                                                             {/* <form action="#"> */}
                                                                             <h4 class="title-create-item">Upload file</h4>
                                                                             <label class="uploadFile">
-                                                                                <span class="filename text-white">PNG, JPG, GIF, WEBP or MP4.</span>
+                                                                                <span class="filename text-white">{nftImage.name? nftImage.name : ("PNG, JPG, GIF, WEBP or MP4.")}</span>
                                                                                 <input type="file" class="inputfile form-control" name="fileInput" id="fileInput"
                                                                                     onChange={(e) => {
                                                                                         e.preventDefault();
