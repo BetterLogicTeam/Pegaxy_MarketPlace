@@ -1,13 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Pages.css'
 
 export default function Pages({ setModalShow,btnTxt } ) {
     return (
         <div>
 
-            <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />
             <div className='main_div_app'>
 
                 <div class="container">
@@ -25,7 +23,7 @@ export default function Pages({ setModalShow,btnTxt } ) {
                                                             <noscript></noscript>
                                                         </div>
                                                     </div>
-                                                    <Link to="/Marketplace_play_game">
+                                                    <Link to="/Items/Marketplace_play_game">
                                                         <a class="item-tab-title" href="PlayGame.html">ALL
                                                         </a>
                                                     </Link>
@@ -41,7 +39,7 @@ export default function Pages({ setModalShow,btnTxt } ) {
                                                     </div>
                                                 </div>
                                             </a>
-                                                    <Link to="/pages">
+                                                    <Link to="/Items/pages">
 
                                                         <a class="item-tab-title" href="pages.html">PEGAS</a>
                                                     </Link>

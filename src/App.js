@@ -12,6 +12,8 @@ import Index_Main from './Components/Index_Main';
 import MarketPlace_Main from './Components/MarketPlace_Main';
 import Navbar_nav from './Components/MarketPlace/Navbar_market/Navbar_nav';
 import Items from './Components/MarketPlace/Items/Items';
+import Horse_Racing  from './Components/MarketPlace/Racing/Horse_Racing'
+
 import Pages from './Components/MarketPlace/Pages/Pages';
 import Marketplace_play_game from './Components/MarketPlace/MarketPlace_play_game/Marketplace_play_game';
 import Breeding from './Components/MarketPlace/Breeding/Breeding';
@@ -98,17 +100,28 @@ function App() {
         <Routes>
           <Route path="/" element={<Index_Main />} />
           {/* <Route path="MarketPlace_Main" element={<MarketPlace_Main />} /> */}
-          <Route path="Items" element={<Items setModalShow={setModalShow} btnTxt={btnTxt} />} />
-          <Route path="pages" element={<Pages setModalShow={setModalShow} btnTxt={btnTxt} />} />
-          <Route path="Marketplace_play_game" element={<Marketplace_play_game setModalShow={setModalShow} btnTxt={btnTxt} />} />
-          <Route path="Breeding" element={<Breeding setModalShow={setModalShow} getAccount={getAccount} btnTxt={btnTxt} />} />
-          <Route path="Racing_main" element={<Racing_main setModalShow={setModalShow} btnTxt={btnTxt} />} />
-          <Route path="Finished_race" element={<Finished_race setModalShow={setModalShow} btnTxt={btnTxt} />} />
-          <Route path="My_Assets" element={<My_Assets_first setModalShow={setModalShow} btnTxt={btnTxt} />} />
-          <Route path="My_Profile" element={<My_Profile setModalShow={setModalShow} btnTxt={btnTxt} />} />
+          {/* <Route path="Items" element={<Items setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
+          <Route path="Items" element={<Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />} >
+
+          <Route path="/Items/My_Assets" element={<My_Assets_first/>} />
+          <Route path="/Items/Breeding" element={<Breeding />} />
+          <Route path="/Items/Racing_main" element={<Racing_main />} />
+          <Route path="/Items/Marketplace_play_game" element={<Marketplace_play_game  />} />
+          <Route path="/Items/pages" element={<Pages />} />
+          <Route path="/Items/My_Items" element={<My_Iytems  />} />
+          <Route path="/Items/Mint" element={<Mint />} />
+          <Route path="/Items/My_Profile" element={<My_Profile/>} />
+          <Route path="/Items/horse_racing" element={<Horse_Racing />} />
+          <Route path="/Items/Finished_race" element={<Finished_race />} />
+
+
+          </Route>
+
+          {/* <Route path="My_Profile" element={<My_Profile setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
           <Route path="My_Bids" element={<My_Bids setModalShow={setModalShow} btnTxt={btnTxt} />} />
-          <Route path="My_Items" element={<My_Iytems setModalShow={setModalShow} btnTxt={btnTxt} setshowsell={setshowsell} />} />
-          <Route path="Mint" element={<Mint setModalShow={setModalShow} btnTxt={btnTxt} setIsSpinner={setIsSpinner} />} />
+          {/* <Route path="My_Items" element={<My_Iytems setModalShow={setModalShow} btnTxt={btnTxt} setshowsell={setshowsell} />} /> */}
+
+          {/* <Route path="Mint" element={<Mint setModalShow={setModalShow} btnTxt={btnTxt} setIsSpinner={setIsSpinner} />} /> */}
           <Route exact path="/Details/:id" element={<Details setModalShow={setModalShow} btnTxt={btnTxt} />} />
           <Route exact path="MarketPlace" element={<MarketPlaceFull />} />
           <Route path="/Auctions_NFT" element={<Auctions_NFT />} />

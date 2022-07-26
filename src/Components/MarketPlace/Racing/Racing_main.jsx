@@ -1,13 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Racing_style.css'
+
 
 export default function Racing_main({setModalShow,btnTxt}) {
     return (
         <div>
 
-<Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />
 <div className='main_div_app'>
 
             <div class="container">
@@ -18,7 +17,7 @@ export default function Racing_main({setModalShow,btnTxt}) {
                                 <div class="header-title"></div>
                                 <div class="header-tab">
                                     <ul>
-                                    <Link to="/Racing_main">
+                                    <Link to="/Items/horse_racing">
                                         <li class="active">
                                             <div class="item-tab">
                                                 <div class="item-tab-icon">
@@ -31,7 +30,7 @@ export default function Racing_main({setModalShow,btnTxt}) {
                                             </div>
                                         </li>
                                         </Link>
-                                                <Link to="/Finished_race">
+                                                <Link to="/Items/Finished_race">
                                         <li class="">
                                             <div class="item-tab">
                                                 <div class="item-tab-icon">
@@ -84,7 +83,10 @@ export default function Racing_main({setModalShow,btnTxt}) {
 
 
                                                 </div>
+                                                <Link  to="/Items/horse_racing" className='text_de'>
                                                 <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
+                                                </Link>
+                                              
                                                 <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
                                             </div>
                                         </div>
