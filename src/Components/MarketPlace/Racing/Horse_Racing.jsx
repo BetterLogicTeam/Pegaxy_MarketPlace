@@ -2,11 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Horse_style.css'
-var myArr=[]
+var myArr = []
 export default function Horse_Racing({ setModalShow, btnTxt }) {
-    // const [myArr, setmyArr] = useState([])
+    const [myArr, setmyArr] = useState([])
+    const [array] = React.useState([1, 2, 3, 4, 5]);
+    const [displayArray, setDisplayArray] = React.useState([]);
+    const [displayEl, setDisplayEl] = React.useState();
+    const [Itemcount, setItemcount] = useState(1)
+
+
+
     function myMove() {
-        let id = null;
+        // let id = null;
+
 
         for (let i = 0; i <= 15; i++) {
             let innerdiv = document.createElement('div');
@@ -22,18 +30,24 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
             Image_tag.style.marginLeft = "0px";
             Span_div.setAttribute("className", "Span_clas_style")
             // const elem = document.getElementById("race-1");
-            let pos = 0;
             // clearInterval(id);
-
-            id = setInterval(function () {
+            let pos = 0.5;
+            let id = setInterval(function () {
                 pos++;
-                console.log("check", (parseFloat(Image_tag.style.left) + 0.5) + "px")
-                Image_tag.style.top =(parseFloat(Image_tag.style.top) - 0)  + 'px';
+                Image_tag.style.top = (parseFloat(Image_tag.style.top) - 0) + 'px';
                 Image_tag.style.marginLeft = (parseFloat(Image_tag.style.marginLeft) + 0.5) + 'px';
-
+                // console.log("pos", pos);
+                if (pos >= 200) {
+                    // stop()
+                }
                 // Image_tag.style.left = pos + "px";
 
             }, 10 + Math.random() * 2);
+            console.log("pos", id);
+            const stop = () => {
+                console.log("innetr stop", id);
+                clearInterval(id)
+            }
             // clearInterval(id)
             // if(pos >= 20){
 
@@ -169,27 +183,55 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
         },
 
     ]
-    // var arr = ['value1', 'value2', ' value3', 'value4'];
-    var arrayDelay = function(i) {
-        if (NameArray[i]) {
-            console.log(NameArray[i]);
-            myArr.push(NameArray[i]);
-            // setmyArr(NameArray[i])
 
-            setTimeout(function(){arrayDelay(i+1);}, 4000);
-        }
+
+    function print() {
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+        var i = 1;
+        var func = setInterval(function () {
+
+            setmyArr(arr[i])
+
+            i++;
+            if (i >= arr.length) {
+                clearInterval(func);
+            }
+
+        }, 1000);
+
     }
 
-    useEffect(()=>{
-    arrayDelay(0);
-        
 
-    })
-    // setInterval(() => {
-    // console.log("what is myarr global array",myArr)
-        
-    // }, 4000);
-    // console.log("what is myarr in state array",myArr)
+    const delay = (ms) =>
+        new Promise((res) => {
+            setTimeout(() => {
+                res();
+            }, ms);
+        });
+
+    React.useEffect(() => {
+        (async function () {
+            let n = 1;
+            for (let el of NameArray) {
+                await delay(1000);
+                setDisplayEl(el);
+                setItemcount(n++)
+            }
+            setDisplayEl(undefined);
+        })();
+    }, []);
+
+    React.useEffect(() => {
+        displayEl && setDisplayArray((prev) => [...prev, displayEl]);
+    }, [displayEl]);
+
+
+
+    useEffect(() => {
+        print()
+    }, [])
+
+
     return (
         <div>
             {/* <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} /> */}
@@ -202,6 +244,9 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                         <p>
                             <button onClick={() => myMove()}>Click Me</button>
                         </p>
+                        {/* {
+                            console.log("Array",myArr)
+                        } */}
 
                         <div class="bx-left">
                             <div class="bx-header">
@@ -240,7 +285,10 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                     </div>
                                 </div>
                             </div>
-
+                            {/* <h1>Hello CodeSandbox</h1>
+                            {displayArray.map((elem, key) => (
+                                <div key={key}>Number: {elem.title}</div>
+                            ))} */}
 
 
                             <div class="bx-view">
@@ -252,7 +300,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                     <div class="gameState-container">
                                                         <span>WAITING<div class="animate-dot">...</div>
                                                         </span>
-                                                        <span class="gameState-info">8/15</span>
+                                                        <span class="gameState-info">{Itemcount}/15</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -296,7 +344,13 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                     <div class="race-stats">
                                                         <div class="race-horse">
                                                             {
-                                                                NameArray.map((items, index) => {
+
+
+                                                                displayArray.map((items, index) => {
+
+
+                                                                    // setItemcount(index)
+                                                                    // console.log("Index",index);
                                                                     return (
                                                                         <>
                                                                             <div class="item-race">
@@ -305,7 +359,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="hourse-info" >
-                                                                                    <div class="hourse-title" title="LegendaryDog3">{items.title}</div>
+                                                                                    <div class="hourse-title" title="LegendaryDog3">{items.title ? items.title : (<>Waiting..</>)}</div>
                                                                                     <div class="hourse-position">{index + 1}</div>
                                                                                 </div>
                                                                             </div>
@@ -313,6 +367,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                         </>
                                                                     )
                                                                 })
+
                                                             }
 
 
