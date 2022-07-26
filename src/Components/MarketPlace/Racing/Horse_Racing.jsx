@@ -7,7 +7,6 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
     function myMove() {
         let id = null;
 
-
         for (let i = 0; i <= 15; i++) {
             let innerdiv = document.createElement('div');
             let Span_div = document.createElement('span')
@@ -106,23 +105,6 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
         },
 
     ]
-
-        const elem = document.getElementById("race-1");
-        let pos = 0;
-        clearInterval(id);
-        id = setInterval(frame, 5);
-        function frame() {
-            if (pos == 500) {
-                clearInterval(id);
-            } else {
-                pos++;
-                elem.style.top = pos + "-0px";
-                elem.style.left = pos + "px";
-            }
-        }
-    }
-
-
     const NameArray = [
         {
             title: "Shohei",
@@ -186,7 +168,6 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
         },
 
     ]
-
     return (
         <div>
             {/* <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} /> */}
@@ -451,7 +432,6 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="racehorse" id="Racing_div_id">
                                                                     {/* {
                                                                         ImageArray.map((items, index) => {
@@ -465,10 +445,6 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                         })
                                                                     } */}
                                                                     {/* <div id="race-1" class="in-race-horse" style={{ top: "calc(30px)", left: "0px", marginLeft: "0px" }}>
-
-                                                                <div class="racehorse">
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(30px)", left: "0px", marginLeft: "0px" }}>
-
                                                                         <span className='span_div'>
                                                                             <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
                                                                         </span>
@@ -543,11 +519,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                         <span className='span_div'>
                                                                             <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
                                                                         </span>
-
                                                                     </div> */}
-
-                                                                    </div>
-
                                                                 </div>
                                                             </div>
                                                         </div>
