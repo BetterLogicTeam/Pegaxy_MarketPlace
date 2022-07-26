@@ -169,7 +169,11 @@ to { transform:rotate(360deg); }
    
     width: 0px;
     height: 0px;
+
     /* animation: driving 20s  linear; */
+
+    animation: driving 20s  linear;
+
     animation-iteration-count: 1;
     animation-delay:0s;
 
@@ -450,4 +454,5 @@ transform: rotate(-9deg);
 }
 .in-race-horse{
    
+
 }
