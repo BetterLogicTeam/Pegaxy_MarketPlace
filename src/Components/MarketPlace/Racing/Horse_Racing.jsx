@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Horse_style.css'
-
+var myArr=[]
 export default function Horse_Racing({ setModalShow, btnTxt }) {
+    // const [myArr, setmyArr] = useState([])
     function myMove() {
         let id = null;
 
@@ -168,6 +169,27 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
         },
 
     ]
+    // var arr = ['value1', 'value2', ' value3', 'value4'];
+    var arrayDelay = function(i) {
+        if (NameArray[i]) {
+            console.log(NameArray[i]);
+            myArr.push(NameArray[i]);
+            // setmyArr(NameArray[i])
+
+            setTimeout(function(){arrayDelay(i+1);}, 4000);
+        }
+    }
+
+    useEffect(()=>{
+    arrayDelay(0);
+        
+
+    })
+    // setInterval(() => {
+    // console.log("what is myarr global array",myArr)
+        
+    // }, 4000);
+    // console.log("what is myarr in state array",myArr)
     return (
         <div>
             {/* <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} /> */}

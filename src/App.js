@@ -51,7 +51,31 @@ function App() {
   let [btnTxt, setBtTxt] = useState("Connect Metamask")
   // let { acc } = useSelector(state => state.connectWallet);
 
+  // let arr = ["1", "2", "3", "4", "5", "6"]
+  // setInterval(() => {
+  //   tarr.map((value)=>{ setTimeout(() => {
+  //     console.log(value)
+    
+  //   }, 3000);}) 
+     
+    
+  // }, 2000);
 
+  // arr.forEach((value,index) => {
+  //   setTimeout(() => {
+  //     console.log('array value is ',value)
+  //   }, 2000*index);
+  // })
+  
+//   var arr = ['value1', 'value2', ' value3', 'value4'];
+// var arrayDelay = function(i) {
+//     if (arr[i]) {
+//         console.log(arr[i]);
+//         setTimeout(function(){arrayDelay(i+1);}, 4000);
+//     }
+// }
+// arrayDelay(0);
+  
   const getAccount = async () => {
     // dispatch(getWallet());
     let acc = await loadWeb3();
@@ -98,12 +122,14 @@ function App() {
           <Route path="/Items/My_Profile" element={<My_Profile/>} />
           <Route path="/Items/horse_racing" element={<Horse_Racing />} />   
           <Route path="/Items/Finished_race" element={<Finished_race />} />
+          <Route exact path="/Items/Details/:id" element={<Details/>} />
+
           </Route>
           {/* <Route path="My_Profile" element={<My_Profile setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
           <Route path="My_Bids" element={<My_Bids setModalShow={setModalShow} btnTxt={btnTxt} />} />
           {/* <Route path="My_Items" element={<My_Iytems setModalShow={setModalShow} btnTxt={btnTxt} setshowsell={setshowsell} />} /> */}
           {/* <Route path="Mint" element={<Mint setModalShow={setModalShow} btnTxt={btnTxt} setIsSpinner={setIsSpinner} />} /> */}
-          <Route exact path="/Details/:id" element={<Details setModalShow={setModalShow} btnTxt={btnTxt} />} />
+          {/* <Route exact path="/Details/:id" element={<Details setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
           <Route exact path="MarketPlace" element={<MarketPlaceFull />} />
           <Route path="/Auctions_NFT" element={<Auctions_NFT />} />
           <Route path="/Buy_nft" element={<Buy_nft />} />

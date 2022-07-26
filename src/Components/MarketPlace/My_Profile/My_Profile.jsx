@@ -37,7 +37,7 @@ export default function My_Profile({ setModalShow, btnTxt }) {
                                                     </div>
                                                 <Link to="/Items/My_Items" className='text_de'>
 
-                                                    <span class="item-tab-title">ITEMS</span>
+                                                    <span class="item-tab-title">Collection</span>
                                                     </Link>
                                                 </div>
                                             </li>
