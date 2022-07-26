@@ -25,10 +25,7 @@ import My_Iytems from '../My_Items/My_Iytems'
 // import state from '../../../redux/redux/index'
 
 
-
-
-
-export default function Navbar_nav({ setModalShow, btnTxt }) {
+export default function Navbar_nav({    setModalShow, btnTxt }) {
     let navigate = useNavigate();
     const value = useSelector((state) => state.connectWallet.acc)
     console.log("what is value in navbar", value)
@@ -78,7 +75,8 @@ export default function Navbar_nav({ setModalShow, btnTxt }) {
                                                     </Link>
                                                 </Nav.Link>
 
-                                                <Nav.Link href="#pricing"><img alt="" src={contact} width="100px" className='navbar_link_img' onClick={() => setModalShow(true)} />
+                                                <Nav.Link href="#pricing">
+                                                    <img alt="" src={contact} width="100px" className='navbar_link_img' onClick={() => setModalShow(true)} />
                                                 </Nav.Link>
                                             </>
 

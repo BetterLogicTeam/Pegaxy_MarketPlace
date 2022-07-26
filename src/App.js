@@ -2,12 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { FaArrowAltCircleLeft } from 'react-icons/fa'
 import store from "./redux/redux/index";
-
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import {BrowserRouter,Routes,Route} from "react-router-dom";
 import Index_Main from './Components/Index_Main';
 import MarketPlace_Main from './Components/MarketPlace_Main';
 import Navbar_nav from './Components/MarketPlace/Navbar_market/Navbar_nav';
@@ -46,9 +41,6 @@ import { Provider } from 'react-redux';
 
 
 
-
-
-
 function App() {
   const [modalShow, setModalShow] = React.useState(false);
   const [showsell, setshowsell] = useState(false)
@@ -76,33 +68,26 @@ function App() {
     }
   }
 
-
   useEffect(() => {
     getAccount()
-    dispatch(getWallet());
-
-    
+    dispatch(getWallet());   
   }, [])
   
 
-  return (
+  return (  
     <div className="App">
        
       <Model_connect setModalShow={setModalShow} modalShow={modalShow} getAccount={getAccount} btnTxt={btnTxt} />
       {/* <Sell setshowsell={setshowsell} showsell={showsell}   /> */}
       <Auction setshowsell={setshowsell} showsell={showsell} />
-
-
       <BrowserRouter>
         <ToastContainer />
 {/* <DrawerSiderbar/> */}
-
         <Routes>
           <Route path="/" element={<Index_Main />} />
           {/* <Route path="MarketPlace_Main" element={<MarketPlace_Main />} /> */}
           {/* <Route path="Items" element={<Items setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
           <Route path="Items" element={<Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />} >
-
           <Route path="/Items/My_Assets" element={<My_Assets_first/>} />
           <Route path="/Items/Breeding" element={<Breeding />} />
           <Route path="/Items/Racing_main" element={<Racing_main />} />
@@ -111,35 +96,19 @@ function App() {
           <Route path="/Items/My_Items" element={<My_Iytems  />} />
           <Route path="/Items/Mint" element={<Mint />} />
           <Route path="/Items/My_Profile" element={<My_Profile/>} />
-          <Route path="/Items/horse_racing" element={<Horse_Racing />} />
+          <Route path="/Items/horse_racing" element={<Horse_Racing />} />   
           <Route path="/Items/Finished_race" element={<Finished_race />} />
-
-
           </Route>
-
           {/* <Route path="My_Profile" element={<My_Profile setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
           <Route path="My_Bids" element={<My_Bids setModalShow={setModalShow} btnTxt={btnTxt} />} />
           {/* <Route path="My_Items" element={<My_Iytems setModalShow={setModalShow} btnTxt={btnTxt} setshowsell={setshowsell} />} /> */}
-
           {/* <Route path="Mint" element={<Mint setModalShow={setModalShow} btnTxt={btnTxt} setIsSpinner={setIsSpinner} />} /> */}
           <Route exact path="/Details/:id" element={<Details setModalShow={setModalShow} btnTxt={btnTxt} />} />
           <Route exact path="MarketPlace" element={<MarketPlaceFull />} />
           <Route path="/Auctions_NFT" element={<Auctions_NFT />} />
           <Route path="/Buy_nft" element={<Buy_nft />} />
-
-
         </Routes>
-
-
-      </BrowserRouter>
-
-
-
-
-
-
-
-      
+      </BrowserRouter>     
     </div>
   );
 }

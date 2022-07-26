@@ -4,8 +4,6 @@ import {Modal} from 'react-bootstrap'
 import { loadWeb3 } from '../../../apis/api';
 
 
-
-
 export default function Model_connect({setModalShow,modalShow,getAccount,btnTxt}) {
 
    // useEffect(() => {
