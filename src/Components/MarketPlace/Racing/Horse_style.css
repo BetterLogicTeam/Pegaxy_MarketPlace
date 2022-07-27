@@ -12,6 +12,9 @@
     /* position: relative; */
     margin-top: -0.5rem;
 }
+.hourse-position{
+    color: #fff;
+}
 .Image_style2{
     position: absolute;
     inset: 0px;
@@ -176,6 +179,7 @@ to { transform:rotate(360deg); }
 
     animation-iteration-count: 1;
     animation-delay:0s;
+    margin-top: -1rem !important;
 
     transform: scale(0.5);
 }
@@ -432,12 +436,12 @@ transform: rotate(-9deg);
     height: 30px !important;
 }
 .racehorse{
- margin-top: -8.1rem !important;
+ margin-top: -10.5rem !important;
 }
 .Horse_img{
     /* position: absolute; */
     /* top: -50px; */
-    width: 7.3rem !important;
+    width: 6rem !important;
     
 }
 .racehorse {
@@ -454,5 +458,18 @@ transform: rotate(-9deg);
 }
 .in-race-horse{
    
+
+}
+#race-1{
+    margin-top: 0.7rem;
+}
+.bx-view .bx-left .bx-content .inner-content {
+    position: relative;
+    height: 100%;
+    min-height: calc(100vh - 207px) !important;
+    padding: 15px 20px 15px 30px;
+}
+.Horse_img_2{
+    width: 8.7rem !important;
 
 }

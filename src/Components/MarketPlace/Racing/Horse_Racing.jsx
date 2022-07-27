@@ -9,8 +9,55 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
     const [displayArray, setDisplayArray] = React.useState([]);
     const [displayEl, setDisplayEl] = React.useState();
     const [Itemcount, setItemcount] = useState(1)
+    const [isChaling, setIsChaling] = useState(true);
+    let [increaseMargin, setIncreaseMargin] = useState(10)
+    let [startTime, setStartTime] = useState({
+        sec: 0,
+        milSec: 0,
+    })
+    const moveHorse = () => {
+        console.log("calling moveHorse")
+        let incre = 0;
+        let timeId = null;
+        timeId = setInterval(() => {
+            console.log("incre", incre);
+            incre = incre + 0.5;
+            if (incre <= 1000) {
+                console.log("calling moveHorse in")
+                let d = new Date()
+                setIncreaseMargin(incre);
+                setStartTime({
+                    sec: d.getSeconds(),
+                    milSec: d.getMilliseconds(),
+                })
+            } else {
+                clearInterval(timeId)
+                // stopFun();
+            }
+        }, 5);
+        let n = 0;
+        let s = 0;
+        let timeIntervel = null;
+       timeIntervel = setInterval(() => {
+           if (incre <= 1000) {
+                n = n + 1;
+                // s=n%1000==0;
+                if(n%1000==0){
+                    s= s+1;
+                    // console.log("s", s);
+                }else{
+                    s= s;
+                }
+                setStartTime({
+                    sec: s,
+                    milSec:n,
+                })
 
-
+            }else{
+                clearInterval(timeIntervel);
+            }
+        }, 1);
+    }
 
     function myMove() {
         // let id = null;
@@ -123,83 +170,103 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
     const NameArray = [
         {
             title: "Shohei",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "Legendaitlog",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "TURBO DISCO",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "Fredrick Nader",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "JSBe E55",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "Runblox | 155",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "OMRICON",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "LegendaryDog3",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "Rose Gardner",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "Rocky Streetrunner",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "Jean Schoen",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "P2PG 7",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "Mirlind",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "DOM PERIGNON",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
         {
             title: "Atlas | TCG",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+
+        },
+        {
+            title: "Atlas | TCG",
+            Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
 
         },
 
     ]
 
 
-    function print() {
-        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-        var i = 1;
-        var func = setInterval(function () {
+    // function print() {
+    //     var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    //     var i = 1;
+    //     var func = setInterval(function () {
 
-            setmyArr(arr[i])
+    //         setmyArr(arr[i])
 
-            i++;
-            if (i >= arr.length) {
-                clearInterval(func);
-            }
+    //         i++;
+    //         if (i >= arr.length) {
+    //             clearInterval(func);
+    //         }
 
-        }, 1000);
+    //     }, 1000);
 
-    }
+    // }
 
 
     const delay = (ms) =>
@@ -211,14 +278,16 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
 
     React.useEffect(() => {
         (async function () {
-            let n = 1;
+            let n = 0;
             for (let el of NameArray) {
                 await delay(1000);
                 setDisplayEl(el);
-                setItemcount(n++)
+                setItemcount(++n)
             }
+            setIsChaling(false)
+            console.log("helllll")
+            moveHorse();
             setDisplayEl(undefined);
-            myMove()
         })();
     }, []);
 
@@ -229,7 +298,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
 
 
     useEffect(() => {
-        print()
+        // print()
     }, [])
 
 
@@ -242,9 +311,9 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                 <div class="container">
 
                     <div class="bx-view">
-                        <p>
+                        {/* <p>
                             <button onClick={() => myMove()}>Click Me</button>
-                        </p>
+                        </p> */}
                         {/* {
                             console.log("Array",myArr)
                         } */}
@@ -299,10 +368,10 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                             <div class="header-title">
                                                 <div class="custom-container">
                                                     {
-                                                        Itemcount == 15 ?
+                                                        Itemcount - 1 == 15 ?
                                                             (<>
                                                                 <div class="gameState-container">
-                                                                    <span>Race start<div class="animate-dot">...</div>
+                                                                    <span>{startTime.sec}: {startTime.milSec}<div class="animate-dot">...</div>
                                                                     </span>
                                                                     {/* <span class="gameState-info">{Itemcount}/15</span> */}
                                                                 </div>
@@ -312,7 +381,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                     <div class="gameState-container">
                                                                         <span>WAITING<div class="animate-dot">...</div>
                                                                         </span>
-                                                                        <span class="gameState-info">{Itemcount}/15</span>
+                                                                        <span class="gameState-info">{Itemcount - 1}/15</span>
                                                                     </div>
 
 
@@ -378,7 +447,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="hourse-info" >
-                                                                                    <div class="hourse-title" title="LegendaryDog3">{items.title ? items.title : (<>Waiting..</>)}</div>
+                                                                                    <div class="hourse-title" style={{ color: "#fff" }} title="LegendaryDog3">{items.title ? items.title : (<>Waiting..</>)}</div>
                                                                                     <div class="hourse-position">{index + 1}</div>
                                                                                 </div>
                                                                             </div>
@@ -529,8 +598,11 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                     </div>
                                                                 </div>
                                                                 <div class="racehorse" id="Racing_div_id">
+
+
+
                                                                     {
-                                                                        ImageArray.map((items, index) => {
+                                                                        isChaling ? displayArray.map((items, index) => {
                                                                             return (<>
                                                                                 <div id="race-1" class="" >
                                                                                     <span className=''>
@@ -539,7 +611,18 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                                 </div>
                                                                             </>)
                                                                         })
+                                                                            :
+                                                                            ImageArray.map((items, index) => {
+                                                                                return (<>
+                                                                                    <div id="race-1" class="" style={{ marginLeft: `${(Math.random() * 5) + increaseMargin}px` }}>
+                                                                                        <span className=''>
+                                                                                            <img alt="" src={items.Image} decoding="async" data-nimg="fixed" className='Horse_img_2' />
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </>)
+                                                                            })
                                                                     }
+
                                                                     {/* <div id="race-1" class="in-race-horse" style={{ top: "calc(30px)", left: "0px", marginLeft: "0px" }}>
                                                                         <span className='span_div'>
                                                                             <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
