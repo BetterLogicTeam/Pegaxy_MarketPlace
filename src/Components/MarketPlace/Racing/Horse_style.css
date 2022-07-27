@@ -172,7 +172,7 @@ to { transform:rotate(360deg); }
 
     /* animation: driving 20s  linear; */
 
-    animation: driving 20s  linear;
+    /* animation: driving 20s  linear; */
 
     animation-iteration-count: 1;
     animation-delay:0s;

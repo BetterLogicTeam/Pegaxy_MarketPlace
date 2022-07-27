@@ -3,7 +3,7 @@ import './Auction_style.css'
 import Modal from 'react-bootstrap/Modal'
 import { loadWeb3 } from '../../../apis/api'
 import { toast } from 'react-toastify'
-import { CreateNFT, CreateNFT_ABI, nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketToken_Abi } from '../../../utilies/Contract'
+import { CreateNFT, CreateNFT_ABI, MintingContractAddress, MintingContract_ABI, nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketToken_Abi } from '../../../utilies/Contract'
 import { useRef } from 'react'
 import axios from 'axios'
 
@@ -73,26 +73,17 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
                         // console.log("curreny_time", curreny_time);
                         let nftContractOftoken = new web3.eth.Contract(nftMarketToken_Abi, ownadd);
                         let nftContractInstance = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
-                        let nftContractOfNFT = new web3.eth.Contract(CreateNFT_ABI, CreateNFT);
+                        let nftContractOfNFT = new web3.eth.Contract(MintingContract_ABI, MintingContractAddress);
 
-                        // const getItemId = await nftContractInstance.methods.tokenIdToItemId(ownadd, tokenid).call();
+                   
 
-                        // console.log("tokenIdToItemId", getItemId);
-                        // let response=await axios.get('https://pegaxy-openmarket.herokuapp.com/nft_market_history?id=100')
-                        // console.log("name", response.data.data);
-                        // response.data.data.map((items,index)=>{
-                        //     console.log("title",items.title);
-                        //     console.log("Image",items.imageurl);
-
-                        // })
-                        let contractOf_Own = new web3.eth.Contract(CreateNFT_ABI, CreateNFT)
-                        let WalletOwnOf = await contractOf_Own.methods.walletOfOwner(acc).call();
+                        let WalletOwnOf = await nftContractOfNFT.methods.walletOfOwner(acc).call();
                         console.log("WalletOwnOf", WalletOwnOf[id]);
                         let ArryData = WalletOwnOf[id]
-                        let Wallet_URI = await contractOf_Own.methods.tokenURI(ArryData).call();
-                        console.log("Image", Wallet_URI);
-                        let response=await axios.get(Wallet_URI)
-                        console.log("response", response.data.image);
+                        let Wallet_URI = await nftContractOfNFT.methods.tokenURI(ArryData).call();
+                        // console.log("Image", Wallet_URI);
+                        // let response = await axios.get(Wallet_URI)
+                        // console.log("response", response.data.image);
 
 
                         let getListingPrice = await nftContractInstance.methods.getListingPrice().call();
@@ -105,14 +96,14 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
 
                         let nftContractOf = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
 
-                        let hash = await nftContractOf.methods.createMarketItem(tokenid, value_price, 1, true, current_time_and_days, CreateNFT).send({
+                        let hash = await nftContractOf.methods.createMarketItem(tokenid, value_price, 1, true, current_time_and_days, MintingContractAddress).send({
                             from: acc,
                             value: getListingPrice,
                         });
                         hash = hash.transactionHash
                         // console.log("hash", hash);
                         // setIsSpinner(false)
-                        let getItemId = await nftContractOf.methods.tokenIdToItemId(CreateNFT, tokenid).call();
+                        let getItemId = await nftContractOf.methods.tokenIdToItemId(MintingContractAddress, tokenid).call();
                         let MarketItemId = await nftContractOf.methods.idToMarketItem(getItemId).call();
                         console.log("MarketItemId", MarketItemId)
                         let bidEndTime = MarketItemId.bidEndTime;
@@ -140,8 +131,8 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
                             "sold": sold,
                             "isOnAuction": isOnAuction,
                             "bidEndTime": bidEndTime,
-                            "name": response.data.title,
-                            "url": response.data.image,
+                            "name":"Pegaxy NFT",
+                            "url": Wallet_URI,
 
                             "txn": hash,
                             "category": setdata
@@ -179,173 +170,173 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
 
                 <Modal.Body className='model_bg'>
 
-                {
+                    {
 
-isSpinner ? (<>
-    <span className='span_main'>
-        <img alt="" srcset="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 1x, https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 2x" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" class="alert-icon-img" />
-    </span>
-    <div class="viewAlert">
-                        <div class="bx-login">
-                            <div class="login-header">
+                        isSpinner ? (<>
+                            <span className='span_main'>
+                                <img alt="" srcset="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 1x, https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif 2x" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" class="alert-icon-img" />
+                            </span>
+                            <div class="viewAlert">
+                                <div class="bx-login">
+                                    <div class="login-header">
 
-                                <p class=" ">Please Enter Auction Value in input Area</p>
-                            </div>
-                            <div className="single-seller ">
-                                <div className="innderdi">
-                                <input
-                                    type="text"
-                                    placeholder="Enter Auction Value in BNB"
-                                    className="d-block btn btn-bordered-white mt-n4 text-white sell_input"
-                                    id="bid"
-                                    onChange={(e) => setgetIputdata(e.target.value)}
-                                // ref={inputdata_price}
-                                />
-
-                                <select
-                                    name="days"
-                                    class="dropdown__filter mt-2"
-                                    id=""
-                                    style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
-                                    ref={selectoption}
-                                >
-                                    <option value="" selected disabled hidden >
-                                        <span className='color_chnge' style={{ color: "white" }}> Select Days</span>
-                                    </option>
-                                    <option value="1" class="dropdown__select">
-
-                                        1 Munites
-                                    </option>
-                                    <option value="2"> 2 Munites</option>
-                                    <option value="5"> 5 Munites</option>
-                                    <option value="10"> 10 Munites</option>
-                                    <option value="15"> 15 Munites</option>
-                                </select>
-
-                                <select
-                                    name="days"
-                                    class="dropdown__filter mt-4"
-                                    id=""
-                                    style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
-                                    ref={selectcategory}
-                                >
-                                    <option value="" selected disabled hidden >
-                                        <span className='color_chnge' style={{ color: "white" }}> Select category</span>
-                                    </option>
-                                    <option value="ULE" class="dropdown__select">
-
-                                        ULE
-                                    </option>
-                                    <option value="WHE"> WHE</option>
-                                    <option value="CST"> CST</option>
-
-                                </select>
-
-                                </div>
-
-
-                               
-                                <div class="action-group   main_div_btn_model mt-n2" onClick={() => addOrder()} >
-                                    <div class="item-link btn_in_sell">
-                                        <div class="button-game primary" style={{ height: "100px" }} >
-                                            <div class="btn-position button-game-left" style={{ width: "40px", height: "50px" }}></div>
-                                            <div class="btn-position button-game-content" style={{ height: "50px" }}>
-                                                <span class="" style={{ fontSize: "20px" }}>Complete Listing</span>
-
-                                            </div>
-                                            <div class="btn-position button-game-right" style={{ width: "40px", height: "50px" }}></div>
-                                        </div>
+                                        <p class=" ">Please Enter Auction Value in input Area</p>
                                     </div>
-                                </div>
+                                    <div className="single-seller ">
+                                        <div className="innderdi">
+                                            <input
+                                                type="text"
+                                                placeholder="Enter Auction Value in BNB"
+                                                className="d-block btn btn-bordered-white mt-n4 text-white sell_input"
+                                                id="bid"
+                                                onChange={(e) => setgetIputdata(e.target.value)}
+                                            // ref={inputdata_price}
+                                            />
 
-                            </div>
+                                            <select
+                                                name="days"
+                                                class="dropdown__filter mt-2"
+                                                id=""
+                                                style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                                ref={selectoption}
+                                            >
+                                                <option value="" selected disabled hidden >
+                                                    <span className='color_chnge' style={{ color: "white" }}> Select Days</span>
+                                                </option>
+                                                <option value="1" class="dropdown__select">
 
-                        </div>
+                                                    1 Munites
+                                                </option>
+                                                <option value="2"> 2 Munites</option>
+                                                <option value="5"> 5 Munites</option>
+                                                <option value="10"> 10 Munites</option>
+                                                <option value="15"> 15 Munites</option>
+                                            </select>
 
-                    </div>
-</>) : (<> 
-    <div class="viewAlert">
-                        <div class="bx-login">
-                            <div class="login-header">
+                                            <select
+                                                name="days"
+                                                class="dropdown__filter mt-4"
+                                                id=""
+                                                style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                                ref={selectcategory}
+                                            >
+                                                <option value="" selected disabled hidden >
+                                                    <span className='color_chnge' style={{ color: "white" }}> Select category</span>
+                                                </option>
+                                                <option value="ULE" class="dropdown__select">
 
-                                <p class=" ">Please Enter Auction Value in input Area</p>
-                            </div>
-                            <div className="single-seller ">
-                                <div className="innderdi">
-                                <input
-                                    type="text"
-                                    placeholder="Enter Auction Value in BNB"
-                                    className="d-block btn btn-bordered-white mt-n4 text-white sell_input"
-                                    id="bid"
-                                    onChange={(e) => setgetIputdata(e.target.value)}
-                                // ref={inputdata_price}
-                                />
+                                                    ULE
+                                                </option>
+                                                <option value="WHE"> WHE</option>
+                                                <option value="CST"> CST</option>
 
-                                <select
-                                    name="days"
-                                    class="dropdown__filter mt-2"
-                                    id=""
-                                    style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
-                                    ref={selectoption}
-                                >
-                                    <option value="" selected disabled hidden >
-                                        <span className='color_chnge' style={{ color: "white" }}> Select Days</span>
-                                    </option>
-                                    <option value="1" class="dropdown__select">
+                                            </select>
 
-                                        1 Munites
-                                    </option>
-                                    <option value="2"> 2 Munites</option>
-                                    <option value="5"> 5 Munites</option>
-                                    <option value="10"> 10 Munites</option>
-                                    <option value="15"> 15 Munites</option>
-                                </select>
-
-                                <select
-                                    name="days"
-                                    class="dropdown__filter mt-4"
-                                    id=""
-                                    style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
-                                    ref={selectcategory}
-                                >
-                                    <option value="" selected disabled hidden >
-                                        <span className='color_chnge' style={{ color: "white" }}> Select category</span>
-                                    </option>
-                                    <option value="ULE" class="dropdown__select">
-
-                                        ULE
-                                    </option>
-                                    <option value="WHE"> WHE</option>
-                                    <option value="CST"> CST</option>
-
-                                </select>
-
-                                </div>
-
-
-                               
-                                <div class="action-group   main_div_btn_model mt-n2" onClick={() => addOrder()} >
-                                    <div class="item-link btn_in_sell">
-                                        <div class="button-game primary" style={{ height: "100px" }} >
-                                            <div class="btn-position button-game-left" style={{ width: "40px", height: "50px" }}></div>
-                                            <div class="btn-position button-game-content" style={{ height: "50px" }}>
-                                                <span class="" style={{ fontSize: "20px" }}>Complete Listing</span>
-
-                                            </div>
-                                            <div class="btn-position button-game-right" style={{ width: "40px", height: "50px" }}></div>
                                         </div>
+
+
+
+                                        <div class="action-group   main_div_btn_model mt-n2" onClick={() => addOrder()} >
+                                            <div class="item-link btn_in_sell">
+                                                <div class="button-game primary" style={{ height: "100px" }} >
+                                                    <div class="btn-position button-game-left" style={{ width: "40px", height: "50px" }}></div>
+                                                    <div class="btn-position button-game-content" style={{ height: "50px" }}>
+                                                        <span class="" style={{ fontSize: "20px" }}>Complete Listing</span>
+
+                                                    </div>
+                                                    <div class="btn-position button-game-right" style={{ width: "40px", height: "50px" }}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
+
+                                </div>
+
+                            </div>
+                        </>) : (<>
+                            <div class="viewAlert">
+                                <div class="bx-login">
+                                    <div class="login-header">
+
+                                        <p class=" ">Please Enter Auction Value in input Area</p>
+                                    </div>
+                                    <div className="single-seller ">
+                                        <div className="innderdi">
+                                            <input
+                                                type="text"
+                                                placeholder="Enter Auction Value in BNB"
+                                                className="d-block btn btn-bordered-white mt-n4 text-white sell_input"
+                                                id="bid"
+                                                onChange={(e) => setgetIputdata(e.target.value)}
+                                            // ref={inputdata_price}
+                                            />
+
+                                            <select
+                                                name="days"
+                                                class="dropdown__filter mt-2"
+                                                id=""
+                                                style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                                ref={selectoption}
+                                            >
+                                                <option value="" selected disabled hidden >
+                                                    <span className='color_chnge' style={{ color: "white" }}> Select Days</span>
+                                                </option>
+                                                <option value="1" class="dropdown__select">
+
+                                                    1 Munites
+                                                </option>
+                                                <option value="2"> 2 Munites</option>
+                                                <option value="5"> 5 Munites</option>
+                                                <option value="10"> 10 Munites</option>
+                                                <option value="15"> 15 Munites</option>
+                                            </select>
+
+                                            <select
+                                                name="days"
+                                                class="dropdown__filter mt-4"
+                                                id=""
+                                                style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                                ref={selectcategory}
+                                            >
+                                                <option value="" selected disabled hidden >
+                                                    <span className='color_chnge' style={{ color: "white" }}> Select category</span>
+                                                </option>
+                                                <option value="ULE" class="dropdown__select">
+
+                                                    ULE
+                                                </option>
+                                                <option value="WHE"> WHE</option>
+                                                <option value="CST"> CST</option>
+
+                                            </select>
+
+                                        </div>
+
+
+
+                                        <div class="action-group   main_div_btn_model mt-n2" onClick={() => addOrder()} >
+                                            <div class="item-link btn_in_sell">
+                                                <div class="button-game primary" style={{ height: "100px" }} >
+                                                    <div class="btn-position button-game-left" style={{ width: "40px", height: "50px" }}></div>
+                                                    <div class="btn-position button-game-content" style={{ height: "50px" }}>
+                                                        <span class="" style={{ fontSize: "20px" }}>Complete Listing</span>
+
+                                                    </div>
+                                                    <div class="btn-position button-game-right" style={{ width: "40px", height: "50px" }}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
                             </div>
 
-                        </div>
+                        </>)
+                    }
 
-                    </div>
-
-</>)
-}
-                    
 
                 </Modal.Body>
 

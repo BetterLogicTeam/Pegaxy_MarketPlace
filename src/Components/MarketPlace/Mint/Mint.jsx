@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Mint.css'
-import {getWallet, NftData} from '../../../redux/redux/actions/actions'
+import { getWallet, NftData } from '../../../redux/redux/actions/actions'
 
 import { toast } from "react-toastify";
 import { loadWeb3 } from '../../../apis/api';
@@ -9,16 +9,17 @@ import { busdNftTokenAbi, busdNftTokenAddress, wireNftContractAbi, wireNftContra
 import Spinner from '../../Loading_Spinner/Spinner';
 import axios from 'axios';
 import { useMoralis, useMoralisFile } from 'react-moralis'
-import { CreateNFT, CreateNFT_ABI } from '../../../utilies/Contract';
+import { CreateNFT, CreateNFT_ABI, MintingContractAddress, MintingContract_ABI } from '../../../utilies/Contract';
 import { Moralis } from 'moralis'
 import { useSelector } from 'react-redux'
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import zan from '../../../Assest/gameplay-thumbnail2.png'
 
 export default function Mint({ setModalShow, btnTxt }) {
-  let dispatch = useDispatch();
-  let { acc } = useSelector(state => state.connectWallet);
+    let dispatch = useDispatch();
+    let { acc } = useSelector(state => state.connectWallet);
 
-  console.log("check",acc);
+    console.log("check", acc);
     const [fileUrl, setFileUrl] = useState(null)
     const [formInput, updateFormInput] = useState({ price: '0', name: 'NFT Name', description: '' })
     const [nftImage, setNftImage] = useState("")
@@ -32,6 +33,390 @@ export default function Mint({ setModalShow, btnTxt }) {
     let [myUrl, setMyUrl] = useState()
     const { saveFile, moralisFile } = useMoralisFile()
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout, initialize } = useMoralis();
+
+    let [value, setValue] = useState(1)
+    let [point, setPoint] = useState(0);
+    let [mintPriceBnb, setMintPriceBnb] = useState(0);
+    let [mintPriceBUSD, setMintPriceBUSD] = useState(0);
+    let [mintPriceWire, setmintPriceWire] = useState(0);
+    let [btnOne, setButtonOne] = useState("Mint With BNB");
+    let [btnTwo, setButtonTwo] = useState("Mint With JTO");
+    let [btnThree, setButtonThree] = useState("Mint With Busd")
+    const increaseValue = () => {
+        if (value < 5) {
+            setValue(++value)
+            console.log("setValue", value)
+        }
+
+    }
+    const decreaseValue = () => {
+        if (value > 1) {
+            setValue(--value)
+            console.log("setValue", value)
+        }
+
+    }
+    const myMintBNB = async () => {
+        let acc = await loadWeb3();
+        // console.log("ACC=",acc)
+        if (acc == "No Wallet") {
+            toast.error("No Wallet Connected")
+        }
+        else if (acc == "Wrong Network") {
+            toast.error("Wrong Newtwork please connect to test net")
+        } else {
+            try {
+                setButtonOne("Please Wait While Processing")
+                console.log("mintFor BNB");
+                const web3 = window.web3;
+                let nftContractOf = new web3.eth.Contract(MintingContract_ABI, MintingContractAddress);
+                let maxSupply = await nftContractOf.methods.maxsupply().call();
+                let ttlSupply = await nftContractOf.methods.totalSupply().call();
+                let paused = await nftContractOf.methods.paused().call();
+                let maxLimitprTransaction = await nftContractOf.methods.MaxLimitPerTransaction().call();
+                let mintingbnbPrice = await nftContractOf.methods.MinitngPricein_BNB().call()
+                console.log("jjjjj", mintingbnbPrice);
+                mintingbnbPrice = web3.utils.fromWei(mintingbnbPrice);
+                mintingbnbPrice = parseFloat(mintingbnbPrice)
+                setMintPriceBnb(mintingbnbPrice)
+                let totalMintingPriceBNB = value * mintingbnbPrice
+                console.log("maxSupply", maxSupply);
+                console.log("ttlSupply", maxLimitprTransaction);
+
+                console.log("mintingbnbPrice", mintingbnbPrice);
+
+                // let llisted_check = await nftContractOf.methods.iswhitelist(acc).call()
+                // console.log("iswhitelist", llisted_check);
+
+
+
+                // if (llisted_check == 'true') {
+                    if (parseInt(ttlSupply) < parseInt(maxSupply)) {
+                        if (paused == true) {
+                            if (value < parseInt(maxLimitprTransaction)) {
+                                console.log("Minting Value= ", value);
+                                console.log("Minting totalMintingPriceBNB= ", totalMintingPriceBNB);
+
+                                totalMintingPriceBNB = web3.utils.toWei(totalMintingPriceBNB.toString())
+                                await nftContractOf.methods.mint_with_bnb(value).send({
+                                    from: acc,
+                                    value: totalMintingPriceBNB.toString()
+
+                                })
+                                toast.success("Transaction Confirmed")
+                                setButtonOne("Mint With BNB")
+
+                            } else {
+                                toast.error("No of Minting is Greater than maximum limit Per Transaction")
+                                setButtonOne("Mint With BNB")
+
+                            }
+                        } else {
+                            toast.error("Paused is False")
+                            setButtonOne("Mint With BNB")
+
+                        }
+
+                    } else {
+                        toast.error("Max Supply is Greater than total Supply")
+                        setButtonOne("Mint With BNB")
+
+                    }
+                // }
+                // else {
+                //     let BusdPrice = await nftContractOf.methods.WhitelistMintingPricein_MATIC().call();
+
+                //     await nftContractOf.methods.mint_with_MATIC(value).send({
+                //         from: acc,
+                //         value: value * BusdPrice.toString()
+                //     })
+
+
+                //     toast.success("Transaction Confirmed")
+                //     setButtonOne("Mint With BNB")
+
+
+                // }
+
+
+
+
+            } catch (e) {
+                console.log("Error while minting ", e)
+                toast.error("Transaction failed")
+                setButtonOne("Mint With BNB")
+
+            }
+
+        }
+    }
+    const myMintWire = async () => {
+        let acc = await loadWeb3();
+        // console.log("ACC=",acc)
+        if (acc == "No Wallet") {
+            toast.error("No Wallet Connected")
+        }
+        else if (acc == "Wrong Network") {
+            toast.error("Wrong Newtwork please connect to test net")
+        } else {
+            try {
+                setButtonTwo("Please Wait While Processing")
+                console.log("mintFor Wire");
+                const web3 = window.web3;
+                let nftContractOf = new web3.eth.Contract(wireNftContractAbi, wireNftContractAddress);
+                let wireContractOf = new web3.eth.Contract(wireTokenAbi, wireTokenAddress);
+                let userBusdBalance = await wireContractOf.methods.balanceOf(acc).call();
+                userBusdBalance = web3.utils.fromWei(userBusdBalance)
+                let maxSupply = await nftContractOf.methods.maxsupply().call();
+                let ttlSupply = await nftContractOf.methods.totalSupply().call();
+                let paused = await nftContractOf.methods.paused().call();
+                let maxLimitprTransaction = await nftContractOf.methods.MaxLimitPerTransaction().call();
+                let mintingWirePrice = await nftContractOf.methods.MinitngPricein_MMX().call()
+                mintingWirePrice = web3.utils.fromWei(mintingWirePrice);
+                mintingWirePrice = parseFloat(mintingWirePrice)
+                setmintPriceWire(mintingWirePrice);
+                let totalMintingPriceWire = value * mintingWirePrice
+                console.log("maxSupply", maxSupply);
+                console.log("ttlSupply", maxLimitprTransaction);
+
+                console.log("mintingWirePrice", mintingWirePrice);
+                let llisted_check = await nftContractOf.methods.iswhitelist(acc).call()
+                console.log("iswhitelist", llisted_check);
+
+
+                if (llisted_check == 'true') {
+
+                    if (parseInt(ttlSupply) < parseInt(maxSupply)) {
+                        if (paused == false) {
+                            if (value < parseInt(maxLimitprTransaction)) {
+                                if (parseFloat(userBusdBalance) >= totalMintingPriceWire) {
+                                    console.log("Minting Value= ", value);
+                                    console.log("Minting totalMintingPriceWire= ", totalMintingPriceWire);
+
+                                    totalMintingPriceWire = web3.utils.toWei(totalMintingPriceWire.toString())
+                                    await wireContractOf.methods.approve(wireNftContractAddress, totalMintingPriceWire).send({
+                                        from: acc
+                                    })
+                                    toast.success("Transaction Confirmed")
+                                    setButtonTwo("Please Wait for Second Confirmation")
+                                    await nftContractOf.methods.mint_with_MMX(value, totalMintingPriceWire.toString()).send({
+                                        from: acc,
+                                    })
+                                    toast.success("Transaction Succefful")
+                                    setButtonTwo("Mint With JTO")
+
+                                } else {
+                                    toast.error("Out Of Balance")
+                                    setButtonTwo("Mint With JTO")
+
+                                }
+
+                            } else {
+                                toast.error("No of Minting is Greater than maximum limit Per Transaction")
+                                setButtonTwo("Mint With JTO")
+
+                            }
+                        } else {
+                            toast.error("Paused is False")
+                            setButtonTwo("Mint With JTO")
+
+                        }
+
+                    } else {
+                        toast.error("Max Supply is Greater than total Supply")
+                        setButtonTwo("Mint With JTO")
+
+                    }
+
+                }
+                else {
+
+                    let BusdPrice = await nftContractOf.methods.WhitelistMinitngPricein_MMX().call();
+                    totalMintingPriceWire = web3.utils.toWei(totalMintingPriceWire.toString())
+                    await wireContractOf.methods.approve(wireNftContractAddress, totalMintingPriceWire).send({
+                        from: acc
+                    })
+
+                    let a = web3.utils.fromWei(BusdPrice);
+                    a = parseFloat(a)
+                    let b = a * value;
+                    let c = web3.utils.toWei(b.toString());
+
+                    await nftContractOf.methods.mint_with_MMX(value, c).send({
+                        from: acc,
+                    })
+
+
+                    setButtonTwo("Mint With JTO")
+
+
+                }
+
+
+            } catch (e) {
+                console.log("Error while minting ", e)
+                toast.error("Transaction failed")
+                setButtonTwo("Mint With JTO")
+
+            }
+
+        }
+    }
+    const myMintBUSD = async () => {
+        let acc = await loadWeb3();
+        // console.log("ACC=",acc)
+        if (acc == "No Wallet") {
+            toast.error("No Wallet Connected")
+        }
+        else if (acc == "Wrong Network") {
+            toast.error("Wrong Newtwork please connect to test net")
+        } else {
+            try {
+                setButtonThree("Please Wait While Processing")
+                console.log("mintFor BUSD");
+                const web3 = window.web3;
+                let nftContractOf = new web3.eth.Contract(wireNftContractAbi, wireNftContractAddress);
+                let busdContractOf = new web3.eth.Contract(busdNftTokenAbi, busdNftTokenAddress);
+                // let userBusdBalance = await busdContractOf.methods.balanceOf(acc).call();
+                // console.log("maxSupply",busdContractOf);
+
+                // userBusdBalance = web3.utils.fromWei(userBusdBalance)
+                let maxSupply = await nftContractOf.methods.maxsupply().call();
+                let ttlSupply = await nftContractOf.methods.totalSupply().call();
+                let paused = await nftContractOf.methods.paused().call();
+                let maxLimitprTransaction = await nftContractOf.methods.MaxLimitPerTransaction().call();
+                let mintingBusdPrice = await nftContractOf.methods.MinitngPricein_BUSD().call()
+                mintingBusdPrice = web3.utils.fromWei(mintingBusdPrice);
+                mintingBusdPrice = parseFloat(mintingBusdPrice)
+                setMintPriceBUSD(mintingBusdPrice)
+                let totalMintingPriceBusd = value * mintingBusdPrice
+                console.log("maxSupply", maxSupply);
+                console.log("ttlSupply", maxLimitprTransaction);
+
+                console.log("mintingBusdPrice", mintingBusdPrice);
+
+                let llisted_check = await nftContractOf.methods.iswhitelist(acc).call()
+                console.log("iswhitelist", llisted_check);
+
+
+                if (llisted_check == 'true') {
+
+
+                    if (parseInt(ttlSupply) < parseInt(maxSupply)) {
+                        if (paused == false) {
+                            if (value < parseInt(maxLimitprTransaction)) {
+                                // if (parseFloat(userBusdBalance) >= totalMintingPriceBusd) {
+                                console.log("Minting Value= ", value);
+                                console.log("Minting totalMintingPriceWire= ", totalMintingPriceBusd);
+
+                                totalMintingPriceBusd = web3.utils.toWei(totalMintingPriceBusd.toString())
+                                await busdContractOf.methods.approve(wireNftContractAddress, totalMintingPriceBusd).send({
+                                    from: acc
+                                })
+                                setButtonThree("Please Wait For Second Confirmation")
+                                toast.success("Transaction Confirmed")
+                                await nftContractOf.methods.mint_with_BUSD(value, totalMintingPriceBusd.toString()).send({
+                                    from: acc,
+                                })
+                                setButtonThree("Mint With Busd")
+                                toast.success("Transaction Succefful")
+
+                                // } else {
+                                //     toast.error("Out Of Balance")
+                                //     setButtonThree("Mint With Busd")
+
+                                // }
+
+                            } else {
+                                toast.error("No of Minting is Greater than maximum limit Per Transaction")
+                                setButtonThree("Mint With Busd")
+
+                            }
+                        } else {
+                            toast.error("Paused is False")
+                            setButtonThree("Mint With Busd")
+
+                        }
+
+                    } else {
+                        toast.error("Max Supply is Greater than total Supply")
+                        setButtonThree("Mint With Busd")
+
+                    }
+                }
+                else {
+                    let BusdPrice = await nftContractOf.methods.WhitelistMinitngPricein_BUSD().call();
+                    totalMintingPriceBusd = web3.utils.toWei(totalMintingPriceBusd.toString())
+                    await busdContractOf.methods.approve(wireNftContractAddress, totalMintingPriceBusd).send({
+                        from: acc
+                    })
+                    let a = web3.utils.fromWei(BusdPrice);
+                    a = parseFloat(a)
+                    let b = a * value;
+                    let c = web3.utils.toWei(b.toString());
+                    await nftContractOf.methods.mint_with_BUSD(value, c).send({
+                        from: acc,
+                    })
+
+                    setButtonThree("Mint With Busd")
+
+
+                }
+
+
+            } catch (e) {
+                console.log("Error while minting ", e)
+                toast.error("Transaction failed BUSD")
+                setButtonThree("Mint With Busd")
+
+            }
+
+        }
+    }
+
+    const getMydata = async () => {
+        let acc = await loadWeb3();
+        // console.log("ACC=",acc)
+        if (acc == "No Wallet") {
+            toast.error("No Wallet Connected")
+        }
+        else if (acc == "Wrong Network") {
+            toast.error("Wrong Newtwork please connect to test net")
+        } else {
+
+            try {
+                console.log("mintFor BUSD");
+                const web3 = window.web3;
+                let nftContractOf = new web3.eth.Contract(wireNftContractAbi, wireNftContractAddress);
+                let mintingBusdPrice = await nftContractOf.methods.MinitngPricein_BUSD().call()
+                mintingBusdPrice = web3.utils.fromWei(mintingBusdPrice);
+                mintingBusdPrice = parseFloat(mintingBusdPrice)
+                setMintPriceBUSD(mintingBusdPrice)
+
+                let mintingWirePrice = await nftContractOf.methods.MinitngPricein_wire().call()
+                mintingWirePrice = web3.utils.fromWei(mintingWirePrice);
+                mintingWirePrice = parseFloat(mintingWirePrice)
+                setmintPriceWire(mintingWirePrice);
+
+                let mintingbnbPrice = await nftContractOf.methods.MinitngPricein_BNB().call()
+                mintingbnbPrice = web3.utils.fromWei(mintingbnbPrice);
+                mintingbnbPrice = parseFloat(mintingbnbPrice)
+                setMintPriceBnb(mintingbnbPrice)
+            } catch (e) {
+                console.log("Error while getting minting Price");
+            }
+        }
+    }
+
+
+    useEffect(() => {
+        setInterval(() => {
+            getMydata();
+
+        }, 10000);
+        getMydata();
+    }, [])
+
 
 
     const IpfsStorage = async (e) => {
@@ -69,20 +454,20 @@ export default function Mint({ setModalShow, btnTxt }) {
                         })
                         await fileIpf.saveIPFS(null, { useMasterKey: true })
                         console.log("files", fileIpf._ipfs);
-                         let response=await axios.get(fileIpf._ipfs)
-                        console.log("what is ipfs data",response.data)
+                        let response = await axios.get(fileIpf._ipfs)
+                        console.log("what is ipfs data", response.data)
                         let postapiPushdata = await axios.post('https://pegaxy-openmarket.herokuapp.com/nft_market', {
-                            "imageurl":response.data.image,
-                            "description":response.data.description,
-                            "title":response.data.title,
-                            "price":response.data.name,
-                            
-                          })
-                        
-                          console.log("what is post request response",postapiPushdata)
-               
+                            "imageurl": response.data.image,
+                            "description": response.data.description,
+                            "title": response.data.title,
+                            "price": response.data.name,
+
+                        })
+
+                        console.log("what is post request response", postapiPushdata)
+
                         setGetInput(fileIpf._ipfs)
-                        
+
                         CreateNftUR(fileIpf._ipfs)
 
                     })
@@ -103,10 +488,6 @@ export default function Mint({ setModalShow, btnTxt }) {
 
 
     }
-
-
-
-
 
     const CreateNftUR = async (url) => {
         setIsSpinner(true)
@@ -129,13 +510,13 @@ export default function Mint({ setModalShow, btnTxt }) {
         }
     }
 
-
     const callfunctionhere = async () => {
         let acc = await loadWeb3()
         acc = acc.substring(0, 4) + '...' + acc.substring(acc.length - 4)
         setaddressacc(acc)
 
     }
+
 
     useEffect(() => {
 
@@ -228,18 +609,56 @@ export default function Mint({ setModalShow, btnTxt }) {
                                             <div class="viewPega">
                                                 <div className="innerdiv_mint">
                                                     <div className="row">
-                                                        <div className="col-lg-6 mt-4">
+                                                        <div className="col-lg-5 mt-4">
                                                             <div className="inner_first_div_img">
-                                                                <img src="images/gameplay-thumbnail2.png" alt="" width="100%" className='minting_img' />
+                                                                <img src={zan} alt="" width="100%" className='minting_img' />
                                                             </div>
                                                         </div>
-                                                        <div className="col-lg-6 mt-4">
-                                                            <div className="mint-content">
+                                                        {/* <div className="col-lg-6 mt-4">
+                                                            <div className="mint_div_main"> */}
+                                                        <div class=" col-lg-7 col-md-12 d-flex flex-column justify-content-start align-items-flex-start">
+
+
+
+                                                            <div className='d-flex flex-row justify-content-center pt-lg-5 pt-3'>
+                                                                <a style={{ cursor: "pointer" }}><img onClick={() => decreaseValue()} src="https://i.ibb.co/FswxxGJ/Group-187.png" width="60px" /></a>
+                                                                <div className='mintboxsss mt-1 ms-4'>{value}</div>
+                                                                <a className='ms-4' style={{ cursor: "pointer" }}><img onClick={() => increaseValue()} src="https://i.ibb.co/ZGpn9P7/Group-188.png" width="60px" /></a>
+                                                            </div>
+                                                            <div class="btnallhere">
+
+                                                                <div className='d-flex justify-content-center align-items-center mt-lg-5 mt-3'>
+                                                                    <button
+                                                                        onClick={() => myMintBNB()} 
+                                                                        className='btn mintbtn firstbtn ms-4 '>{btnOne}</button>
+                                                                    <p className='stakepageP text-white ms-4 mt-2 fs-5 fw-3'>Price : {mintPriceBnb} BNB</p>
+                                                                </div>
+                                                                {/* <div className='d-flex justify-content-center align-items-center mt-lg-5 mt-3'>
+                                                                            <button onClick={() => myMintWire()} className='btn mintbtn '>{btnTwo}</button>
+                                                                            <p className='stakepageP text-white ms-4 mt-2 fs-5 fw-3'>Price :{mintPriceWire} JTO</p>
+
+                                                                        </div>
+                                                                        <div className='d-flex justify-content-center align-items-center mt-lg-5 mt-3'>
+                                                                            <button onClick={() => myMintBUSD()} className='btn mintbtn firstbtn ms-4'>{btnThree}</button>
+                                                                            <p className='stakepageP text-white ms-4 mt-2 fs-5 fw-3'>Price : {mintPriceBUSD} BUSD</p>
+
+                                                                        </div> */}
+
+                                                            </div>
+
+
+
+                                                        </div>
+                                                        {/* </div> */}
+
+
+
+                                                        {/* <div className="mint-content">
                                                                 <div className="mint-item">
                                                                     <div className="quantity">
 
                                                                         <div class="form-create-item">
-                                                                            {/* <form action="#"> */}
+                                                                           
                                                                             <h4 class="title-create-item">Upload file</h4>
                                                                             <label class="uploadFile">
                                                                                 <span class="filename text-white">{nftImage.name? nftImage.name : ("PNG, JPG, GIF, WEBP or MP4.")}</span>
@@ -251,7 +670,7 @@ export default function Mint({ setModalShow, btnTxt }) {
                                                                                     }}
                                                                                 />
                                                                             </label>
-                                                                            {/* </form> */}
+                                                                           
                                                                             <div class="flat-tabs tab-create-item">
    
                                                                                 <div class="content-tab">
@@ -311,39 +730,14 @@ export default function Mint({ setModalShow, btnTxt }) {
 
 
 
-                                                                                    {/* <div class="content-inner" style={{ display: "none" }}>
-                      <form action="#">
-                        <h4 class="title-create-item">Price</h4>
-                        <input type="text" placeholder="Enter price for one item (ETH)" />
-
-                        <h4 class="title-create-item">Minimum bid</h4>
-                        <input type="text" placeholder="enter minimum bid" />
-
-                        <div class="row">
-                          <div class="col-md-6">
-                            <h5 class="title-create-item">Starting date</h5>
-                            <input type="date" name="bid_starting_date" id="bid_starting_date2" class="form-control" min="1997-01-01" />
-                          </div>
-                          <div class="col-md-6">
-                            <h4 class="title-create-item">Expiration date</h4>
-                            <input type="date" name="bid_expiration_date" id="bid_expiration_date2" class="form-control" />
-                          </div>
-                        </div>
-
-                        <h4 class="title-create-item">Title</h4>
-                        <input type="text" placeholder="Item Name" />
-
-                        <h4 class="title-create-item">Description</h4>
-                        <textarea placeholder="e.g. “This is very limited item”"></textarea>
-                      </form>
-                    </div> */}
+                                                                                   
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
+                                                            </div> */}
+                                                        {/* </div> */}
 
                                                     </div>
                                                 </div>

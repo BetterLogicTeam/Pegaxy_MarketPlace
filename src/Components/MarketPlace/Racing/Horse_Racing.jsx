@@ -218,6 +218,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                 setItemcount(n++)
             }
             setDisplayEl(undefined);
+            myMove()
         })();
     }, []);
 
@@ -297,11 +298,29 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                         <div class="header-inner">
                                             <div class="header-title">
                                                 <div class="custom-container">
-                                                    <div class="gameState-container">
-                                                        <span>WAITING<div class="animate-dot">...</div>
-                                                        </span>
-                                                        <span class="gameState-info">{Itemcount}/15</span>
-                                                    </div>
+                                                    {
+                                                        Itemcount == 15 ?
+                                                            (<>
+                                                                <div class="gameState-container">
+                                                                    <span>Race start<div class="animate-dot">...</div>
+                                                                    </span>
+                                                                    {/* <span class="gameState-info">{Itemcount}/15</span> */}
+                                                                </div>
+                                                            </>) :
+                                                            (
+                                                                <>
+                                                                    <div class="gameState-container">
+                                                                        <span>WAITING<div class="animate-dot">...</div>
+                                                                        </span>
+                                                                        <span class="gameState-info">{Itemcount}/15</span>
+                                                                    </div>
+
+
+                                                                </>
+                                                            )
+
+                                                    }
+
                                                 </div>
                                             </div>
                                         </div>
@@ -510,7 +529,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                     </div>
                                                                 </div>
                                                                 <div class="racehorse" id="Racing_div_id">
-                                                                    {/* {
+                                                                    {
                                                                         ImageArray.map((items, index) => {
                                                                             return (<>
                                                                                 <div id="race-1" class="" >
@@ -520,7 +539,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                                 </div>
                                                                             </>)
                                                                         })
-                                                                    } */}
+                                                                    }
                                                                     {/* <div id="race-1" class="in-race-horse" style={{ top: "calc(30px)", left: "0px", marginLeft: "0px" }}>
                                                                         <span className='span_div'>
                                                                             <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />

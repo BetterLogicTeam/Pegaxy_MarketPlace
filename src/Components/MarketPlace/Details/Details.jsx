@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { loadWeb3 } from '../../../apis/api';
 import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
-import { CreateNFT, CreateNFT_ABI } from '../../../utilies/Contract';
+import { CreateNFT, CreateNFT_ABI, MintingContractAddress, MintingContract_ABI } from '../../../utilies/Contract';
 import Auction_model from '../Auction/Auction_model';
 import Navbar_nav from '../Navbar_market/Navbar_nav'
 import Sell_model from '../Sell/Sell_model';
@@ -36,16 +36,17 @@ export default function Details({ setModalShow, btnTxt }) {
         }
         else {
             const web3 = window.web3;
-            let contractOf_Own = new web3.eth.Contract(CreateNFT_ABI, CreateNFT)
+            let contractOf_Own = new web3.eth.Contract(MintingContract_ABI, MintingContractAddress)
+
             let WalletOwnOf = await contractOf_Own.methods.walletOfOwner(acc).call();
             console.log("WalletOwnOf", WalletOwnOf[id]);
             let ArryData = WalletOwnOf[id]
             let Wallet_URI = await contractOf_Own.methods.tokenURI(ArryData).call();
             console.log("Image", Wallet_URI);
-            let response = await axios.get(Wallet_URI)
-            console.log("response", response.data.image);
+            // let response = await axios.get(Wallet_URI)
+            // console.log("response", response.data.image);
 
-            setImageArray(response.data.image)
+            setImageArray(Wallet_URI)
 
 
         }
@@ -69,7 +70,7 @@ export default function Details({ setModalShow, btnTxt }) {
             {/* <Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} /> */}
             <div className='main_div_app'>
 
-                <div class="">
+                <div class="container">
                     <div class="bx-view">
                         <div class="bx-full">
                             <div class="bx-header">
@@ -104,20 +105,7 @@ export default function Details({ setModalShow, btnTxt }) {
                                                     </Link>
                                                 </div>
                                             </li>
-                                            {/* <li class="">
-                                                <div class="item-tab">
-                                                    <div class="item-tab-icon">
-                                                        <div className='items_tab_inneree'>
-                                                            <img alt="" src="images/ic_tickets.png" decoding="async" data-nimg="fixed" className='items_img_here' />
-                                                                <noscript></noscript>
-                                                        </div>
-                                                    </div>
-                                                    <Link to="/My_Bids" className='text_de'>
-                                                <span class="item-tab-title">My Bids</span>
-
-                                                </Link>
-                                                </div>
-                                            </li> */}
+                                          
                                             <li class="">
                                                 <div class="item-tab">
                                                     <div class="item-tab-icon">
@@ -181,14 +169,14 @@ export default function Details({ setModalShow, btnTxt }) {
 
                                         </div>
                                         <div className="col-lg-6 mt-5">
-                                        <div class="single-live-auction home-2" >
-                                                                <div class="div_sell_image">
+                                            <div class="single-live-auction home-2" >
+                                                <div class="div_sell_image">
 
-                                                                    <img src={imageArray} alt="Image" width="50%" />
-                                                                </div>
+                                                    <img src={imageArray} alt="Image" width="50%" />
+                                                </div>
 
 
-                                                            </div>
+                                            </div>
                                             {/* {
                                                 imageArray.map((items, index) => {
                                                     return (

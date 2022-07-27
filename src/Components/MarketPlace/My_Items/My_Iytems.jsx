@@ -4,7 +4,7 @@ import { Link, useHistory, useNavigate } from 'react-router-dom'
 import { loadWeb3 } from '../../../apis/api';
 import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
 import Web3 from 'web3';
-import { CreateNFT, CreateNFT_ABI } from '../../../utilies/Contract';
+import { CreateNFT, CreateNFT_ABI, MintingContractAddress, MintingContract_ABI } from '../../../utilies/Contract';
 
 
 
@@ -139,21 +139,21 @@ export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
         try {
             const web3 = window.web3
             let Data_Array = []
-            let contractOf_Own = new web3.eth.Contract(CreateNFT_ABI, CreateNFT)
+            let contractOf_Own = new web3.eth.Contract(MintingContract_ABI, MintingContractAddress)
             let WalletOwnOf = await contractOf_Own.methods.walletOfOwner(acc).call();
             let wallet_Length = WalletOwnOf.length
             console.log("walletOfOwner", wallet_Length);
             let Wallet_URI
-            for (let i = 0; i< wallet_Length; i++) {
+            for (let i = 0; i < wallet_Length; i++) {
                 let ArryData = WalletOwnOf[i]
                 Wallet_URI = await contractOf_Own.methods.tokenURI(ArryData).call();
                 console.log("Image", Wallet_URI);
-                let res = await axios.get(Wallet_URI);
-                console.log("Res", res.data);
-                let Image_Url = res.data.image
-                let NFT_Name = res.data.title
+                // let res = await axios.get(Wallet_URI);
+                // console.log("Res", res.data);
+                let Image_Url = Wallet_URI
+                // let NFT_Name = res.data.title
 
-                Data_Array = [...Data_Array, { Tokenid: ArryData, Url: Image_Url, price: res.data.name, name: NFT_Name,address:acc }]
+                Data_Array = [...Data_Array, { Tokenid: ArryData, Url: Image_Url,  address: acc }]
                 setArray_NFT(Data_Array)
             }
             // console.log("Wallet_URI",Wallet_URI);    
@@ -250,7 +250,7 @@ export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
 
                                         <div class="list-pick" >
                                             {
-                                                console.log("Array_NFT",Array_NFT)
+                                                console.log("Array_NFT", Array_NFT)
                                             }
 
                                             {
@@ -276,7 +276,7 @@ export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
                                                                                     <div class="item-info-meta">Token Id</div>
                                                                                 </div>
                                                                                 <div class="info-adds">
-                                                                                    <div class="info-adds-title">{ items.address ?.substring(0, 6) + "..." + items.address ?.substring(items.address ?.length - 6)}</div>
+                                                                                    <div class="info-adds-title">{items.address?.substring(0, 6) + "..." + items.address?.substring(items.address?.length - 6)}</div>
                                                                                     <div class="info-property">
                                                                                         <div class="property-title">
                                                                                             <div class="property-coat">
@@ -296,7 +296,7 @@ export default function My_Iytems({ setModalShow, btnTxt, setshowsell }) {
                                                                 <div class="info-action">
                                                                     <div class="action-group">
                                                                         <div class="item-link">
-                                                                            <div class="button-game primary" style={{ height: "32px" }} onClick={()=>nivigating("/Items/Details/"+ idex)}>
+                                                                            <div class="button-game primary" style={{ height: "32px" }} onClick={() => nivigating("/Items/Details/" + idex)}>
                                                                                 <div class="btn-position button-game-left" style={{ width: "16px", height: "32px" }}></div>
                                                                                 <div class="btn-position button-game-content" style={{ height: "32px", paddingRight: "16px", paddingLeft: "16px" }}>
                                                                                     <div class="content-name"><span class="content-name-sub"></span><span class="content-name-title" style={{ fontSize: "20px" }}>LISTING</span></div>

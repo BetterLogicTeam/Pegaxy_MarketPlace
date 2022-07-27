@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
 import { loadWeb3 } from '../../../apis/api'
-import { CreateNFT, CreateNFT_ABI, nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketTokenAddress, nftMarketToken_Abi } from '../../../utilies/Contract'
+import { CreateNFT, CreateNFT_ABI, MintingContractAddress, MintingContract_ABI, nftMarketContractAddress, nftMarketContractAddress_Abi, nftMarketTokenAddress, nftMarketToken_Abi } from '../../../utilies/Contract'
 import { wireNftContractAbi, wireNftContractAddress } from '../../../utilies/constant';
 import modal_close from '../../../Assest/modal_close.png'
 import cogoToast from 'cogo-toast';
@@ -11,20 +11,25 @@ import axios from 'axios'
 export default function Sell_model({ showModal, id, setShowModal }) {
 
     // let [getIputdata, setgetIputdata] = useState()
-let selectoption=useRef()
+    let selectoption = useRef()
 
 
     let [imageArray, setImageArray] = useState([]);
     let [isSpinner, setIsSpinner] = useState(false)
+    let [SelectData,setselectData]=useState()
+    let [getInputdata,setgetInputdata]=useState()
+    const [inputvalue, setinputvalue] = useState(0)
 
 
-    let inputdatapricehere=useRef()
+
+
+    let inputdatapricehere = useRef()
 
 
 
     let tokenid = id
-    
-    
+
+
     const addOrder = async () => {
 
         let acc = await loadWeb3();
@@ -42,13 +47,17 @@ let selectoption=useRef()
             try {
 
                 setIsSpinner(true)
-
+                
                 const web3 = window.web3;
                 let address = "0x4113ccD05D440f9580d55B2B34C92d6cC82eAB3c"
-                let getIputdata=inputdatapricehere.current.value;
-
-                if (getIputdata == "") {
+                // let getIputdata = inputdatapricehere.current.value;
+                
+                console.log("tayyab",SelectData)
+                if (getInputdata == "") {
                     toast.error("Please Enter the Price")
+                    setIsSpinner(false)
+                }if(SelectData==undefined){
+                    toast.error("Please Select Categary")
                     setIsSpinner(false)
                 }
                 else {
@@ -56,19 +65,19 @@ let selectoption=useRef()
                     setIsSpinner(true)
 
 
-                    if (getIputdata <= 0) {
+                    if (getInputdata <= 0) {
                         toast.error("Please Enter Price Greater the 0")
                         setIsSpinner(false)
                         // setIsSpinner(true)
-                        // getIputdata=web3.utils.toWei(getIputdata)
+                        // getInputdata=web3.utils.toWei(getInputdata)
 
                     }
                     else {
 
-               let web3 = window.web3
+                        let web3 = window.web3
 
-                        getIputdata = web3.utils.toWei(getIputdata).toString()
-                        getIputdata=getIputdata.toString()
+                        getInputdata = web3.utils.toWei(getInputdata).toString()
+                        getInputdata = getInputdata.toString()
 
 
                         let curreny_time = Math.floor(new Date().getTime() / 1000.0)
@@ -77,36 +86,36 @@ let selectoption=useRef()
 
 
 
-                        console.log("tayyab", TokkenAddress)
 
 
                         let nftContractOftoken = new web3.eth.Contract(nftMarketToken_Abi, nftMarketTokenAddress);
                         let getodernumberhere = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
-                        let nftContractOf =     new web3.eth.Contract(CreateNFT_ABI, CreateNFT);
+                        let nftContractOf = new web3.eth.Contract(MintingContract_ABI, MintingContractAddress);
 
 
-                        console.log("inputadata", getIputdata);
+                        console.log("inputadata", getInputdata);
 
                         console.log("Own_token_Address", tokenid)
                         console.log("ownadd", ownadd)
                         console.log("curreny_time", curreny_time)
-                        console.log("getIputdata", getIputdata)
-                        let selecthere = selectoption.current.value;
+                        console.log("getInputdata", getInputdata)
+                       
 
 
 
-                        let contractOf_Own = new web3.eth.Contract(CreateNFT_ABI, CreateNFT)
-                        let WalletOwnOf = await contractOf_Own.methods.walletOfOwner(acc).call();
+                        // let contractOf_Own = new web3.eth.Contract(MintingContract_ABI, MintingContractAddress)
+
+                        let WalletOwnOf = await nftContractOf.methods.walletOfOwner(acc).call();
                         console.log("WalletOwnOf", WalletOwnOf[id]);
                         let ArryData = WalletOwnOf[id]
-                        let Wallet_URI = await contractOf_Own.methods.tokenURI(ArryData).call();
-                        console.log("Image", Wallet_URI);
-                        let response=await axios.get(Wallet_URI)
-                        console.log("response", response.data.image);
+                        let Wallet_URI = await nftContractOf.methods.tokenURI(ArryData).call();
+                        // console.log("Image", Wallet_URI);
+                        // let response=await axios.get(Wallet_URI)
+                        // console.log("response", response.data.image);
                         let getListingPrice = await getodernumberhere.methods.getListingPrice().call();
 
                         console.log("getListingPrice", getListingPrice);
-                     
+
                         await nftContractOf.methods.setApprovalForAll(nftMarketContractAddress, true).send({
                             from: acc,
                         })
@@ -115,8 +124,8 @@ let selectoption=useRef()
                         cogoToast.success("Approved Successfuly")
                         setIsSpinner(true)
 
-                        
-                        let hash =await getodernumberhere.methods.createMarketItem(tokenid, getIputdata, 1, false, curreny_time, CreateNFT).send({
+
+                        let hash = await getodernumberhere.methods.createMarketItem(tokenid, getInputdata, 1, false, curreny_time, MintingContractAddress).send({
                             from: acc,
                             value: getListingPrice,
                             feelimit: 100000000000
@@ -124,7 +133,7 @@ let selectoption=useRef()
                         setIsSpinner(false)
                         hash = hash.transactionHash
                         console.log("hash", hash);
-                        let getItemId = await getodernumberhere.methods.tokenIdToItemId(CreateNFT, tokenid).call();
+                        let getItemId = await getodernumberhere.methods.tokenIdToItemId(MintingContractAddress, tokenid).call();
                         let MarketItemId = await getodernumberhere.methods.idToMarketItem(getItemId).call();
                         console.log("MarketItemId", MarketItemId)
                         let bidEndTime = MarketItemId.bidEndTime;
@@ -136,25 +145,27 @@ let selectoption=useRef()
                         let seller = MarketItemId.seller;
                         let sold = MarketItemId.sold;
                         let tokenId = MarketItemId.tokenId;
-                  
+                        console.log("Done")
+
+
                         let postapiPushdata = await axios.post('https://pegaxy-openmarket.herokuapp.com/open_marketplace', {
                             "useraddress": acc,
                             "itemId": itemId,
                             "nftContract": nftContract,
                             "tokenId": tokenid,
                             "owner": acc,
-                            "price": getIputdata,
+                            "price": getInputdata,
                             "sold": sold,
                             "isOnAuction": isOnAuction,
                             "bidEndTime": bidEndTime,
-                            "name": response.data.title,
-                            "url": response.data.image,
+                            "name": "Pegaxy",
+                            "url": Wallet_URI,
                             "txn": hash,
-                            "category":selectoption
+                            "category": SelectData
 
-                          })
-                          console.log("what is post api response in sell",postapiPushdata);
-                    
+                        })
+                        console.log("what is post api response in sell", postapiPushdata);
+
                         cogoToast.success('Transion Compelete');
                     }
                 }
@@ -181,7 +192,7 @@ let selectoption=useRef()
                 {/* <Modal.Header closeButton onClick={() => setShowModal(false)} >
         
               </Modal.Header> */}
-             {
+                {
 
                     isSpinner ? (<>
                         <span className='span_main'>
@@ -203,29 +214,29 @@ let selectoption=useRef()
                                         placeholder="Enter Sell Value in ETH"
                                         className="d-block btn btn-bordered-white mt-0 ml-4 text-white sell_input"
                                         id="bid"
-                                        ref={inputdatapricehere}
-                                        // onChange={(e) => setgetIputdata(e.target.value)}
+                                        
+                                    onChange={(e) => setgetInputdata(e.target.value)}
 
                                     />
-                                    
-                            <select
-                                name="days"
-                                class="dropdown__filter mt-2"
-                                id=""
-                                style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
-                                ref={selectoption}
-                            >
-                                <option value="" selected disabled hidden >
-                                   <span className='color_chnge' style={{color:"white"}}> Select category</span>
-                                </option>
-                                <option value="ULE" class="dropdown__select">
 
-                                    ULE
-                                </option>
-                                <option value="WHE"> WHE</option>
-                                <option value="CST"> CST</option>
-                         
-                            </select>
+                                    <select
+                                        name="days"
+                                        class="dropdown__filter mt-2"
+                                        id=""
+                                        style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                        onChange={(e)=>setselectData(e.target.value)}
+                                    >
+                                        <option value="" selected disabled hidden >
+                                            <span className='color_chnge' style={{ color: "white" }}> Select category</span>
+                                        </option>
+                                        <option value="ULE" class="dropdown__select">
+
+                                            ULE
+                                        </option>
+                                        <option value="WHE"> WHE</option>
+                                        <option value="CST"> CST</option>
+
+                                    </select>
                                     <div class="action-group   main_div_btn_model" onClick={() => addOrder()}>
                                         <div class="item-link btn_in_sell">
                                             <div class="button-game primary" style={{ height: "100px" }} >
@@ -244,7 +255,7 @@ let selectoption=useRef()
                             </div>
 
                         </div>
-                    </>) : (<> 
+                    </>) : (<>
                         <div class="viewAlert">
                             <img src={modal_close} alt="" className='img_model_icon ms-auto ' width="10%" onClick={() => setShowModal(false)} />
 
@@ -261,29 +272,30 @@ let selectoption=useRef()
                                         placeholder="Enter Sell Value in ETH"
                                         className="d-block btn btn-bordered-white mt-n3 ml-3 text-white sell_input"
                                         id="bid"
-                                        ref={inputdatapricehere}
+                                        // ref={inputdatapricehere}
 
-                                        // onChange={(e) => setgetIputdata(e.target.value)}
+                                    onChange={(e) => setgetInputdata(e.target.value)}
 
                                     />
                                     <select
-                                name="days"
-                                class="dropdown__filter mt-2"
-                                id=""
-                                style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
-                                ref={selectoption}
-                            >
-                                <option value="" selected disabled hidden >
-                                   <span className='color_chnge' style={{color:"white"}}> Select category</span>
-                                </option>
-                                <option value="ULE" class="dropdown__select">
+                                        name="days"
+                                        class="dropdown__filter mt-2"
+                                        id=""
+                                        style={{ backgroundColor: "rgba(0, 0, 0, .12)" }}
+                                        // ref={selectoption}
+                                        onClick={(e)=>setselectData(e.target.value)}
+                                    >
+                                        <option value="" selected disabled hidden >
+                                            <span className='color_chnge' style={{ color: "white" }}> Select category</span>
+                                        </option>
+                                        <option value="ULE" class="dropdown__select">
 
-                                    ULE
-                                </option>
-                                <option value="WHE"> WHE</option>
-                                <option value="CST"> CST</option>
-                         
-                            </select>
+                                            ULE
+                                        </option>
+                                        <option value="WHE"> WHE</option>
+                                        <option value="CST"> CST</option>
+
+                                    </select>
                                     <div class="action-group   main_div_btn_model" onClick={() => addOrder()}>
                                         <div class="item-link btn_in_sell">
                                             <div class="button-game primary" style={{ height: "100px" }} >
