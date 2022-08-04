@@ -27,7 +27,6 @@ export default function Sell_model({ showModal, id, setShowModal }) {
 
 
 
-    let tokenid = id
 
 
     const addOrder = async () => {
@@ -92,10 +91,11 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                         let getodernumberhere = new web3.eth.Contract(nftMarketContractAddress_Abi, nftMarketContractAddress);
                         let nftContractOf = new web3.eth.Contract(MintingContract_ABI, MintingContractAddress);
 
+                        let tokenid 
 
                         console.log("inputadata", getInputdata);
 
-                        console.log("Own_token_Address", tokenid)
+                        // console.log("Own_token_Address", tokenid)
                         console.log("ownadd", ownadd)
                         console.log("curreny_time", curreny_time)
                         console.log("getInputdata", getInputdata)
@@ -113,8 +113,8 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                         // let response=await axios.get(Wallet_URI)
                         // console.log("response", response.data.image);
                         let getListingPrice = await getodernumberhere.methods.getListingPrice().call();
-
-                        console.log("getListingPrice", getListingPrice);
+                        tokenid=ArryData
+                        console.log("ArryData", ArryData);
 
                         await nftContractOf.methods.setApprovalForAll(nftMarketContractAddress, true).send({
                             from: acc,
@@ -152,7 +152,7 @@ export default function Sell_model({ showModal, id, setShowModal }) {
                             "useraddress": acc,
                             "itemId": itemId,
                             "nftContract": nftContract,
-                            "tokenId": tokenid,
+                            "tokenId": tokenId,
                             "owner": acc,
                             "price": getInputdata,
                             "sold": sold,
