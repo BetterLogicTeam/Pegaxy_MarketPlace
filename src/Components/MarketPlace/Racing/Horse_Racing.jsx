@@ -3,10 +3,15 @@ import { Link } from 'react-router-dom'
 import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Horse_style.css'
 var myArr = []
+const race = "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif"
+const race1 = "https://cdn.pegaxy.io/statics/web/race_1.webp";
+const race2 = "https://cdn.pegaxy.io/statics/web/race_2.webp";
+const race3 = "https://cdn.pegaxy.io/statics/web/race_3.webp";
 export default function Horse_Racing({ setModalShow, btnTxt }) {
     const [myArr, setmyArr] = useState([])
     const [array] = React.useState([1, 2, 3, 4, 5]);
     const [displayArray, setDisplayArray] = React.useState([]);
+    const [raceArray, setRaceArray]=React.useState([])
     const [displayEl, setDisplayEl] = React.useState();
     const [Itemcount, setItemcount] = useState(1)
     const [isChaling, setIsChaling] = useState(true);
@@ -15,49 +20,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
         sec: 0,
         milSec: 0,
     })
-    const moveHorse = () => {
-        console.log("calling moveHorse")
-        let incre = 0;
-        let timeId = null;
-        timeId = setInterval(() => {
-            console.log("incre", incre);
-            incre = incre + 0.5;
-            if (incre <= 1000) {
-                console.log("calling moveHorse in")
-                let d = new Date()
-                setIncreaseMargin(incre);
-                setStartTime({
-                    sec: d.getSeconds(),
-                    milSec: d.getMilliseconds(),
-                })
-            } else {
-                clearInterval(timeId)
-                // stopFun();
-            }
-        }, 5);
-        let n = 0;
-        let s = 0;
-        let timeIntervel = null;
-       timeIntervel = setInterval(() => {
-           if (incre <= 1000) {
-                n = n + 1;
-                // s=n%1000==0;
-                if(n%1000==0){
-                    s= s+1;
-                    // console.log("s", s);
-                }else{
-                    s= s;
-                }
-                setStartTime({
-                    sec: s,
-                    milSec:n,
-                })
 
-            }else{
-                clearInterval(timeIntervel);
-            }
-        }, 1);
-    }
 
     function myMove() {
         // let id = null;
@@ -104,65 +67,95 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
 
 
     }
-    const ImageArray = [
+    let ImageArray = [
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
         {
             Image: "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif",
+            margin: 0,
+            poition: 0,
 
         },
 
@@ -171,103 +164,168 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
         {
             title: "Shohei",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "Legendaitlog",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "TURBO DISCO",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "Fredrick Nader",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "JSBe E55",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "Runblox | 155",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "OMRICON",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "LegendaryDog3",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "Rose Gardner",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "Rocky Streetrunner",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "Jean Schoen",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "P2PG 7",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "Mirlind",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "DOM PERIGNON",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "Atlas | TCG",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
         {
             title: "Atlas | TCG",
             Image: "https://cdn.pegaxy.io/statics/play/public/v5/images/race/race_all.png",
+            margin: 0,
+            poition: 0,
 
         },
 
     ]
+    let dist = 2;
+    const horseRace = () => {
+        let marginInc = 0;
+        let inc = 0;
+        let id = null;
+        id = setInterval(() => {
+            let pos = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+            let ranNums = pos.sort(() => Math.random() - 0.5);
+            let arrayTest = [];
+            marginInc = marginInc + 15;
+            inc = inc + 15;
+            if (inc <= 1000) {
+                for (let i = 0; i < 15; i++) {
+                    let obj = {
 
+                        margin: (Math.random() * 10) + marginInc,
+                        poition: ranNums[i]
+                    }
+                    arrayTest.push(obj)
+                }
+                setRaceArray(arrayTest)
+            } else {
+                clearInterval(id)
+            }
+        }, 1000);
+    }
+    const timeStart = () => {
+        let incre = 0;
+        let n = 0;
+        let s = 0;
+        let timeIntervel = null;
+        timeIntervel = setInterval(() => {
+            if (incre <= 20000) {
+                incre++;
+                n = n + 1;
+                if (n % 1000 == 0) {
+                    s = s + 1;
+                    n = 0;
+                } else {
+                    s = s;
+                }
+                setStartTime({
+                    sec: s,
+                    milSec: n,
+                })
 
-    // function print() {
-    //     var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-    //     var i = 1;
-    //     var func = setInterval(function () {
-
-    //         setmyArr(arr[i])
-
-    //         i++;
-    //         if (i >= arr.length) {
-    //             clearInterval(func);
-    //         }
-
-    //     }, 1000);
-
-    // }
-
+            } else {
+                clearInterval(timeIntervel);
+            }
+        }, 1);
+    }
 
     const delay = (ms) =>
         new Promise((res) => {
@@ -280,13 +338,13 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
         (async function () {
             let n = 0;
             for (let el of NameArray) {
-                await delay(1000);
+                await delay(100);
                 setDisplayEl(el);
                 setItemcount(++n)
             }
             setIsChaling(false)
-            console.log("helllll")
-            moveHorse();
+            timeStart();
+            horseRace()
             setDisplayEl(undefined);
         })();
     }, []);
@@ -298,7 +356,8 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
 
 
     useEffect(() => {
-        // print()
+
+        // horseRace();
     }, [])
 
 
@@ -612,11 +671,18 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                             </>)
                                                                         })
                                                                             :
-                                                                            ImageArray.map((items, index) => {
+                                                                            raceArray.map((items, index) => {
+                                                                                // console.log("random", Math.floor((Math.random() * 20)))
                                                                                 return (<>
-                                                                                    <div id="race-1" class="" style={{ marginLeft: `${(Math.random() * 5) + increaseMargin}px` }}>
+                                                                                    <div id="race-1" class="" style={{ marginLeft: `${items.margin}px` }}>
                                                                                         <span className=''>
-                                                                                            <img alt="" src={items.Image} decoding="async" data-nimg="fixed" className='Horse_img_2' />
+                                                                                            {
+                                                                                                items.poition == 1 ? <img alt="" src={race1} decoding="async" data-nimg="fixed" className='Horse_img_2' />
+                                                                                                : items.poition == 2 ? <img alt="" src={race2} decoding="async" data-nimg="fixed" className='Horse_img_2' />
+                                                                                                : items.poition == 3 ? <img alt="" src={race3} decoding="async" data-nimg="fixed" className='Horse_img_2' />
+                                                                                                : <img alt="" src={race} decoding="async" data-nimg="fixed" className='Horse_img_2' />
+                                                                                            }
+                                                                                            
                                                                                         </span>
                                                                                     </div>
                                                                                 </>)

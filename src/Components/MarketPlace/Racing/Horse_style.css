@@ -461,7 +461,7 @@ transform: rotate(-9deg);
 
 }
 #race-1{
-    margin-top: 0.7rem;
+    margin-top: 0.1rem;
 }
 .bx-view .bx-left .bx-content .inner-content {
     position: relative;
@@ -470,6 +470,18 @@ transform: rotate(-9deg);
     padding: 15px 20px 15px 30px;
 }
 .Horse_img_2{
-    width: 8.7rem !important;
+    width: 8rem !important;
+    /* margin-top: 1rem; */
+
+}
+
+.Second_Winner{
+    background-image: url('https://cdn.pegaxy.io/statics/play/public/v5/images/box/popup-2nd.png');
+}
+.first_winner{
+    background-image: url('https://cdn.pegaxy.io/statics/play/public/v5/images/box/popup-1st.png');
+}
+.Third_winner{
+    background-image: url('https://cdn.pegaxy.io/statics/play/public/v5/images/box/popup-3rd.png');
 
 }

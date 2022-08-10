@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { FaArrowAltCircleLeft } from 'react-icons/fa'
 import store from "./redux/redux/index";
-import {BrowserRouter,Routes,Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index_Main from './Components/Index_Main';
 import MarketPlace_Main from './Components/MarketPlace_Main';
 import Navbar_nav from './Components/MarketPlace/Navbar_market/Navbar_nav';
 import Items from './Components/MarketPlace/Items/Items';
-import Horse_Racing  from './Components/MarketPlace/Racing/Horse_Racing'
+import Horse_Racing from './Components/MarketPlace/Racing/Horse_Racing'
 
 import Pages from './Components/MarketPlace/Pages/Pages';
 import Marketplace_play_game from './Components/MarketPlace/MarketPlace_play_game/Marketplace_play_game';
@@ -38,6 +38,7 @@ import MarketPlaceFull from './Components/MarketPlaceFull';
 import Auctions_NFT from './Components/MarketPlace_Main/Auction_NFT/Auctions_NFT';
 import Buy_nft from './Components/MarketPlace_Main/Buy_NFT/Buy_nft';
 import { Provider } from 'react-redux';
+import Race_Finished from './Components/MarketPlace/Racing/Race_Finished';
 
 
 
@@ -55,10 +56,10 @@ function App() {
   // setInterval(() => {
   //   tarr.map((value)=>{ setTimeout(() => {
   //     console.log(value)
-    
+
   //   }, 3000);}) 
-     
-    
+
+
   // }, 2000);
 
   // arr.forEach((value,index) => {
@@ -66,16 +67,16 @@ function App() {
   //     console.log('array value is ',value)
   //   }, 2000*index);
   // })
-  
-//   var arr = ['value1', 'value2', ' value3', 'value4'];
-// var arrayDelay = function(i) {
-//     if (arr[i]) {
-//         console.log(arr[i]);
-//         setTimeout(function(){arrayDelay(i+1);}, 4000);
-//     }
-// }
-// arrayDelay(0);
-  
+
+  //   var arr = ['value1', 'value2', ' value3', 'value4'];
+  // var arrayDelay = function(i) {
+  //     if (arr[i]) {
+  //         console.log(arr[i]);
+  //         setTimeout(function(){arrayDelay(i+1);}, 4000);
+  //     }
+  // }
+  // arrayDelay(0);
+
   const getAccount = async () => {
     // dispatch(getWallet());
     let acc = await loadWeb3();
@@ -94,35 +95,37 @@ function App() {
 
   useEffect(() => {
     getAccount()
-    dispatch(getWallet());   
+    dispatch(getWallet());
   }, [])
-  
 
-  return (  
+
+  return (
     <div className="App">
-       
+
       <Model_connect setModalShow={setModalShow} modalShow={modalShow} getAccount={getAccount} btnTxt={btnTxt} />
       {/* <Sell setshowsell={setshowsell} showsell={showsell}   /> */}
       <Auction setshowsell={setshowsell} showsell={showsell} />
       <BrowserRouter>
         <ToastContainer />
-{/* <DrawerSiderbar/> */}
+        {/* <DrawerSiderbar/> */}
         <Routes>
           <Route path="/" element={<Index_Main />} />
           {/* <Route path="MarketPlace_Main" element={<MarketPlace_Main />} /> */}
           {/* <Route path="Items" element={<Items setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
           <Route path="Items" element={<Navbar_nav setModalShow={setModalShow} btnTxt={btnTxt} />} >
-          <Route path="/Items/My_Assets" element={<My_Assets_first/>} />
-          <Route path="/Items/Breeding" element={<Breeding />} />
-          <Route path="/Items/Racing_main" element={<Racing_main />} />
-          <Route path="/Items/Marketplace_play_game" element={<Marketplace_play_game  />} />
-          <Route path="/Items/pages" element={<Pages />} />
-          <Route path="/Items/My_Items" element={<My_Iytems  />} />
-          <Route path="/Items/Mint" element={<Mint />} />
-          <Route path="/Items/My_Profile" element={<My_Profile/>} />
-          <Route path="/Items/horse_racing" element={<Horse_Racing />} />   
-          <Route path="/Items/Finished_race" element={<Finished_race />} />
-          <Route exact path="/Items/Details/:id" element={<Details/>} />
+            <Route path="/Items/My_Assets" element={<My_Assets_first />} />
+            <Route path="/Items/Breeding" element={<Breeding />} />
+            <Route path="/Items/Racing_main" element={<Racing_main />} />
+            <Route path="/Items/Marketplace_play_game" element={<Marketplace_play_game />} />
+            <Route path="/Items/pages" element={<Pages />} />
+            <Route path="/Items/My_Items" element={<My_Iytems />} />
+            <Route path="/Items/Mint" element={<Mint />} />
+            <Route path="/Items/My_Profile" element={<My_Profile />} />
+            <Route path="/Items/horse_racing" element={<Horse_Racing />} />
+            <Route path="/Items/Race_Finished" element={<Race_Finished />} />
+
+            <Route path="/Items/Finished_race" element={<Finished_race />} />
+            <Route exact path="/Items/Details/:id" element={<Details />} />
 
           </Route>
           {/* <Route path="My_Profile" element={<My_Profile setModalShow={setModalShow} btnTxt={btnTxt} />} /> */}
@@ -134,7 +137,7 @@ function App() {
           <Route path="/Auctions_NFT" element={<Auctions_NFT />} />
           <Route path="/Buy_nft" element={<Buy_nft />} />
         </Routes>
-      </BrowserRouter>     
+      </BrowserRouter>
     </div>
   );
 }
