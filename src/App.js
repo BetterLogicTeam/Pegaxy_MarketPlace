@@ -46,7 +46,7 @@ function App() {
   const [modalShow, setModalShow] = React.useState(false);
   const [showsell, setshowsell] = useState(false)
   let [isSpinner, setIsSpinner] = useState(false)
-
+  let [scoring, setScoring]=useState([])
   let dispatch = useDispatch();
 
   let [btnTxt, setBtTxt] = useState("Connect Metamask")
@@ -121,8 +121,8 @@ function App() {
             <Route path="/Items/My_Items" element={<My_Iytems />} />
             <Route path="/Items/Mint" element={<Mint />} />
             <Route path="/Items/My_Profile" element={<My_Profile />} />
-            <Route path="/Items/horse_racing" element={<Horse_Racing />} />
-            <Route path="/Items/Race_Finished" element={<Race_Finished />} />
+            <Route path="/Items/horse_racing" element={<Horse_Racing  setScoring={setScoring} />} />
+            <Route path="/Items/Race_Finished" element={<Race_Finished  scoring={scoring} />} />
 
             <Route path="/Items/Finished_race" element={<Finished_race />} />
             <Route exact path="/Items/Details/:id" element={<Details />} />

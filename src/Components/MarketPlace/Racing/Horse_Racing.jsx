@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Navbar_nav from '../Navbar_market/Navbar_nav'
 import './Horse_style.css'
-var myArr = []
+
 const race = "https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif"
 const race1 = "https://cdn.pegaxy.io/statics/web/race_1.webp";
 const race2 = "https://cdn.pegaxy.io/statics/web/race_2.webp";
 const race3 = "https://cdn.pegaxy.io/statics/web/race_3.webp";
-export default function Horse_Racing({ setModalShow, btnTxt }) {
+const horseEnum = {
+    initilze: "initilze",
+    reday: "ready",
+    go: "go"
+}
+export default function Horse_Racing({ setModalShow, btnTxt, setScoring }) {
+    const navigate = useNavigate()
     const [myArr, setmyArr] = useState([])
     const [array] = React.useState([1, 2, 3, 4, 5]);
     const [displayArray, setDisplayArray] = React.useState([]);
-    const [raceArray, setRaceArray]=React.useState([])
+    const [raceArray, setRaceArray] = React.useState([])
     const [displayEl, setDisplayEl] = React.useState();
     const [Itemcount, setItemcount] = useState(1)
     const [isChaling, setIsChaling] = useState(true);
-    let [increaseMargin, setIncreaseMargin] = useState(10)
+    const [finishLine, setFinishLine]=useState(false)
+    const [isRace, setIsRace]=useState(false)
+    let [isLine, setIsLine] = useState(false)
     let [startTime, setStartTime] = useState({
         sec: 0,
         milSec: 0,
@@ -276,30 +284,62 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
 
     ]
     let dist = 2;
+    const delay = (ms) =>
+    new Promise((res) => {
+        setTimeout(() => {
+            res();
+        }, ms);
+    });
     const horseRace = () => {
         let marginInc = 0;
         let inc = 0;
         let id = null;
-        id = setInterval(() => {
-            let pos = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+        let n = 0;
+        let s = 0;
+        let timeIntervel = null;
+        id = setInterval( async() => {
+            let pos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
             let ranNums = pos.sort(() => Math.random() - 0.5);
             let arrayTest = [];
             marginInc = marginInc + 15;
             inc = inc + 15;
-            if (inc <= 1000) {
+            if (inc <= 1050) {
                 for (let i = 0; i < 15; i++) {
                     let obj = {
-
+                        name:NameArray[i].title,
                         margin: (Math.random() * 10) + marginInc,
                         poition: ranNums[i]
                     }
                     arrayTest.push(obj)
                 }
                 setRaceArray(arrayTest)
+                setScoring(arrayTest)
             } else {
+
+                setFinishLine(true)
                 clearInterval(id)
+                await delay(2000)
+                navigate("/Items/Race_Finished")
             }
         }, 1000);
+        timeIntervel = setInterval(() => {
+            if (inc <= 1000) {
+                n = n + 1;
+                if (n % 1000 == 0) {
+                    s = s + 1;
+                    n = 0;
+                } else {
+                    s = s;
+                }
+                setStartTime({
+                    sec: s,
+                    milSec: n,
+                })
+
+            } else {
+                clearInterval(timeIntervel);
+            }
+        }, 1);
     }
     const timeStart = () => {
         let incre = 0;
@@ -327,12 +367,18 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
         }, 1);
     }
 
-    const delay = (ms) =>
+   
+    const raceDelay = (timeout) =>
         new Promise((res) => {
-            setTimeout(() => {
+            setTimeout(async() => {
                 res();
-            }, ms);
-        });
+                setIsLine(false);
+                setIsChaling(false);
+                await delay(500);
+                horseRace()
+            }, timeout);
+        })
+
 
     React.useEffect(() => {
         (async function () {
@@ -342,9 +388,10 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                 setDisplayEl(el);
                 setItemcount(++n)
             }
-            setIsChaling(false)
-            timeStart();
-            horseRace()
+            setIsLine(true);
+            // setIsChaling("ready")
+            await raceDelay(2000);
+
             setDisplayEl(undefined);
         })();
     }, []);
@@ -660,7 +707,7 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
 
 
 
-                                                                    {
+                                                                {
                                                                         isChaling ? displayArray.map((items, index) => {
                                                                             return (<>
                                                                                 <div id="race-1" class="" >
@@ -689,82 +736,10 @@ export default function Horse_Racing({ setModalShow, btnTxt }) {
                                                                             })
                                                                     }
 
-                                                                    {/* <div id="race-1" class="in-race-horse" style={{ top: "calc(30px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(100px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(180px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(250px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(310px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(380px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
+                                                                    {isLine && <img src="https://cdn.pegaxy.io/statics/play/public/v5/images/race/start.png" alt="" className='Line_start' />}
 
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(460px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(530px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(590px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(660px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(730px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(800px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(870px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(940px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div id="race-1" class="in-race-horse" style={{ top: "calc(1000px)", left: "0px", marginLeft: "0px" }}>
-                                                                        <span className='span_div'>
-                                                                            <img alt="" src="https://cdn.pegaxy.io/statics/play/public/v4/images/modal/pega_run.gif" decoding="async" data-nimg="fixed" className='Image_style' />
-                                                                        </span>
-                                                                    </div> */}
+                                                                    {finishLine && <img src="https://cdn.pegaxy.io/statics/play/public/v5/images/race/start.png" alt="" className='Line_last' />}
+
                                                                 </div>
                                                             </div>
                                                         </div>

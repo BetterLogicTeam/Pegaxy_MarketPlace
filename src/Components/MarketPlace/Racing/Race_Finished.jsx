@@ -1,6 +1,7 @@
 import React from 'react'
 
-export default function Race_Finished() {
+export default function Race_Finished({scoring}) {
+    console.log("scoring", scoring);
     return (
         <div className='main_div_app'>
 
