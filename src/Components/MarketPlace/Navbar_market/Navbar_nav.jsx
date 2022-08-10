@@ -5,12 +5,12 @@ import './Nav_style.css'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import { FaArrowAltCircleLeft } from 'react-icons/fa'
 import { loadWeb3 } from '../../../apis/api';
-import renting from '../../../Assest/images/renting.png'
+// import renting from '../../../Assest/images/renting.png'
 import fuse from '../../../Assest/images/fuse.png'
 
 import marketplace_active from '../../../Assest/images/marketplace_active.png'
-import { Routes,Route,Link,useNavigate,Outlet} from "react-router-dom";
-// import renting from '../../../Assest/images/racing.png'
+import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import renting from '../../../Assest/images/racing.png'
 
 import breeding from '../../../Assest/images/breeding.png'
 import contact from '../../../Assest/images/contact.png'
@@ -25,7 +25,7 @@ import My_Iytems from '../My_Items/My_Iytems'
 // import state from '../../../redux/redux/index'
 
 
-export default function Navbar_nav({    setModalShow, btnTxt }) {
+export default function Navbar_nav({ setModalShow, btnTxt }) {
     let navigate = useNavigate();
     const value = useSelector((state) => state.connectWallet.acc)
     console.log("what is value in navbar", value)
@@ -34,13 +34,13 @@ export default function Navbar_nav({    setModalShow, btnTxt }) {
 
             <div class="navbar PlayNow_Navbar">
                 <div class="container">
-                    <div class="navbar-mp">
+                    {/* <div class="navbar-mp">
                         <a href="/MarketPlace" rel="noreferrer noopener" width="100%" target="_blank" style={{ textDecoration: "none", color: "inherit" }}>
                             <div class="anim-mp">
                                 <span>MARKETPLACE</span>
                             </div>
                         </a>
-                    </div>
+                    </div> */}
 
                     <div class="navbar-inner">
 
@@ -48,8 +48,8 @@ export default function Navbar_nav({    setModalShow, btnTxt }) {
                             <Container>
 
                                 <Nav className="mx-auto nav_link_text">
-                                    <Nav.Link href="#features">    
-                                     <Link to="/Items/pages"> <img alt="" src={fuse} width="100px" className='navbar_link_img' /> </Link>
+                                    <Nav.Link href="#features">
+                                        <Link to="/Items/pages"> <img alt="" src={fuse} width="100px" className='navbar_link_img' /> </Link>
                                     </Nav.Link>
                                     <Nav.Link href="#pricing"> <Link to="/Items/Marketplace_play_game">
                                         <img alt="" src={marketplace_active} width="100px" className='navbar_link_img' />
@@ -88,10 +88,10 @@ export default function Navbar_nav({    setModalShow, btnTxt }) {
                                                     </Link>
                                                 </Nav.Link>
 
-                                                <Nav.Link href="#pricing">  
-                                                 <Link to="/Items/My_Assets">
-                                                    <img alt="" src={my_assets_active} width="100px" className='navbar_link_img' />
-                                                </Link>
+                                                <Nav.Link href="#pricing">
+                                                    <Link to="/Items/My_Assets">
+                                                        <img alt="" src={my_assets_active} width="100px" className='navbar_link_img' />
+                                                    </Link>
                                                 </Nav.Link>
 
 
@@ -117,17 +117,12 @@ export default function Navbar_nav({    setModalShow, btnTxt }) {
 
             </div>
             <Routes>
-
                 <Route exact path="/" element={<Items />} />
                 <Route path="/Items/My_Assets" element={<My_Assets_first />} />
                 <Route path="/Items/Breeding" element={<Breeding />} />
                 <Route path="/Items/Racing_main" element={<Racing_main />} />
                 <Route path="/Items/Marketplace_play_game" element={<Marketplace_play_game />} />
                 <Route path="/Items/pages" element={<Pages />} />
-          {/* <Route path="/Items/My_Items" element={<My_Iytems />} /> */}
-
-
-
             </Routes>
             <Outlet />
 
