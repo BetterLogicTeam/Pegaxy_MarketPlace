@@ -30,7 +30,6 @@ export default function Header({ChangeItems}) {
                             <Nav.Link href="#" className='navbtn'>
                                 <Link to="Items" className='nav_link_header'>
                                     <span itemprop="name" >Play Now</span>
-
                                 </Link>
 
                             </Nav.Link>

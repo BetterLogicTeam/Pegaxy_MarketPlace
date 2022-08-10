@@ -336,9 +336,9 @@ to { transform:rotate(360deg); }
     top: 30px;
     /* border-top: 40px dashed white; */
     margin-top: 25px;
-    animation: road-moving 20s  linear;
+    animation: road-moving 70s  linear;
     animation-iteration-count: 1;
-    transition: all 3s linear;
+    transition: all 5s linear;
 }
 .skyline {
     width: 100%;
@@ -436,7 +436,7 @@ transform: rotate(-9deg);
     height: 30px !important;
 }
 .racehorse{
- margin-top: -10.5rem !important;
+ margin-top: -8.5rem !important;
 }
 .Horse_img{
     /* position: absolute; */
@@ -461,7 +461,7 @@ transform: rotate(-9deg);
 
 }
 #race-1{
-    margin-top: 0.1rem;
+    margin-top: 0.5rem;
 }
 .bx-view .bx-left .bx-content .inner-content {
     position: relative;
@@ -470,7 +470,7 @@ transform: rotate(-9deg);
     padding: 15px 20px 15px 30px;
 }
 .Horse_img_2{
-    width: 8rem !important;
+    width: 7rem !important;
     /* margin-top: 1rem; */
 
 }

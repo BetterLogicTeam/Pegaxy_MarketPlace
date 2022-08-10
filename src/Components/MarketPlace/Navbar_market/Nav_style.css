@@ -305,3 +305,23 @@ border: 1px solid red;
         /* margin-top: 4rem; */
     }
     }
+
+
+    .navbar .navbar-inner {
+        background-image: url('../../../Assest/WIRE\ RACE.png') !important;
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: contain;
+        width: 940px;
+        margin: 0 auto;
+        min-height: 100vh;
+        z-index: 0 !important;
+    }
+    .main_div_app {
+        background-image: url(https://cdn.pegaxy.io/statics/play/v9/images/background.jpg);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: cover;
+        min-height: auto !important;
+        z-index: 10 !important;
+    }
