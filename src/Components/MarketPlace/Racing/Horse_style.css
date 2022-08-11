@@ -441,7 +441,7 @@ transform: rotate(-9deg);
 .Horse_img{
     /* position: absolute; */
     /* top: -50px; */
-    width: 6rem !important;
+    width: 4rem !important;
     
 }
 .racehorse {
@@ -484,4 +484,24 @@ transform: rotate(-9deg);
 .Third_winner{
     background-image: url('https://cdn.pegaxy.io/statics/play/public/v5/images/box/popup-3rd.png');
 
+}
+
+.Line_start{
+    position: absolute !important;
+    top: 3%;
+    left: 50% !important;
+    margin-left: 5rem !important;
+}
+.racehorse {
+    margin-top: -8.5rem !important;
+}
+#race-1 {
+    margin-top: 1.1rem !important;
+}
+
+.Line_last{
+    position: absolute !important;
+    top: 3%;
+    /* right: 0% !important; */
+    margin-left: 70rem !important;
 }
