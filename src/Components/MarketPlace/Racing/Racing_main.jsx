@@ -83,9 +83,9 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
 
                                                     </div>
-                                                    <Link to="/Items/Race_Finished" className='text_de'>
+                                                    {/* <Link to="/Items/Race_Finished" className='text_de'> */}
                                                         <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    </Link>
+                                                    {/* </Link> */}
                                                     <Link to="/Items/horse_racing">
 
                                                         <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
@@ -113,7 +113,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -137,7 +140,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -161,7 +167,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -184,7 +193,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -208,7 +220,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -232,7 +247,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -256,7 +274,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -280,7 +301,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -304,7 +328,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -328,7 +355,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -352,7 +382,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div class="item-content">
@@ -376,7 +409,10 @@ export default function Racing_main({ setModalShow, btnTxt }) {
 
                                                     </div>
                                                     <div data-tip="true" data-for="copy" class="action-share" currentitem="false" style={{ cursor: "pointer" }}><span>share</span></div>
-                                                    <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                             <Link to="/Items/horse_racing">
+
+                                                        <div class="action-replay" style={{ cursor: "pointer" }}><span>replay</span></div>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>

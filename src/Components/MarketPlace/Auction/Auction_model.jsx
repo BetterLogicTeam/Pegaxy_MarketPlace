@@ -36,7 +36,7 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
                 const web3 = window.web3;
                 let address = "0x4113ccD05D440f9580d55B2B34C92d6cC82eAB3c";
                 let ownadd = acc;
-                let tokenid = 18;
+                // let tokenid = 18;
                 let value_price = getIputdata;
                 let selecthere = selectoption.current.value;
                 let setdata = selectcategory.current.value
@@ -84,6 +84,7 @@ export default function Auction_model({ Auctionmodelopen, setAuctionmodelopen, i
                         // console.log("Image", Wallet_URI);
                         // let response = await axios.get(Wallet_URI)
                         // console.log("response", response.data.image);
+                        let tokenid=ArryData
 
 
                         let getListingPrice = await nftContractInstance.methods.getListingPrice().call();
